@@ -3,9 +3,11 @@
     "target": "es2017",
     // see https://github.com/Microsoft/TypeScript/issues/16675
     "module": "esnext",
+    "allowJs": true,
     "jsx": "react",
     "sourceMap": true,
     "strict": true,
+    "noImplicitAny": false,
     "moduleResolution": "node",
     "esModuleInterop": true
   }

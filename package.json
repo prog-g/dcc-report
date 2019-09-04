@@ -1,12 +1,11 @@
 {
-  "name": "my-react-template",
+  "name": "dcc-report",
   "version": "1.0.0",
-  "description": "",
   "private": true,
   "scripts": {
     "start": "webpack-dev-server --open",
     "build": "webpack -p",
-    "lint": "eslint --fix src/**/*.ts{,x}"
+    "lint": "eslint --fix src/**/*.[jt]s{,x}"
   },
   "dependencies": {
     "react": "^16.9.0",
