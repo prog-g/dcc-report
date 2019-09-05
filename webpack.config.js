@@ -12,8 +12,9 @@ module.exports = (env, { mode }) => {
     module: {
       rules: [
         {
-          test: /\.[jt]sx?$/,
-          use: "ts-loader"
+          test: /\.[tj]sx?$/,
+          use: "ts-loader",
+          exclude: /node_modules/
         },
         {
           test: /\.css$/,
@@ -28,11 +29,11 @@ module.exports = (env, { mode }) => {
         title: process.env.npm_package_name
       })
     ],
-    resolve: { extensions: [".ts", ".tsx", ".js"] },
+    resolve: { extensions: [".ts", ".tsx", ".js", ".jsx"] },
     optimization: {
       minimizer: [new TerserPlugin(), new OptimizeCssAssetsPlugin()]
     },
-    devtool: dev ? "inline-source-map" : "none",
+    devtool: dev ? "inline-source-map" : false,
     devServer: {
       contentBase: "./dist",
       overlay: true,
