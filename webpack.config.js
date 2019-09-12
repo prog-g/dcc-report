@@ -7,6 +7,7 @@ const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 module.exports = (env, { mode }) => {
   const dev = mode !== "production";
   return {
+    // see https://github.com/webpack/webpack-dev-server/issues/1327
     mode: "development",
     entry: "./src/index.tsx",
     module: {
