@@ -1,4 +1,3 @@
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin"); // from webpack
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
@@ -19,12 +18,11 @@ module.exports = (env, { mode }) => {
         },
         {
           test: /\.css$/,
-          use: [MiniCssExtractPlugin.loader, `css-loader?sourceMap=${dev}`]
+          use: ["style-loader", `css-loader?sourceMap=${dev}`]
         }
       ]
     },
     plugins: [
-      new MiniCssExtractPlugin(),
       new HtmlWebpackPlugin({
         template: "src/index.ejs",
         title: process.env.npm_package_name
