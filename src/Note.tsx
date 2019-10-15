@@ -1,7 +1,8 @@
 import React from "react";
 
-function Note(props) {
-  const del = () => { }
+type Props = { content: string };
+const Note: React.FunctionComponent<Props> = props => {
+  const del = () => {};
   return (
     <div className="note">
       <div className="content">{props.content}</div>
@@ -10,6 +11,6 @@ function Note(props) {
       </div>
     </div>
   );
-}
+};
 
 export default Note;
