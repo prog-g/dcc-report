@@ -1,8 +1,8 @@
 import React from "react";
 
-type Props = { key: number, content: string, setNotes: Function };
+type Props = { id: number, content: string, setNotes: SetNoteFunc };
 const Note: React.FunctionComponent<Props> = props => {
-  const del = React.useCallback(() => props.setNotes((prev) => prev.filter(n => n.key != props.key)), [props.setNotes])
+  const del = React.useCallback(() => props.setNotes((prev) => prev.filter(n => n.id != props.id)), [props.setNotes])
   return (
     <div className="note">
       <div className="content">{props.content}</div>
