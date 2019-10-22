@@ -14,10 +14,10 @@ const App: React.FunctionComponent = () => {
     }
   ]);
   return (
-    <div>
+    <>
       <Timeline notes={notes} setNotes={setNotes}/>
       <button onClick={download}>download</button>
-    </div>
+    </>
   )
 };
 
