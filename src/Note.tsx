@@ -1,21 +1,14 @@
 import React from "react";
 
-type Props = { id: number, content: string, setNotes: SetNoteFunc };
+type Props = { id: number, setNotes: SetNoteFunc };
 
 const Note: React.FunctionComponent<Props> = props => {
-  const edit = React.useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    e.persist();
-    props.setNotes(prev => prev.map(n => {
-      if (n.id === props.id) {
-        n.content = e.target.value;
-      }
-      return n;
-    }));
-  }, [props.setNotes]);
+  const [content, setContent] = React.useState("new note");
+  const edit = React.useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value), []);
   const del = React.useCallback(() => props.setNotes(prev => prev.filter(n => n.id !== props.id)), [props.setNotes]);
   return (
     <div className="note">
-      <textarea className="content" value={props.content} onChange={edit}></textarea>
+      <textarea className="content" value={content} onChange={edit}></textarea>
       <div className="delete-action">
         <span onClick={del}>Delete</span>
       </div>
