@@ -8,10 +8,11 @@ const Note: React.FunctionComponent<Props> = props => {
     props.setNotes(prev => {
       const i = prev.findIndex(n => n.id == props.id);
       const maxId = prev.reduce((a, n) => (a < n.id ? n.id : a), 0);
-      return prev
-        .slice(0, i)
-        .concat([{ id: maxId + 1 }])
-        .concat(prev.slice(i, prev.length));
+      return [
+        ...prev.slice(0, i),
+        { id: maxId + 1 },
+        ...prev.slice(i, prev.length)
+      ];
     });
   }, [props]);
   const edit = React.useCallback(
