@@ -1,13 +1,13 @@
 import React from "react";
-import Timeline from "./Timeline";
+import Graph from "./Graph";
 import { download } from "./lib";
-import Canvas from "./Canvas";
+import Timeline from "./Timeline";
 
 const App: React.FunctionComponent = () => {
   const [notes, setNotes] = React.useState([{ id: 0 }]);
   return (
     <>
-      <Canvas/>
+      <Graph />
       <Timeline notes={notes} setNotes={setNotes} />
       <button onClick={download}>download</button>
     </>
