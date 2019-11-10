@@ -35,10 +35,9 @@ const Graph: React.FunctionComponent = () => {
   return (
     <div>
       <canvas
-        className="canvas"
-        ref={canvasRef}
         width="400px"
         height="400px"
+        ref={canvasRef}
         onMouseDown={(e): void =>
           startDrawing(e.nativeEvent.offsetX, e.nativeEvent.y)
         }
