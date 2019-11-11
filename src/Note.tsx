@@ -1,20 +1,14 @@
 import React from "react";
+import { insertNewNoteBefore } from "./lib";
 
-type Props = { id: number; setNotes: SetNoteFunc };
+type Props = { id: number; setNotes: SetNotesFunc };
 
 const Note: React.FunctionComponent<Props> = props => {
   const [content, setContent] = React.useState("new note");
-  const insert = React.useCallback(() => {
-    props.setNotes(prev => {
-      const i = prev.findIndex(n => n.id == props.id);
-      const maxId = prev.reduce((a, n) => (a < n.id ? n.id : a), 0);
-      return [
-        ...prev.slice(0, i),
-        { id: maxId + 1 },
-        ...prev.slice(i, prev.length)
-      ];
-    });
-  }, [props]);
+  const insert = React.useCallback(
+    () => insertNewNoteBefore(props.setNotes, props.id),
+    [props]
+  );
   const edit = React.useCallback(
     (e: React.ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value),
     []

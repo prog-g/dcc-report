@@ -1,1 +1,2 @@
-type SetNoteFunc = React.Dispatch<React.SetStateAction<{ id: number }[]>>;
+type NoteState = { id: number };
+type SetNotesFunc = React.Dispatch<React.SetStateAction<NoteState[]>>;
