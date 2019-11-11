@@ -24,6 +24,16 @@ const Graph: React.FunctionComponent = () => {
   const endDrawing = (): void => {
     setDrawing(false);
   };
+  const onMouseDown = (
+    e: React.MouseEvent<HTMLCanvasElement, MouseEvent>
+  ): void => {
+    startDrawing(e.nativeEvent.offsetX, e.nativeEvent.y);
+  };
+  const onMouseMove = (
+    e: React.MouseEvent<HTMLCanvasElement, MouseEvent>
+  ): void => {
+    mouseMove(e.nativeEvent.offsetX, e.nativeEvent.y);
+  };
   React.useEffect(() => {
     const ctx = getContext();
     if (ctx !== null) {
@@ -38,12 +48,8 @@ const Graph: React.FunctionComponent = () => {
         width="400px"
         height="400px"
         ref={canvasRef}
-        onMouseDown={(e): void =>
-          startDrawing(e.nativeEvent.offsetX, e.nativeEvent.y)
-        }
-        onMouseMove={(e): void =>
-          mouseMove(e.nativeEvent.offsetX, e.nativeEvent.y)
-        }
+        onMouseDown={onMouseDown}
+        onMouseMove={onMouseMove}
         onMouseUp={endDrawing}
         onMouseLeave={endDrawing}
       />
