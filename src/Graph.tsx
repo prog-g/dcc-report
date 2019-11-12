@@ -7,12 +7,12 @@ const Graph: React.FunctionComponent = () => {
   const [coordinateY, setCoordinateY] = React.useState(0);
   const getContext = (): CanvasRenderingContext2D | null => {
     const canvas = canvasRef.current;
-    return canvas !== null ? canvas.getContext("2d") : null;
+    return canvas ? canvas.getContext("2d") : null;
   };
   const startDrawing = (x: number, y: number): void => {
     setDrawing(true);
     const ctx = getContext();
-    if (ctx !== null) ctx.moveTo(x, y);
+    if (ctx) ctx.moveTo(x, y);
   };
   const setCoordinate = (x: number, y: number): void => {
     setCoordinateX(x);
@@ -24,15 +24,11 @@ const Graph: React.FunctionComponent = () => {
   const endDrawing = (): void => {
     setDrawing(false);
   };
-  const onMouseDown = (
-    e: React.MouseEvent<HTMLCanvasElement, MouseEvent>
-  ): void => {
-    startDrawing(e.nativeEvent.offsetX, e.nativeEvent.y);
+  const onMouseDown = (e: React.MouseEvent<HTMLCanvasElement>): void => {
+    startDrawing(e.clientX, e.clientY);
   };
-  const onMouseMove = (
-    e: React.MouseEvent<HTMLCanvasElement, MouseEvent>
-  ): void => {
-    mouseMove(e.nativeEvent.offsetX, e.nativeEvent.y);
+  const onMouseMove = (e: React.MouseEvent<HTMLCanvasElement>): void => {
+    mouseMove(e.clientX, e.clientY);
   };
   React.useEffect(() => {
     const ctx = getContext();
