@@ -1,17 +1,11 @@
 import React from "react";
+import { appendNewNote } from "./lib";
 import Note from "./Note";
 
-type Props = { notes: { id: number }[]; setNotes: SetNoteFunc };
+type Props = { notes: { id: number }[]; setNotes: SetNotesFunc };
 
 const Timeline: React.FunctionComponent<Props> = props => {
-  const add = React.useCallback(
-    () =>
-      props.setNotes(prev => {
-        const maxId = prev.reduce((a, n) => (a < n.id ? n.id : a), 0);
-        return [...prev, { id: maxId + 1 }];
-      }),
-    [props]
-  );
+  const add = React.useCallback(() => appendNewNote(props.setNotes), [props]);
   const notes = props.notes.map(n => (
     <Note key={n.id} id={n.id} setNotes={props.setNotes} />
   ));

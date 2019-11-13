@@ -1,3 +1,19 @@
+function newNote(currentNotes: NoteState[]): NoteState {
+  const maxId = currentNotes.reduce((a, n) => (a < n.id ? n.id : a), 0);
+  return { id: maxId + 1 };
+}
+
+function appendNewNote(setNotes: SetNotesFunc): void {
+  setNotes(prev => [...prev, newNote(prev)]);
+}
+
+function insertNewNoteBefore(setNotes: SetNotesFunc, id: number): void {
+  setNotes(prev => {
+    const i = prev.findIndex(n => n.id === id);
+    return [...prev.slice(0, i), newNote(prev), ...prev.slice(i, prev.length)];
+  });
+}
+
 function now(): string {
   const now = new Date();
   const year = now.getFullYear();
@@ -14,11 +30,10 @@ const download: () => void = () => {
   const script = doc.getElementsByTagName("script")[0];
   doc.getElementsByTagName("body")[0].removeChild(script);
   const html = `<!DOCTYPE html>\n${doc.outerHTML}`;
-
   const a = document.createElement("a");
   a.href = URL.createObjectURL(new Blob([html], { type: "text/html" }));
   a.download = `${now()}.html`;
   a.dispatchEvent(new MouseEvent("click"));
 };
 
-export { download };
+export { appendNewNote, insertNewNoteBefore, download };
