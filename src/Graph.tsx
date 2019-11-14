@@ -1,10 +1,25 @@
 import React from "react";
 
-const Graph: React.FunctionComponent = () => {
+type Props = {
+  points: Point[];
+  setPoints: SetPointsFunc;
+  graphCurve: GraphFunction;
+  setNotes: SetNotesFunc;
+  bindingTarget: BindingTarget;
+  setBindingTarget: SetBindingTargetFunc;
+};
+
+function bezierPoints() {}
+
+const Graph: React.FunctionComponent<Props> = props => {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
   const [drawing, setDrawing] = React.useState(false);
   const [coordinateX, setCoordinateX] = React.useState(0);
   const [coordinateY, setCoordinateY] = React.useState(0);
+
+  const [oldPoints, setOldPoints] = React.useState<Point[]>([]);
+  //const oldGraphCurve =
+
   const getContext = (): CanvasRenderingContext2D | null => {
     const canvas = canvasRef.current;
     return canvas ? canvas.getContext("2d") : null;
@@ -41,8 +56,8 @@ const Graph: React.FunctionComponent = () => {
   return (
     <div>
       <canvas
-        width="400px"
-        height="400px"
+        width="640px"
+        height="480px"
         ref={canvasRef}
         onMouseDown={onMouseDown}
         onMouseMove={onMouseMove}

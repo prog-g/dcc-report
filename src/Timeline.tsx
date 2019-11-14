@@ -1,13 +1,28 @@
 import React from "react";
-import { appendNewNote } from "./lib";
+import { newNote } from "./lib";
 import Note from "./Note";
 
-type Props = { notes: { id: number }[]; setNotes: SetNotesFunc };
+type Props = {
+  graphCurve: GraphFunction;
+  notes: Note[];
+  setNotes: SetNotesFunc;
+  setBindingTarget: SetBindingTargetFunc;
+};
 
 const Timeline: React.FunctionComponent<Props> = props => {
-  const add = React.useCallback(() => appendNewNote(props.setNotes), [props]);
+  const add = React.useCallback(
+    () => props.setNotes(prev => [...prev, newNote(prev)]),
+    [props]
+  );
   const notes = props.notes.map(n => (
-    <Note key={n.id} id={n.id} setNotes={props.setNotes} />
+    <Note
+      key={n.id}
+      id={n.id}
+      x={n.x}
+      graphCurve={props.graphCurve}
+      setNotes={props.setNotes}
+      setBindingTarget={props.setBindingTarget}
+    />
   ));
   return (
     <div className="timeline">

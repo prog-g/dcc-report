@@ -1,17 +1,32 @@
-function newNote(currentNotes: NoteState[]): NoteState {
+const cubicCurve = (p1: Point, p2: Point, p3: Point, p4: Point) => (
+  x: number
+) => {
+  return 1;
+};
+
+const derivativeCubicCurve = (p1: Point, p2: Point, p3: Point, p4: Point) => (
+  x: number
+) => {
+  return 1;
+};
+
+function makeGraphCurve(points: Point[]): GraphFunction {
+  return (x: number): number | null => x;
+}
+
+function makeDerivativeGraphCurve(points: Point[]): GraphFunction {
+  return (x: number): number | null => x;
+}
+
+function drawGraphCurve(points: Point[], f: GraphFunction): void {
+  if (points.length < 2) return;
+  const df = makeDerivativeGraphCurve(points);
+  //for ()
+}
+
+function newNote(currentNotes: Note[]): Note {
   const maxId = currentNotes.reduce((a, n) => (a < n.id ? n.id : a), 0);
-  return { id: maxId + 1 };
-}
-
-function appendNewNote(setNotes: SetNotesFunc): void {
-  setNotes(prev => [...prev, newNote(prev)]);
-}
-
-function insertNewNoteBefore(setNotes: SetNotesFunc, id: number): void {
-  setNotes(prev => {
-    const i = prev.findIndex(n => n.id === id);
-    return [...prev.slice(0, i), newNote(prev), ...prev.slice(i, prev.length)];
-  });
+  return { id: maxId + 1, x: null };
 }
 
 function now(): string {
@@ -36,4 +51,4 @@ const download: () => void = () => {
   a.dispatchEvent(new MouseEvent("click"));
 };
 
-export { appendNewNote, insertNewNoteBefore, download };
+export { makeGraphCurve, drawGraphCurve, newNote, download };
