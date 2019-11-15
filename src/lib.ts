@@ -73,9 +73,13 @@ function cubicCurve(p1: Point, p2: Point, p3: Point, p4: Point): Curve {
 function makeGraph(points: Point[]): Graph {
   points = points.sort((a, b) => a.x - b.x);
   const start =
-    points.length > 0 ? Math.min(points[0].x, points[points.length].x) : null;
+    points.length > 0
+      ? Math.min(points[0].x, points[points.length - 1].x)
+      : null;
   const end =
-    points.length > 0 ? Math.max(points[0].x, points[points.length].x) : null;
+    points.length > 0
+      ? Math.max(points[0].x, points[points.length - 1].x)
+      : null;
   const curves: Curve[] = [];
   for (let i = 0; i + 1 < points.length; i++) {
     if (i - 1 >= 0) {
@@ -117,6 +121,8 @@ function makeGraph(points: Point[]): Graph {
   return {
     f: f,
     df: df,
+    start: start,
+    end: end,
     min: min,
     max: max,
     points: points

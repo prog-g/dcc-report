@@ -9,6 +9,8 @@ type Curve = { f: GraphFunc; df: GraphFunc; min: number; max: number };
 type Graph = {
   f: GraphFunc;
   df: GraphFunc;
+  start: number | null;
+  end: number | null;
   min: number | null;
   max: number | null;
   points: Point[];

@@ -1,5 +1,5 @@
 import React from "react";
-import { drawGraph } from "./lib";
+import { canvasToFunc, drawGraph } from "./lib";
 
 type Props = {
   graph: Graph;
@@ -10,57 +10,91 @@ type Props = {
   setBindingTarget: SetBindingTargetFunc;
 };
 
-function bezierControlPoints(
-  s: Point,
-  e: Point,
-  ds: number,
-  de: number
-): [Point, Point] {}
-
 const Graph: React.FunctionComponent<Props> = props => {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
   const [drawing, setDrawing] = React.useState(false);
 
   //const [coordinateX, setCoordinateX] = React.useState(0);
   //const [coordinateY, setCoordinateY] = React.useState(0);
-
-  const [oldPoints, setOldPoints] = React.useState<Graph | null>(null);
+  //const [oldPoints, setOldPoints] = React.useState<Graph | null>(null);
   //const oldGraphCurve =
-
+  /*
   const getContext = (): CanvasRenderingContext2D | null => {
     const canvas = canvasRef.current;
     return canvas ? canvas.getContext("2d") : null;
   };
+  */
+  /*
   const startDrawing = (x: number, y: number): void => {
     setDrawing(true);
-    const ctx = getContext();
-    if (ctx) ctx.moveTo(x, y);
-  };
+    //const ctx = getContext();
+    //f (ctx) ctx.moveTo(x, y);
+  };*/
+  /*
   const setCoordinate = (x: number, y: number): void => {
     setCoordinateX(x);
     setCoordinateY(y);
-  };
-  const mouseMove = (x: number, y: number): void => {
-    if (drawing) setCoordinate(x, y);
-  };
-  const endDrawing = (): void => {
-    setDrawing(false);
-  };
+  };*/
+  const onClick = (e: React.MouseEvent<HTMLCanvasElement>): void => {};
+  /*
   const onMouseDown = (e: React.MouseEvent<HTMLCanvasElement>): void => {
-    startDrawing(e.clientX, e.clientY);
-  };
-  const onMouseMove = (e: React.MouseEvent<HTMLCanvasElement>): void => {
-    mouseMove(e.clientX, e.clientY);
-  };
+    setDrawing(true);
+    //startDrawing(e.clientX, e.clientY);
+  }*/
+  const onMouseDown = React.useCallback(
+    (e: React.MouseEvent<HTMLCanvasElement>) => {
+      if (!canvasRef.current) return;
+      const maxMarginLeft = 5;
+      const maxDelta = 5;
+      const p = canvasToFunc(canvasRef.current, {
+        x: e.clientX,
+        y: e.clientY
+      });
+      if (props.graph.end === null && p.x < maxMarginLeft) {
+        setDrawing(true);
+      } else if (
+        props.graph.end !== null &&
+        props.graph.end < p.x &&
+        p.x - props.graph.end < maxDelta
+      ) {
+        setDrawing(true);
+      }
+    },
+    [setDrawing, props]
+  );
+  const onMouseMove = React.useCallback(
+    (e: React.MouseEvent<HTMLCanvasElement>) => {
+      if (!canvasRef.current) return;
+
+      const maxMarginLeft = 5;
+      const minDelta = 1;
+      const p = canvasToFunc(canvasRef.current, {
+        x: e.clientX,
+        y: e.clientY
+      });
+
+      if (drawing) {
+        if (props.graph.end === null && p.x < maxMarginLeft) {
+          props.setPoints(prev => [...prev, p]);
+        } else if (
+          props.graph.end !== null &&
+          p.x > props.graph.end &&
+          p.x - props.graph.end > minDelta
+        ) {
+          props.setPoints(prev => [...prev, p]);
+        }
+      }
+    },
+    [props, drawing]
+  );
+
+  const onEndDrawing = React.useCallback(() => setDrawing(false), [setDrawing]);
+
   React.useEffect(() => {
-    drawGraph();
-    const ctx = getContext();
-    if (ctx !== null) {
-      ctx.strokeStyle = "white";
-      ctx.lineTo(coordinateX, coordinateY);
-      ctx.stroke();
+    if (canvasRef.current) {
+      drawGraph(canvasRef.current, props.graph, null, props.notes);
     }
-  }, []);
+  }, [props]);
   return (
     <div>
       <canvas
@@ -69,8 +103,8 @@ const Graph: React.FunctionComponent<Props> = props => {
         ref={canvasRef}
         onMouseDown={onMouseDown}
         onMouseMove={onMouseMove}
-        onMouseUp={endDrawing}
-        onMouseLeave={endDrawing}
+        onMouseUp={onEndDrawing}
+        onMouseLeave={onEndDrawing}
       />
     </div>
   );
