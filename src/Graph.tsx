@@ -10,7 +10,12 @@ type Props = {
   setBindingTarget: SetBindingTargetFunc;
 };
 
-function bezierPoints() {}
+function bezierControlPoints(
+  s: Point,
+  e: Point,
+  ds: number,
+  de: number
+): [Point, Point] {}
 
 const Graph: React.FunctionComponent<Props> = props => {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);

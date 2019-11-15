@@ -1,3 +1,33 @@
+function linearLine(p1: Point, p2: Point): Curve {
+  const a = (p1.y - p2.y) / (p1.x - p2.x);
+  const b = p1.y - a * p1.x;
+  const f = (x: number): number => a * x + b;
+  const df = (x: number): number => a;
+  const exts = [f(p1.x), f(p2.x)];
+  const min = exts.reduce((a, y) => (a > y ? y : a));
+  const max = exts.reduce((a, y) => (a < y ? y : a));
+  return { f: f, df: df, min: min, max: max };
+}
+
+function quadraticCurve(p1: Point, p2: Point, p3: Point): Curve {
+  const a =
+    ((p1.y - p2.y) * (p1.x - p3.x) - (p1.y - p3.y) * (p1.x - p2.x)) /
+    ((p1.x - p2.x) * (p1.x - p3.x) * (p2.x - p3.x));
+  const b = (p1.y - p2.y) / (p1.x - p2.x) - a * (p1.x + p2.x);
+  const c = p1.y - a * p1.x ** 2 - b * p1.x;
+  const f = (x: number): number => a * x ** 2 + b * x + c;
+  const df = (x: number): number => 2 * a * x + b;
+  const s = Math.min(p1.x, p2.x, p3.x);
+  const e = Math.max(p1.x, p2.x, p3.x);
+  const exts = [f(s), f(e)];
+  if (a !== 0) {
+    exts.push(f(-b / (2 * a)));
+  }
+  const min = exts.reduce((a, y) => (a > y ? y : a));
+  const max = exts.reduce((a, y) => (a < y ? y : a));
+  return { f: f, df: df, min: min, max: max };
+}
+
 function cubicCurve(p1: Point, p2: Point, p3: Point, p4: Point): Curve {
   const m1 = p1.y / ((p1.x - p2.x) * (p1.x - p3.x) * (p1.x - p4.x));
   const m2 = p2.y / ((p2.x - p1.x) * (p2.x - p3.x) * (p2.x - p4.x));
@@ -41,25 +71,61 @@ function cubicCurve(p1: Point, p2: Point, p3: Point, p4: Point): Curve {
 }
 
 function makeGraph(points: Point[]): Graph {
-  
-  for (let i = 0; i < points.length; i++) {
-    if (){}
-
+  points = points.sort((a, b) => a.x - b.x);
+  const start =
+    points.length > 0 ? Math.min(points[0].x, points[points.length].x) : null;
+  const end =
+    points.length > 0 ? Math.max(points[0].x, points[points.length].x) : null;
+  const curves: Curve[] = [];
+  for (let i = 0; i + 1 < points.length; i++) {
+    if (i - 1 >= 0) {
+      if (i + 2 < points.length) {
+        curves.push(
+          cubicCurve(points[i - 1], points[i], points[i + 1], points[i + 2])
+        );
+      } else {
+        curves.push(quadraticCurve(points[i - 1], points[i], points[i + 1]));
+      }
+    } else {
+      if (i + 2 < points.length) {
+        curves.push(quadraticCurve(points[i], points[i + 1], points[i + 2]));
+      } else {
+        curves.push(linearLine(points[i], points[i + 1]));
+      }
+    }
   }
-
-
-  const f = (x: number): number | null => {};
-
+  const f = (x: number): number | null => {
+    if (start === null || x < start) return null;
+    if (end === null || x > end) return null;
+    const i = points.findIndex(p => p.x >= x) - 1;
+    return i >= 0 ? curves[i].f(x) : null;
+  };
+  const df = (x: number): number | null => {
+    if (start === null || x < start) return null;
+    if (end === null || x > end) return null;
+    const i = points.findIndex(p => p.x >= x) - 1;
+    return i >= 0 ? curves[i].f(x) : null;
+  };
+  const min =
+    curves.length > 0
+      ? curves.reduce((a, c) => (a.min > c.min ? c : a)).min
+      : null;
+  const max =
+    curves.length > 0
+      ? curves.reduce((a, c) => (a.max < c.max ? c : a)).max
+      : null;
   return {
-    f: makeGraphFunction(points),
-    df: makeGraphDerivativeFunction(points),
-    min:
-      points.length > 0
-        ? points.reduce((a, p) => (a < p.y ? p.y : a), points[0].y)
-        : null, // TODO: Not accurate
-    max: 1, // TODO: Not accurate
+    f: f,
+    df: df,
+    min: min,
+    max: max,
     points: points
   };
+}
+
+function newNote(currentNotes: Note[]): Note {
+  const maxId = currentNotes.reduce((a, n) => (a < n.id ? n.id : a), 0);
+  return { id: maxId + 1, x: null };
 }
 
 // TODO
@@ -76,6 +142,18 @@ function noteNumber(notes: Note[], id: number): number | null {
   return i === -1 ? null : i + 1;
 }
 
+function funcToCanvas(canvas: HTMLCanvasElement, p: Point): Point {
+  const x = (p.x / 100) * canvas.width;
+  const y = (1 - p.y / 100) * canvas.height;
+  return { x: x, y: y };
+}
+
+function canvasToFunc(canvas: HTMLCanvasElement, p: Point): Point {
+  const x = (p.x / canvas.width) * 100;
+  const y = (-p.y / canvas.height + 1) * 100;
+  return { x: x, y: y };
+}
+
 function drawGraph(
   canvas: HTMLCanvasElement,
   graph: Graph,
@@ -84,19 +162,28 @@ function drawGraph(
 ): void {
   const ctx = canvas.getContext("2d");
   if (!ctx) return;
-  // Background
-
-  // Grid
-
-  //
-  ctx.bezierCurveTo;
-  //
-  ctx;
-}
-
-function newNote(currentNotes: Note[]): Note {
-  const maxId = currentNotes.reduce((a, n) => (a < n.id ? n.id : a), 0);
-  return { id: maxId + 1, x: null };
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.lineWidth = 3;
+  ctx.strokeStyle = "white";
+  ctx.beginPath();
+  for (let i = 0; i + 1 < graph.points.length; i++) {
+    const x1 = graph.points[i].x;
+    const d1 = graph.df(x1);
+    const x4 = graph.points[i + 1].x;
+    const d4 = graph.df(x4);
+    const x2 = (2 * x1 + x4) / 3;
+    const y2 = graph.points[i].y + (d1 !== null ? d1 : 0) * (x2 - x1);
+    const x3 = (x1 + 2 * x4) / 3;
+    const y3 = graph.points[i + 1].y - (d4 !== null ? d4 : 0) * (x4 - x3);
+    const p1 = funcToCanvas(canvas, graph.points[i]);
+    const p2 = funcToCanvas(canvas, { x: x2, y: y2 });
+    const p3 = funcToCanvas(canvas, { x: x3, y: y3 });
+    const p4 = funcToCanvas(canvas, graph.points[i + 1]);
+    ctx.moveTo(p1.x, p1.y);
+    ctx.bezierCurveTo(p2.x, p2.y, p3.x, p3.y, p4.x, p4.y);
+  }
+  ctx.closePath();
+  ctx.stroke();
 }
 
 function now(): string {
@@ -121,5 +208,12 @@ const download: () => void = () => {
   a.dispatchEvent(new MouseEvent("click"));
 };
 
-export { makeGraph, drawGraph, newNote, noteColor, noteNumber, download };
-
+export {
+  makeGraph,
+  drawGraph,
+  newNote,
+  noteColor,
+  noteNumber,
+  canvasToFunc,
+  download
+};
