@@ -1,9 +1,10 @@
 import React from "react";
+import { drawGraph } from "./lib";
 
 type Props = {
-  points: Point[];
+  graph: Graph;
   setPoints: SetPointsFunc;
-  graphCurve: GraphFunction;
+  notes: Note[];
   setNotes: SetNotesFunc;
   bindingTarget: BindingTarget;
   setBindingTarget: SetBindingTargetFunc;
@@ -14,10 +15,11 @@ function bezierPoints() {}
 const Graph: React.FunctionComponent<Props> = props => {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
   const [drawing, setDrawing] = React.useState(false);
-  const [coordinateX, setCoordinateX] = React.useState(0);
-  const [coordinateY, setCoordinateY] = React.useState(0);
 
-  const [oldPoints, setOldPoints] = React.useState<Point[]>([]);
+  //const [coordinateX, setCoordinateX] = React.useState(0);
+  //const [coordinateY, setCoordinateY] = React.useState(0);
+
+  const [oldPoints, setOldPoints] = React.useState<Graph | null>(null);
   //const oldGraphCurve =
 
   const getContext = (): CanvasRenderingContext2D | null => {
@@ -46,13 +48,14 @@ const Graph: React.FunctionComponent<Props> = props => {
     mouseMove(e.clientX, e.clientY);
   };
   React.useEffect(() => {
+    drawGraph();
     const ctx = getContext();
     if (ctx !== null) {
       ctx.strokeStyle = "white";
       ctx.lineTo(coordinateX, coordinateY);
       ctx.stroke();
     }
-  }, [coordinateX, coordinateY]);
+  }, []);
   return (
     <div>
       <canvas

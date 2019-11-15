@@ -1,25 +1,26 @@
 import React from "react";
 import Graph from "./Graph";
-import { download, makeGraphCurve, newNote } from "./lib";
+import { download, makeGraph, newNote } from "./lib";
 import Timeline from "./Timeline";
 
 const App: React.FunctionComponent = () => {
   const [points, setPoints] = React.useState<Point[]>([]);
   const [notes, setNotes] = React.useState([newNote([])]);
   const [bindingTarget, setBindingTarget] = React.useState<BindingTarget>(null);
-  const graphCurve = makeGraphCurve(points);
+  const graph = makeGraph(points);
   return (
     <>
       <Graph
-        points={points}
+        graph={graph}
         setPoints={setPoints}
-        graphCurve={graphCurve}
+        notes={notes}
         setNotes={setNotes}
         bindingTarget={bindingTarget}
         setBindingTarget={setBindingTarget}
       />
       <Timeline
-        graphCurve={graphCurve}
+        f={graph.f}
+        df={graph.df}
         notes={notes}
         setNotes={setNotes}
         setBindingTarget={setBindingTarget}
