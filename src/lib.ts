@@ -108,7 +108,7 @@ function makeGraph(points: Point[]): Graph {
     if (start === null || x < start) return null;
     if (end === null || x > end) return null;
     const i = points.findIndex(p => p.x >= x) - 1;
-    return i >= 0 ? curves[i].f(x) : null;
+    return i >= 0 ? curves[i].df(x) : null;
   };
   const min =
     curves.length > 0
