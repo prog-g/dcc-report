@@ -21,7 +21,7 @@ const Timeline: React.FunctionComponent<Props> = props => {
     <Note
       key={n.id}
       id={n.id}
-      color={noteColor(props.notes, n.id)}
+      color={noteColor(n.id)}
       number={noteNumber(props.notes, n.id)}
       x={n.x}
       y={n.x !== null ? props.f(n.x) : null}

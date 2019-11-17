@@ -1,5 +1,5 @@
 import React from "react";
-import { canvasToFunc, drawGraph } from "./lib";
+//import {  newNote, noteColor, noteNumber } from "./lib";
 
 type Props = {
   graph: Graph;
@@ -9,6 +9,49 @@ type Props = {
   bindingTarget: BindingTarget;
   setBindingTarget: SetBindingTargetFunc;
 };
+
+function funcToCanvas(canvas: HTMLCanvasElement, p: Point): Point {
+  const x = (p.x / 100) * canvas.width;
+  const y = (1 - p.y / 100) * canvas.height;
+  return { x: x, y: y };
+}
+
+function canvasToFunc(canvas: HTMLCanvasElement, p: Point): Point {
+  const x = (p.x / canvas.width) * 100;
+  const y = (-p.y / canvas.height + 1) * 100;
+  return { x: x, y: y };
+}
+
+function drawGraph(
+  canvas: HTMLCanvasElement,
+  graph: Graph,
+  prev: Graph | null,
+  notes: Note[]
+): void {
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.lineWidth = 2;
+  ctx.strokeStyle = "white";
+  for (let i = 0; i + 1 < graph.points.length; i++) {
+    ctx.beginPath();
+    const x1 = graph.points[i].x;
+    const d1 = graph.df(x1);
+    const x4 = graph.points[i + 1].x;
+    const d4 = graph.df(x4);
+    const x2 = (2 * x1 + x4) / 3;
+    const y2 = graph.points[i].y + (d1 !== null ? d1 : 0) * (x2 - x1);
+    const x3 = (x1 + 2 * x4) / 3;
+    const y3 = graph.points[i + 1].y - (d4 !== null ? d4 : 0) * (x4 - x3);
+    const p1 = funcToCanvas(canvas, graph.points[i]);
+    const p2 = funcToCanvas(canvas, { x: x2, y: y2 });
+    const p3 = funcToCanvas(canvas, { x: x3, y: y3 });
+    const p4 = funcToCanvas(canvas, graph.points[i + 1]);
+    ctx.moveTo(p1.x, p1.y);
+    ctx.bezierCurveTo(p2.x, p2.y, p3.x, p3.y, p4.x, p4.y);
+    ctx.stroke();
+  }
+}
 
 const Graph: React.FunctionComponent<Props> = props => {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
@@ -69,7 +112,7 @@ const Graph: React.FunctionComponent<Props> = props => {
       const maxMarginLeft = 5;
       const minDelta = 1;
       const p = canvasToFunc(canvasRef.current, {
-        x: e.clientX,
+        x: e.nativeEvent.offsetX,
         y: e.clientY
       });
 
@@ -98,8 +141,8 @@ const Graph: React.FunctionComponent<Props> = props => {
   return (
     <div>
       <canvas
-        width="640px"
-        height="480px"
+        width="1000px"
+        height="500px"
         ref={canvasRef}
         onMouseDown={onMouseDown}
         onMouseMove={onMouseMove}
