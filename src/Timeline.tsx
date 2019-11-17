@@ -15,8 +15,26 @@ const Timeline: React.FunctionComponent<Props> = props => {
     () => props.setNotes(prev => [...prev, newNote(prev)]),
     [props]
   );
-  // TDOD: Impl sort
-  const order = React.useCallback(() => {}, []);
+  const order = React.useCallback(() => {
+    props.setNotes(prev => {
+      const list = prev.map(n => {
+        return { x: n.x, note: n };
+      });
+      let k: number | null = null;
+      for (let i = 0; i < list.length; i++) {
+        if (list[i].x === null) list[i].x = k;
+        else k = list[i].x;
+      }
+      return list
+        .sort((a, b) => {
+          if (a.x === null && b.x === null) return 0;
+          else if (a.x === null) return -1;
+          else if (b.x === null) return 1;
+          else return a.x - b.x;
+        })
+        .map(e => e.note);
+    });
+  }, [props]);
   const notes = props.notes.map(n => (
     <Note
       key={n.id}
