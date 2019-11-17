@@ -174,16 +174,11 @@ function noteColor(id: number): string {
 }
 
 function noteNumber(notes: Note[], id: number): number | null {
-  let k: number | null = null;
-  for (let i = 0; i < notes.length; ++i) {
-    if (notes[i].x !== null) {
-      k = k !== null ? k + 1 : 0;
-    }
-    if (notes[i].id === id) {
-      return notes[i].x !== null ? k : null;
-    }
-  }
-  return null;
+  const i = notes
+    .filter(n => n.x !== null)
+    .sort((a, b) => (a.x !== null && b.x !== null ? a.x - b.x : 0))
+    .findIndex(n => n.id === id);
+  return i >= 0 ? i + 1 : null;
 }
 
 function now(): string {

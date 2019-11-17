@@ -12,6 +12,24 @@ type Props = {
 
 const scaleX = 100;
 const scaleY = 100;
+const minDelta = 0.4;
+const maxDelta = 2.5;
+const maxMarginLeft = 5;
+const width = 1000;
+const height = 500;
+const graphLineWidth = 2;
+const graphPointRadius = 4;
+const graphFont = "sans-serif";
+const graphFontSize = 20;
+const graphLineColor = "white";
+const oldGraphLineWidth = 1.5;
+const oldGraphPointRadius = 3;
+const oldGraphFontSize = 16;
+const oldGraphLineColor = "gray";
+const gridx = 10;
+const gridy = 4;
+const gridLineWidth = 1;
+const gridLineColor = "gray";
 
 function funcToCanvas(canvas: HTMLCanvasElement, p: Point): Point {
   const x = (p.x / scaleX) * canvas.width;
@@ -35,9 +53,27 @@ function drawGraph(
   const ctx = canvas.getContext("2d");
   if (ctx) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.lineWidth = 2;
+    ctx.lineWidth = gridLineWidth;
+    ctx.strokeStyle = gridLineColor;
+    for (let i = 0; i <= gridx; i++) {
+      const p1 = funcToCanvas(canvas, { x: (i * scaleX) / gridx, y: 0 });
+      const p2 = funcToCanvas(canvas, { x: (i * scaleX) / gridx, y: scaleY });
+      ctx.beginPath();
+      ctx.moveTo(p1.x, p1.y);
+      ctx.lineTo(p2.x, p2.y);
+      ctx.stroke();
+    }
+    for (let i = 0; i <= gridy; i++) {
+      const p1 = funcToCanvas(canvas, { x: 0, y: (i * scaleY) / gridy });
+      const p2 = funcToCanvas(canvas, { x: scaleX, y: (i * scaleY) / gridy });
+      ctx.beginPath();
+      ctx.moveTo(p1.x, p1.y);
+      ctx.lineTo(p2.x, p2.y);
+      ctx.stroke();
+    }
     if (prev) {
-      ctx.strokeStyle = "gray";
+      ctx.lineWidth = oldGraphLineWidth;
+      ctx.strokeStyle = oldGraphLineColor;
       for (let i = 0; i + 1 < prev.points.length; i++) {
         ctx.beginPath();
         const x1 = prev.points[i].x;
@@ -57,7 +93,8 @@ function drawGraph(
         ctx.stroke();
       }
     }
-    ctx.strokeStyle = "white";
+    ctx.lineWidth = graphLineWidth;
+    ctx.strokeStyle = graphLineColor;
     for (let i = 0; i + 1 < graph.points.length; i++) {
       ctx.beginPath();
       const x1 = graph.points[i].x;
@@ -76,6 +113,8 @@ function drawGraph(
       ctx.bezierCurveTo(p2.x, p2.y, p3.x, p3.y, p4.x, p4.y);
       ctx.stroke();
     }
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
     for (let i = 0; i < notes.length; i++) {
       const x = notes[i].x;
       if (x !== null) {
@@ -92,11 +131,11 @@ function drawGraph(
           if (y !== null && y2 !== null && n !== null) {
             const p = funcToCanvas(canvas, { x: x, y: y });
             ctx.fillStyle = color;
+            ctx.font = `${graphFontSize}px bold ${graphFont}`;
             ctx.beginPath();
-            ctx.arc(p.x, p.y, 4, 0, 2 * Math.PI);
+            ctx.arc(p.x, p.y, graphPointRadius, 0, 2 * Math.PI);
             ctx.fill();
-            ctx.textAlign = "center";
-            ctx.fillText(n.toString(), p.x, p.y + 10 * (y2 > 0 ? -1 : 1));
+            ctx.fillText(`${n}`, p.x, p.y + graphFontSize * (y2 > 0 ? 1 : -1));
           }
         } else if (prev !== null) {
           if (
@@ -110,13 +149,16 @@ function drawGraph(
             const n = noteNumber(notes, notes[i].id);
             if (y !== null && y2 !== null && n !== null) {
               const p = funcToCanvas(canvas, { x: x, y: y });
-              ctx.fillStyle = "gray";
+              ctx.font = `${oldGraphFontSize}px bold ${graphFont}`;
+              ctx.fillStyle = oldGraphLineColor;
               ctx.beginPath();
-              ctx.arc(p.x, p.y, 4, 0, 2 * Math.PI);
+              ctx.arc(p.x, p.y, oldGraphPointRadius, 0, 2 * Math.PI);
               ctx.fill();
-              ctx.textAlign = "center";
-
-              ctx.fillText(n.toString(), p.x, p.y - 10 * (y2 > 0 ? -1 : 1));
+              ctx.fillText(
+                `${n}`,
+                p.x,
+                p.y + oldGraphFontSize * (y2 > 0 ? 1 : -1)
+              );
             }
           }
         }
@@ -144,11 +186,18 @@ const Graph: React.FunctionComponent<Props> = props => {
                 : [...prev, note];
             });
           } else {
-            props.setNotes(prev =>
-              prev.map(n =>
-                n.id === props.bindingTarget ? { id: n.id, x: p.x } : n
-              )
-            );
+            props.setNotes(prev => {
+              const i = prev.findIndex(n => n.id === props.bindingTarget);
+              if (i >= 0) {
+                props.setBindingTarget(null);
+                return [
+                  ...prev.slice(0, i),
+                  { id: prev[i].id, x: p.x },
+                  ...prev.slice(i + 1, prev.length)
+                ];
+              }
+              return prev;
+            });
           }
         }
       }
@@ -158,8 +207,6 @@ const Graph: React.FunctionComponent<Props> = props => {
   const onMouseDown = React.useCallback(
     (e: React.MouseEvent<HTMLCanvasElement>) => {
       if (!canvasRef.current) return;
-      const maxMarginLeft = 5;
-      const maxDelta = 5;
       const p = canvasToFunc(e);
       if (props.graph.end === null && p.x < maxMarginLeft) {
         setDrawing(true);
@@ -176,11 +223,7 @@ const Graph: React.FunctionComponent<Props> = props => {
   const onMouseMove = React.useCallback(
     (e: React.MouseEvent<HTMLCanvasElement>) => {
       if (!canvasRef.current) return;
-
-      const maxMarginLeft = 5;
-      const minDelta = 1;
       const p = canvasToFunc(e);
-
       if (drawing) {
         if (props.graph.end === null && p.x < maxMarginLeft) {
           props.setPoints(prev => [...prev, p]);
@@ -200,6 +243,9 @@ const Graph: React.FunctionComponent<Props> = props => {
     setOldGraph(props.graph);
     props.setPoints([]);
   }, [props]);
+  const clearOld = React.useCallback(() => {
+    setOldGraph(null);
+  }, []);
   React.useEffect(() => {
     if (canvasRef.current) {
       drawGraph(canvasRef.current, props.graph, oldGraph, props.notes);
@@ -208,8 +254,8 @@ const Graph: React.FunctionComponent<Props> = props => {
   return (
     <div>
       <canvas
-        width="1000px"
-        height="500px"
+        width={width}
+        height={height}
         ref={canvasRef}
         onClick={onClick}
         onMouseDown={onMouseDown}
@@ -218,6 +264,7 @@ const Graph: React.FunctionComponent<Props> = props => {
         onMouseLeave={onEndDrawing}
       />
       <div onClick={clear}>Clear</div>
+      <div onClick={clearOld}>Clear History</div>
     </div>
   );
 };
