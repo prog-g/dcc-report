@@ -128,20 +128,26 @@ function makeGraph(points: Point[]): Graph {
   const f = (x: number): number | null => {
     if (start === null || x < start) return null;
     if (end === null || x > end) return null;
-    const i = points.findIndex(p => p.x >= x) - 1;
-    return i >= 0 ? curves[i].f(x) : null;
+    const i = points.findIndex(p => p.x > x) - 1;
+    if (i >= 0) return curves[i].f(x);
+    if (x === end) return curves[curves.length - 1].f(x);
+    return null;
   };
   const df = (x: number): number | null => {
     if (start === null || x < start) return null;
     if (end === null || x > end) return null;
-    const i = points.findIndex(p => p.x >= x) - 1;
-    return i >= 0 ? curves[i].df(x) : null;
+    const i = points.findIndex(p => p.x > x) - 1;
+    if (i >= 0) return curves[i].df(x);
+    if (x === end) return curves[curves.length - 1].df(x);
+    return null;
   };
   const d2f = (x: number): number | null => {
     if (start === null || x < start) return null;
     if (end === null || x > end) return null;
-    const i = points.findIndex(p => p.x >= x) - 1;
-    return i >= 0 ? curves[i].d2f(x) : null;
+    const i = points.findIndex(p => p.x > x) - 1;
+    if (i >= 0) return curves[i].d2f(x);
+    if (x === end) return curves[curves.length - 1].d2f(x);
+    return null;
   };
   const min =
     curves.length > 0
