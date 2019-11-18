@@ -253,6 +253,9 @@ const Graph: React.FunctionComponent<Props> = props => {
   }, [oldGraph, props]);
   return (
     <div>
+      <div>
+        Min: {props.graph.min}, Max: {props.graph.max}
+      </div>
       <canvas
         width={width}
         height={height}
