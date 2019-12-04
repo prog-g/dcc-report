@@ -169,20 +169,22 @@ function makeGraph(points: Point[]): Graph {
   };
 }
 
-function newNote(currentNotes: NoteState[]): NoteState {
+function newNote(currentNotes: Note[]): Note {
   const maxId = currentNotes.reduce((a, n) => (a < n.id ? n.id : a), 0);
-  return { id: maxId + 1 };
+  return { id: maxId + 1, x: null };
 }
 
-function appendNewNote(setNotes: SetNotesFunc): void {
-  setNotes(prev => [...prev, newNote(prev)]);
+// TODO: algorithm
+function noteColor(id: number): string {
+  return id % 2 === 0 ? "blue" : "red";
 }
 
-function insertNewNoteBefore(setNotes: SetNotesFunc, id: number): void {
-  setNotes(prev => {
-    const i = prev.findIndex(n => n.id === id);
-    return [...prev.slice(0, i), newNote(prev), ...prev.slice(i, prev.length)];
-  });
+function noteNumber(notes: Note[], id: number): number | null {
+  const i = notes
+    .filter(n => n.x !== null)
+    .sort((a, b) => (a.x !== null && b.x !== null ? a.x - b.x : 0))
+    .findIndex(n => n.id === id);
+  return i >= 0 ? i + 1 : null;
 }
 
 function now(): string {
@@ -207,4 +209,4 @@ const download: () => void = () => {
   a.dispatchEvent(new MouseEvent("click"));
 };
 
-export { makeGraph, appendNewNote, insertNewNoteBefore, download };
+export { makeGraph, newNote, noteColor, noteNumber, download };
