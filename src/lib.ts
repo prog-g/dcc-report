@@ -207,4 +207,4 @@ const download: () => void = () => {
   a.dispatchEvent(new MouseEvent("click"));
 };
 
-export { appendNewNote, insertNewNoteBefore, download };
+export { makeGraph, appendNewNote, insertNewNoteBefore, download };
