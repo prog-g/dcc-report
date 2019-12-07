@@ -120,8 +120,8 @@ function cubicCurveSegment(p1: Point, p2: Point, p3: Point, p4: Point): Curve {
 // 複数の点から補間した曲線グラフを返す
 function makeGraph(points: Point[]): Graph {
   // 定義域
-  const from = points.length > 0 ? points[0].x : null;
-  const to = points.length > 0 ? points[points.length - 1].x : null;
+  const from = points.length > 1 ? points[0].x : null;
+  const to = points.length > 1 ? points[points.length - 1].x : null;
   // 1点ずつずらしながら曲線の断片を作成
   const curves: Curve[] = [];
   for (let i = 0; i + 1 < points.length; i++) {
