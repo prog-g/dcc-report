@@ -4,8 +4,8 @@ function linearLineSegment(p1: Point, p2: Point): Curve {
   const f = (x: number): number => a * x + b;
   const df = (): number => a;
   const d2f = (): number => 0;
-  const from = Math.min(p1.x, p2.x);
-  const to = Math.max(p1.x, p2.x);
+  const from = p1.x;
+  const to = p2.x;
   const exts = [f(from), f(to)];
   const min = exts.reduce((a, y) => (a > y ? y : a));
   const max = exts.reduce((a, y) => (a < y ? y : a));
@@ -21,8 +21,8 @@ function quadraticCurveLeftSegment(p1: Point, p2: Point, p3: Point): Curve {
   const f = (x: number): number => a * x ** 2 + b * x + c;
   const df = (x: number): number => 2 * a * x + b;
   const d2f = (): number => 2 * a;
-  const from = Math.min(p1.x, p2.x, p3.x);
-  const to = [p1.x, p2.x, p3.x].sort()[1];
+  const from = p1.x;
+  const to = p2.x;
   const exts = [f(from), f(to)];
   if (a !== 0) {
     const edge = -b / (2 * a);
@@ -42,8 +42,8 @@ function quadraticCurveRightSegment(p1: Point, p2: Point, p3: Point): Curve {
   const f = (x: number): number => a * x ** 2 + b * x + c;
   const df = (x: number): number => 2 * a * x + b;
   const d2f = (): number => 2 * a;
-  const from = [p1.x, p2.x, p3.x].sort()[1];
-  const to = Math.max(p1.x, p2.x, p3.x);
+  const from = p2.x;
+  const to = p3.x;
   const exts = [f(from), f(to)];
   if (a !== 0) {
     const edge = -b / (2 * a);
@@ -78,9 +78,8 @@ function cubicCurveSegment(p1: Point, p2: Point, p3: Point, p4: Point): Curve {
   const f = (x: number): number => a * x ** 3 + b * x ** 2 + c * x + d;
   const df = (x: number): number => 3 * a * x ** 2 + 2 * b * x + c;
   const d2f = (x: number): number => 6 * a * x + 2 * b;
-  const sorted = [p1.x, p2.x, p3.x, p4.x].sort();
-  const from = sorted[1];
-  const to = sorted[2];
+  const from = p2.x;
+  const to = p3.x;
   const exts = [f(from), f(to)];
   if (b ** 2 - 3 * a * c > 0) {
     if (a !== 0) {
@@ -99,7 +98,6 @@ function cubicCurveSegment(p1: Point, p2: Point, p3: Point, p4: Point): Curve {
 }
 
 function makeGraph(points: Point[]): Graph {
-  //points = points.sort((a, b) => a.x - b.x);
   const from = points.length > 0 ? points[0].x : null;
   const to = points.length > 0 ? points[points.length - 1].x : null;
   const curves: Curve[] = [];
