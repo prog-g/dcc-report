@@ -1,28 +1,38 @@
+// 2点を通る直線を返す
 function linearLineSegment(p1: Point, p2: Point): Curve {
+  // 多項式の係数を求める
   const a = (p1.y - p2.y) / (p1.x - p2.x);
   const b = p1.y - a * p1.x;
+  // 曲線の関数、導関数、二次導関数
   const f = (x: number): number => a * x + b;
   const df = (): number => a;
   const d2f = (): number => 0;
+  // 定義域
   const from = p1.x;
   const to = p2.x;
+  // 定義域内の最小値と最大値を求める
   const exts = [f(from), f(to)];
   const min = exts.reduce((a, y) => (a > y ? y : a));
   const max = exts.reduce((a, y) => (a < y ? y : a));
   return { f, df, d2f, from, to, min, max };
 }
 
+// 3点を通る2次曲線の左側2点部分の断片を返す
 function quadraticCurveLeftSegment(p1: Point, p2: Point, p3: Point): Curve {
+  // 多項式の係数を求める
   const a =
     ((p1.y - p2.y) * (p1.x - p3.x) - (p1.y - p3.y) * (p1.x - p2.x)) /
     ((p1.x - p2.x) * (p1.x - p3.x) * (p2.x - p3.x));
   const b = (p1.y - p2.y) / (p1.x - p2.x) - a * (p1.x + p2.x);
   const c = p1.y - a * p1.x ** 2 - b * p1.x;
+  // 曲線の関数、導関数、二次導関数
   const f = (x: number): number => a * x ** 2 + b * x + c;
   const df = (x: number): number => 2 * a * x + b;
   const d2f = (): number => 2 * a;
+  // 定義域
   const from = p1.x;
   const to = p2.x;
+  // 定義域内の最小値と最大値を求める
   const exts = [f(from), f(to)];
   if (a !== 0) {
     const edge = -b / (2 * a);
@@ -33,17 +43,22 @@ function quadraticCurveLeftSegment(p1: Point, p2: Point, p3: Point): Curve {
   return { f, df, d2f, from, to, min, max };
 }
 
+// 3点を通る2次曲線の右側2点部分の断片を返す
 function quadraticCurveRightSegment(p1: Point, p2: Point, p3: Point): Curve {
+  // 多項式の係数を求める
   const a =
     ((p1.y - p2.y) * (p1.x - p3.x) - (p1.y - p3.y) * (p1.x - p2.x)) /
     ((p1.x - p2.x) * (p1.x - p3.x) * (p2.x - p3.x));
   const b = (p1.y - p2.y) / (p1.x - p2.x) - a * (p1.x + p2.x);
   const c = p1.y - a * p1.x ** 2 - b * p1.x;
+  // 曲線の関数、導関数、二次導関数
   const f = (x: number): number => a * x ** 2 + b * x + c;
   const df = (x: number): number => 2 * a * x + b;
   const d2f = (): number => 2 * a;
+  // 定義域
   const from = p2.x;
   const to = p3.x;
+  // 定義域内の最小値と最大値を求める
   const exts = [f(from), f(to)];
   if (a !== 0) {
     const edge = -b / (2 * a);
@@ -54,7 +69,9 @@ function quadraticCurveRightSegment(p1: Point, p2: Point, p3: Point): Curve {
   return { f, df, d2f, from, to, min, max };
 }
 
+// 4点を通る3次曲線の真ん中2点部分の断片を返す
 function cubicCurveSegment(p1: Point, p2: Point, p3: Point, p4: Point): Curve {
+  // 多項式の係数を求める
   const m1 = p1.y / ((p1.x - p2.x) * (p1.x - p3.x) * (p1.x - p4.x));
   const m2 = p2.y / ((p2.x - p1.x) * (p2.x - p3.x) * (p2.x - p4.x));
   const m3 = p3.y / ((p3.x - p1.x) * (p3.x - p2.x) * (p3.x - p4.x));
@@ -75,11 +92,14 @@ function cubicCurveSegment(p1: Point, p2: Point, p3: Point, p4: Point): Curve {
     m2 * p1.x * p3.x * p4.x -
     m3 * p1.x * p2.x * p4.x -
     m4 * p1.x * p2.x * p3.x;
+  // 曲線の関数、導関数、二次導関数
   const f = (x: number): number => a * x ** 3 + b * x ** 2 + c * x + d;
   const df = (x: number): number => 3 * a * x ** 2 + 2 * b * x + c;
   const d2f = (x: number): number => 6 * a * x + 2 * b;
+  // 定義域
   const from = p2.x;
   const to = p3.x;
+  // 定義域内の最小値と最大値を求める
   const exts = [f(from), f(to)];
   if (b ** 2 - 3 * a * c > 0) {
     if (a !== 0) {
@@ -97,13 +117,17 @@ function cubicCurveSegment(p1: Point, p2: Point, p3: Point, p4: Point): Curve {
   return { f, df, d2f, from, to, min, max };
 }
 
+// 複数の点から補間した曲線グラフを返す
 function makeGraph(points: Point[]): Graph {
+  // 定義域
   const from = points.length > 0 ? points[0].x : null;
   const to = points.length > 0 ? points[points.length - 1].x : null;
+  // 1点ずつずらしながら曲線の断片を作成
   const curves: Curve[] = [];
   for (let i = 0; i + 1 < points.length; i++) {
     if (i - 1 >= 0) {
       if (i + 2 < points.length) {
+        // 4点の場合
         curves.push(
           cubicCurveSegment(
             points[i - 1],
@@ -113,20 +137,24 @@ function makeGraph(points: Point[]): Graph {
           )
         );
       } else {
+        // 3点右端の場合
         curves.push(
           quadraticCurveRightSegment(points[i - 1], points[i], points[i + 1])
         );
       }
     } else {
       if (i + 2 < points.length) {
+        // 3点左端の場合
         curves.push(
           quadraticCurveLeftSegment(points[i], points[i + 1], points[i + 2])
         );
       } else {
+        // 2点しか与えられなかった場合
         curves.push(linearLineSegment(points[i], points[i + 1]));
       }
     }
   }
+  // 曲線の関数、導関数、二次導関数
   const f = (x: number): number | null => {
     if (from === null || x < from) return null;
     if (to === null || x > to) return null;
@@ -151,6 +179,7 @@ function makeGraph(points: Point[]): Graph {
     if (x === to) return curves[curves.length - 1].d2f(x);
     return null;
   };
+  // 最大値と最小値を調べる
   const min =
     curves.length > 0
       ? curves.reduce((a, c) => (a.min > c.min ? c : a)).min
