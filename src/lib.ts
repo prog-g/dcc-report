@@ -1,4 +1,4 @@
-// 2点を通る直線を返す
+// 2点を通る直線の Curve を返す
 function linearLineSegment(p1: Point, p2: Point): Curve {
   // 多項式の係数を求める
   const a = (p1.y - p2.y) / (p1.x - p2.x);
@@ -17,7 +17,7 @@ function linearLineSegment(p1: Point, p2: Point): Curve {
   return { f, df, d2f, from, to, min, max };
 }
 
-// 3点を通る2次曲線の左側2点部分の断片を返す（右側を返す関数とは定義域のみ異なる）
+// 3点を通る2次曲線の左側2点部分の Curve を返す（右側を返す関数とは定義域のみ異なる）
 function quadraticCurveLeftSegment(p1: Point, p2: Point, p3: Point): Curve {
   // 多項式の係数を求める
   const a =
@@ -44,7 +44,7 @@ function quadraticCurveLeftSegment(p1: Point, p2: Point, p3: Point): Curve {
   return { f, df, d2f, from, to, min, max };
 }
 
-// 3点を通る2次曲線の右側2点部分の断片を返す（左側を返す関数とは定義域のみ異なる）
+// 3点を通る2次曲線の右側2点部分の Curve を返す（左側を返す関数とは定義域のみ異なる）
 function quadraticCurveRightSegment(p1: Point, p2: Point, p3: Point): Curve {
   // 多項式の係数を求める
   const a =
@@ -71,7 +71,7 @@ function quadraticCurveRightSegment(p1: Point, p2: Point, p3: Point): Curve {
   return { f, df, d2f, from, to, min, max };
 }
 
-// 4点を通る3次曲線の真ん中2点部分の断片を返す
+// 4点を通る3次曲線の真ん中2点部分の Curve を返す
 function cubicCurveSegment(p1: Point, p2: Point, p3: Point, p4: Point): Curve {
   // 多項式の係数を求める
   const m1 = p1.y / ((p1.x - p2.x) * (p1.x - p3.x) * (p1.x - p4.x));
@@ -125,7 +125,7 @@ function makeGraph(points: Point[]): Graph {
   // 定義域
   const from = points.length > 1 ? points[0].x : null;
   const to = points.length > 1 ? points[points.length - 1].x : null;
-  // 1点ずつずらしながら曲線の断片を作成
+  // 1点ずつずらしながら Curve を作成
   const curves: Curve[] = [];
   for (let i = 0; i + 1 < points.length; i++) {
     if (i - 1 >= 0) {
