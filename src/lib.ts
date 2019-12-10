@@ -44,8 +44,8 @@ function quadraticCurveLeftSegment(p1: Point, p2: Point, p3: Point): Curve {
 
 // 3点を通る2次曲線の右側2点部分の断片を返す関数
 function quadraticCurveRightSegment(p1: Point, p2: Point, p3: Point): Curve {
-  // 曲線の関数の導出は quadraticCurveLeftSegment と同じ
   // 曲線の 関数, 導関数, 二次導関数 を求める
+  // 導出は quadraticCurveLeftSegment と同じ
   const a =
     ((p1.y - p2.y) * (p1.x - p3.x) - (p1.y - p3.y) * (p1.x - p2.x)) /
     ((p1.x - p2.x) * (p1.x - p3.x) * (p2.x - p3.x));
@@ -119,7 +119,7 @@ function cubicCurveSegment(p1: Point, p2: Point, p3: Point, p4: Point): Curve {
 
 // 標本点からラグランジュ補間したグラフのデータを作る関数
 function makeGraph(points: Point[]): Graph {
-  // 点が2個以上ないときは null を返す
+  // 標本点が1個以下で定義域が求められない場合は null を返す
   if (points.length < 2) return null;
   // 定義域を求める
   const from = points[0].x;
@@ -127,7 +127,7 @@ function makeGraph(points: Point[]): Graph {
   // 1点ずつずらしながら Curve を作る
   const curves: Curve[] = [];
   for (let i = 0; i + 1 < points.length; i++) {
-    if (0 <= i - 1) {
+    if (i - 1 >= 0) {
       if (i + 2 < points.length) {
         // 4点がとれる場合
         curves.push(
@@ -158,26 +158,29 @@ function makeGraph(points: Point[]): Graph {
   }
   // 曲線の 関数, 導関数, 二次導関数 を求める
   const f = (x: number): number => {
+    // x が定義域の外にある場合は、グラフの 左端, 右端 の断片の関数を使う
     if (x < from) return curves[0].f(x);
     if (x >= to) return curves[curves.length - 1].f(x);
     const i = points.findIndex(p => p.x > x) - 1;
-    return i >= 0 ? curves[i].f(x) : curves[0].f(x);
+    return curves[i].f(x);
   };
   const df = (x: number): number => {
+    // x が定義域の外にある場合は、グラフの 左端, 右端 の断片の関数を使う
     if (x < from) return curves[0].df(x);
     if (x >= to) return curves[curves.length - 1].df(x);
     const i = points.findIndex(p => p.x > x) - 1;
-    return i >= 0 ? curves[i].df(x) : curves[0].df(x);
+    return curves[i].df(x);
   };
   const d2f = (x: number): number => {
+    // x が定義域の外にある場合は、グラフの 左端, 右端 の断片の関数を使う
     if (x < from) return curves[0].d2f(x);
     if (x >= to) return curves[curves.length - 1].d2f(x);
     const i = points.findIndex(p => p.x > x) - 1;
-    return i >= 0 ? curves[i].d2f(x) : curves[0].d2f(x);
+    return curves[i].d2f(x);
   };
   // 定義域内での f(x) の 最小値, 最大値 を求める
-  const min = curves.reduce((a, c) => (a.min > c.min ? c : a)).min;
-  const max = curves.reduce((a, c) => (a.max < c.max ? c : a)).max;
+  const min = curves.reduce((a, c) => (a > c.min ? c.min : a), 0);
+  const max = curves.reduce((a, c) => (a < c.max ? c.max : a), 0);
   return { f, df, d2f, from, to, min, max, points };
 }
 
