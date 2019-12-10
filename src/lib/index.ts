@@ -14,6 +14,7 @@ function insertNewNoteBefore(setNotes: SetNotesFunc, id: number): void {
   });
 }
 
+// 現在時刻を YYYYMMDD_HH-mm-ss の形式で返す関数
 function now(): string {
   const now = new Date();
   const year = now.getFullYear();
@@ -25,11 +26,16 @@ function now(): string {
   return `${year}-${month}-${date}_${hours}-${minutes}-${seconds}`;
 }
 
+// ページ全体を .html としてダウンロードさせる関数
+// see https://qiita.com/ahuglajbclajep/items/b3ef7604eabc5659cd7c
 const download: () => void = () => {
+  // DOM をディープコピーする
   const doc = document.documentElement.cloneNode(true) as HTMLElement;
+  // コピーした DOM を整形する
   const script = doc.getElementsByTagName("script")[0];
   doc.getElementsByTagName("body")[0].removeChild(script);
   const html = `<!DOCTYPE html>\n${doc.outerHTML}`;
+  // ファイルに変換してURLを発行し、クリックイベントを起こす
   const a = document.createElement("a");
   a.href = URL.createObjectURL(new Blob([html], { type: "text/html" }));
   a.download = `${now()}.html`;
