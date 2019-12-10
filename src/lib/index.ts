@@ -29,13 +29,12 @@ function now(): string {
 // ページ全体を .html としてダウンロードさせる関数
 // see https://qiita.com/ahuglajbclajep/items/b3ef7604eabc5659cd7c
 const download: () => void = () => {
-  // DOM をディープコピーする
+  // DOM をディープコピーして整形する
   const doc = document.documentElement.cloneNode(true) as HTMLElement;
-  // コピーした DOM を整形する
   const script = doc.getElementsByTagName("script")[0];
   doc.getElementsByTagName("body")[0].removeChild(script);
   const html = `<!DOCTYPE html>\n${doc.outerHTML}`;
-  // ファイルに変換してURLを発行し、クリックイベントを起こす
+  // 内容をファイルに変換してURLを発行し、クリックイベントを起こす
   const a = document.createElement("a");
   a.href = URL.createObjectURL(new Blob([html], { type: "text/html" }));
   a.download = `${now()}.html`;
