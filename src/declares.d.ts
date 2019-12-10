@@ -1,12 +1,12 @@
-//
+// グラフの点
 type Point = { x: number; y: number };
 type SetPointsFunc = React.Dispatch<React.SetStateAction<Point[]>>;
 
-//
+// メモのデータ
 type Note = { id: number; x: number | null };
 type SetNotesFunc = React.Dispatch<React.SetStateAction<Note[]>>;
 
-//
+// 紐つけるメモの参照
 type BindingTarget = number | null;
 type SetBindingTargetFunc = React.Dispatch<React.SetStateAction<BindingTarget>>;
 

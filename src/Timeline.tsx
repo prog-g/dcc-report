@@ -3,18 +3,19 @@ import { newNote, noteColor, noteNumber } from "./lib";
 import Note from "./Note";
 
 type Props = {
-  f: GraphFunc;
-  df: GraphFunc;
+  graph: Graph;
   notes: Note[];
   setNotes: SetNotesFunc;
   setBindingTarget: SetBindingTargetFunc;
 };
 
 const Timeline: React.FunctionComponent<Props> = props => {
+  // メモを追加するイベントハンドラ
   const add = React.useCallback(
     () => props.setNotes(prev => [...prev, newNote(prev)]),
     [props]
   );
+  // x が若い順にメモをソートするイベントハンドラ
   const order = React.useCallback(() => {
     props.setNotes(prev => {
       const list = prev.map(n => {
@@ -35,19 +36,30 @@ const Timeline: React.FunctionComponent<Props> = props => {
         .map(e => e.note);
     });
   }, [props]);
-  const notes = props.notes.map(n => (
-    <Note
-      key={n.id}
-      id={n.id}
-      color={noteColor(n.id)}
-      number={noteNumber(props.notes, n.id)}
-      x={n.x}
-      y={n.x !== null ? props.f(n.x) : null}
-      dy={n.x !== null ? props.df(n.x) : null}
-      setNotes={props.setNotes}
-      setBindingTarget={props.setBindingTarget}
-    />
-  ));
+  const notes = props.notes.map(n => {
+    // x が定義域内なら f(x), f'(x) を求める
+    let y: number | null = null;
+    let dy: number | null = null;
+    if (n.x !== null && props.graph !== null) {
+      if (props.graph.from <= n.x && n.x <= props.graph.to) {
+        y = props.graph.f(n.x);
+        dy = props.graph.df(n.x);
+      }
+    }
+    return (
+      <Note
+        key={n.id}
+        id={n.id}
+        color={noteColor(n.id)}
+        number={noteNumber(props.notes, n.id)}
+        x={n.x}
+        y={y}
+        dy={dy}
+        setNotes={props.setNotes}
+        setBindingTarget={props.setBindingTarget}
+      />
+    );
+  });
   return (
     <div className="timeline">
       <div onClick={order}>Order By Time</div>

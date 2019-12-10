@@ -14,6 +14,7 @@ type Props = {
 
 const Note: React.FunctionComponent<Props> = props => {
   const [content, setContent] = React.useState("New Note");
+  // メモを中間に挿入するイベントハンドラ
   const insert = React.useCallback(
     () =>
       props.setNotes(prev => {
@@ -26,13 +27,16 @@ const Note: React.FunctionComponent<Props> = props => {
       }),
     [props]
   );
+  // メモが編集されたときのイベントハンドラ
   const edit = React.useCallback(
     (e: React.ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value),
     []
   );
+  // 紐つけボタンのイベントハンドラ
   const bind = React.useCallback(() => props.setBindingTarget(props.id), [
     props
   ]);
+  // メモを上へ移動するイベントハンドラ
   const up = React.useCallback(
     () =>
       props.setNotes(prev => {
@@ -47,6 +51,7 @@ const Note: React.FunctionComponent<Props> = props => {
       }),
     [props]
   );
+  // メモを下へ移動するイベントハンドラ
   const down = React.useCallback(
     () =>
       props.setNotes(prev => {
@@ -61,6 +66,7 @@ const Note: React.FunctionComponent<Props> = props => {
       }),
     [props]
   );
+  // メモを削除するイベントハンドラ
   const del = React.useCallback(
     () => props.setNotes(prev => prev.filter(n => n.id !== props.id)),
     [props]

@@ -120,7 +120,7 @@ function cubicCurveSegment(p1: Point, p2: Point, p3: Point, p4: Point): Curve {
 // 標本点からラグランジュ補間したグラフのデータを作る関数
 function makeGraph(points: Point[]): Graph {
   // 点が2個以上ないときは null を返す
-  if (points.length > 1) return null;
+  if (points.length < 2) return null;
   // 定義域を求める
   const from = points[0].x;
   const to = points[points.length - 1].x;
@@ -181,16 +181,19 @@ function makeGraph(points: Point[]): Graph {
   return { f, df, d2f, from, to, min, max, points };
 }
 
+// 新しい空のメモを返す
 function newNote(currentNotes: Note[]): Note {
   const maxId = currentNotes.reduce((a, n) => (a < n.id ? n.id : a), 0);
   return { id: maxId + 1, x: null };
 }
 
 // TODO: algorithm
+// id に従属するメモの色を返す
 function noteColor(id: number): string {
   return id % 2 === 0 ? "blue" : "red";
 }
 
+// x 順に並べたときのメモの番号を返す
 function noteNumber(notes: Note[], id: number): number | null {
   const i = notes
     .filter(n => n.x !== null)

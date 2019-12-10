@@ -19,8 +19,7 @@ const App: React.FunctionComponent = () => {
         setBindingTarget={setBindingTarget}
       />
       <Timeline
-        f={graph.f}
-        df={graph.df}
+        graph={graph}
         notes={notes}
         setNotes={setNotes}
         setBindingTarget={setBindingTarget}
