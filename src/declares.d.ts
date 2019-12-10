@@ -16,13 +16,4 @@ type Curve = {
 };
 
 // グラフ全体の描画に必要なデータ
-type Graph = {
-  f: (x: number) => number | null;
-  df: (x: number) => number | null;
-  d2f: (x: number) => number | null;
-  from: number | null;
-  to: number | null;
-  min: number | null;
-  max: number | null;
-  points: Point[]; // 標本点
-};
+type Graph = (Curve & { points: Point[] }) | null;
