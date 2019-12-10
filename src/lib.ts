@@ -18,7 +18,7 @@ function linearLineSegment(p1: Point, p2: Point): Curve {
 
 // 3点を通る2次曲線の左側2点部分の断片を返す関数
 function quadraticCurveLeftSegment(p1: Point, p2: Point, p3: Point): Curve {
-  // 直線の 関数, 導関数, 二次導関数 を求める
+  // 曲線の 関数, 導関数, 二次導関数 を求める
   const a =
     ((p1.y - p2.y) * (p1.x - p3.x) - (p1.y - p3.y) * (p1.x - p2.x)) /
     ((p1.x - p2.x) * (p1.x - p3.x) * (p2.x - p3.x));
@@ -45,7 +45,7 @@ function quadraticCurveLeftSegment(p1: Point, p2: Point, p3: Point): Curve {
 // 3点を通る2次曲線の右側2点部分の断片を返す関数
 function quadraticCurveRightSegment(p1: Point, p2: Point, p3: Point): Curve {
   // 曲線の関数の導出は quadraticCurveLeftSegment と同じ
-  // 直線の 関数, 導関数, 二次導関数 を求める
+  // 曲線の 関数, 導関数, 二次導関数 を求める
   const a =
     ((p1.y - p2.y) * (p1.x - p3.x) - (p1.y - p3.y) * (p1.x - p2.x)) /
     ((p1.x - p2.x) * (p1.x - p3.x) * (p2.x - p3.x));
@@ -71,7 +71,7 @@ function quadraticCurveRightSegment(p1: Point, p2: Point, p3: Point): Curve {
 
 // 4点を通る3次曲線の真ん中2点部分の断片を返す関数
 function cubicCurveSegment(p1: Point, p2: Point, p3: Point, p4: Point): Curve {
-  // 直線の 関数, 導関数, 二次導関数 を求める
+  // 曲線の 関数, 導関数, 二次導関数 を求める
   const m1 = p1.y / ((p1.x - p2.x) * (p1.x - p3.x) * (p1.x - p4.x));
   const m2 = p2.y / ((p2.x - p1.x) * (p2.x - p3.x) * (p2.x - p4.x));
   const m3 = p3.y / ((p3.x - p1.x) * (p3.x - p2.x) * (p3.x - p4.x));
