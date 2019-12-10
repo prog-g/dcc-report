@@ -120,7 +120,7 @@ function cubicCurveSegment(p1: Point, p2: Point, p3: Point, p4: Point): Curve {
 // 標本点からラグランジュ補間したグラフのデータを作る関数
 function makeGraph(points: Point[]): Graph {
   // 点が2個以上ないときは null を返す
-  if (points.length > 1) return null;
+  if (points.length < 2) return null;
   // 定義域を求める
   const from = points[0].x;
   const to = points[points.length - 1].x;
