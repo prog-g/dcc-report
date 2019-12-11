@@ -30,7 +30,7 @@ const gridx = 10; // グリッドの x 分割数
 const gridy = 4; // グリッドの y 分割数
 const gridLineWidth = 1; // グリッド線の描画幅
 const gridLineColor = "gray"; // グリッド線の描画色
-const eps = 2 ** -8; // 開区間を評価するための十分小さい値
+const eps = 2 ** -52; // 開区間を評価するための十分小さい値
 
 // 曲線関数空間からキャンバス空間への座標変換
 function funcToCanvas(canvas: HTMLCanvasElement, p: Point): Point {
