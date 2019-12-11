@@ -1,6 +1,8 @@
 import React from "react";
 import Graph from "./Graph";
-import { download, makeGraph, newNote } from "./lib";
+import { makeGraph } from "./lib/graph";
+import { newNote } from "./lib/note";
+import { download } from "./lib/util";
 import Timeline from "./Timeline";
 
 const App: React.FunctionComponent = () => {

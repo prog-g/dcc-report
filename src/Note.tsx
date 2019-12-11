@@ -1,5 +1,5 @@
 import React from "react";
-import { newNote } from "./lib";
+import { newNote } from "./lib/note";
 
 type Props = {
   id: number;

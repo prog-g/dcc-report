@@ -1,5 +1,5 @@
 import React from "react";
-import { newNote, noteColor, noteNumber } from "./lib";
+import { newNote, noteColor, noteNumber } from "./lib/note";
 import Note from "./Note";
 
 type Props = {
