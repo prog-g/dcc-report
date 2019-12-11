@@ -1,5 +1,5 @@
 import React from "react";
-import { insertNewNoteBefore } from "./lib";
+import { insertNewNoteBefore } from "./lib/note";
 
 type Props = { id: number; setNotes: SetNotesFunc };
 
