@@ -220,7 +220,7 @@ const Graph: React.FunctionComponent<Props> = props => {
         setDrawing(true);
       }
     },
-    [setDrawing, props]
+    [props]
   );
   // キャンバスでマウスを動かしたときのイベントハンドラ
   const onMouseMove = React.useCallback(
@@ -242,7 +242,7 @@ const Graph: React.FunctionComponent<Props> = props => {
         }
       }
     },
-    [drawing, props, firstPoint]
+    [props, drawing, firstPoint]
   );
   // グラフの描き終わりに呼ばれる
   const onEndDrawing = React.useCallback(() => {
