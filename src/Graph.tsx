@@ -92,10 +92,10 @@ function drawGraph(
       const y2 = y1 + (d1 !== null ? d1 : 0) * (x2 - x1);
       const x3 = (x1 + 2 * x4) / 3;
       const y3 = (y4 !== null ? y4 : 0) - (d4 !== null ? d4 : 0) * (x4 - x3);
-      const p1 = funcToCanvas(canvas, prev.points[i]);
+      const p1 = funcToCanvas(canvas, { x: x1, y: y1 });
       const p2 = funcToCanvas(canvas, { x: x2, y: y2 });
       const p3 = funcToCanvas(canvas, { x: x3, y: y3 });
-      const p4 = funcToCanvas(canvas, prev.points[i + 1]);
+      const p4 = funcToCanvas(canvas, { x: x4, y: y4 });
       ctx.moveTo(p1.x, p1.y);
       ctx.bezierCurveTo(p2.x, p2.y, p3.x, p3.y, p4.x, p4.y);
       ctx.stroke();
@@ -117,10 +117,10 @@ function drawGraph(
       const y2 = y1 + (d1 !== null ? d1 : 0) * (x2 - x1);
       const x3 = (x1 + 2 * x4) / 3;
       const y3 = (y4 !== null ? y4 : 0) - (d4 !== null ? d4 : 0) * (x4 - x3);
-      const p1 = funcToCanvas(canvas, graph.points[i]);
+      const p1 = funcToCanvas(canvas, { x: x1, y: y1 });
       const p2 = funcToCanvas(canvas, { x: x2, y: y2 });
       const p3 = funcToCanvas(canvas, { x: x3, y: y3 });
-      const p4 = funcToCanvas(canvas, graph.points[i + 1]);
+      const p4 = funcToCanvas(canvas, { x: x4, y: y4 });
       ctx.moveTo(p1.x, p1.y);
       ctx.bezierCurveTo(p2.x, p2.y, p3.x, p3.y, p4.x, p4.y);
       ctx.stroke();
