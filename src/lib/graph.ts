@@ -179,8 +179,8 @@ function makeGraph(points: Point[]): Graph {
     return curves[i].d2f(x);
   };
   // 定義域内での f(x) の 最小値, 最大値 を求める
-  const min = curves.reduce((a, c) => (a > c.min ? c.min : a), 0);
-  const max = curves.reduce((a, c) => (a < c.max ? c.max : a), 0);
+  const min = curves.reduce((a, c) => (a.min > c.min ? c : a)).min;
+  const max = curves.reduce((a, c) => (a.max < c.max ? c : a)).max;
   return { f, df, d2f, from, to, min, max, points };
 }
 
