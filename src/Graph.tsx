@@ -228,11 +228,7 @@ const Graph: React.FunctionComponent<Props> = props => {
       if (!canvasRef.current) return;
       const p = canvasToFunc(e);
       if (drawing) {
-        if (
-          !props.graph &&
-          firstPoint !== null &&
-          p.x - firstPoint.x > minDelta
-        ) {
+        if (!props.graph && firstPoint && p.x - firstPoint.x > minDelta) {
           // まだグラフがなくて点をとる条件満たしていたらを最初の2点をとる
           props.setPoints([firstPoint, p]);
           setFirstPoint(null);
@@ -252,7 +248,7 @@ const Graph: React.FunctionComponent<Props> = props => {
   const onEndDrawing = React.useCallback(() => {
     setDrawing(false);
     setFirstPoint(null);
-  }, [setDrawing]);
+  }, []);
   // 前回のグラフを消すイベントハンドラ
   const clear = React.useCallback(() => {
     setOldGraph(props.graph);
