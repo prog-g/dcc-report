@@ -163,13 +163,14 @@ function drawGraph(
 const Graph: React.FunctionComponent<Props> = props => {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
   const [drawing, setDrawing] = React.useState(false);
+  const [dragged, setDragged] = React.useState(false);
   const [firstPoint, setFirstPoint] = React.useState<Point | null>(null);
   const [oldGraph, setOldGraph] = React.useState<Graph>(null);
   // キャンバスをクリックしたときのイベントハンドラ
   const onClick = React.useCallback(
     (e: React.MouseEvent<HTMLCanvasElement>): void => {
       const p = canvasToFunc(e);
-      if (props.graph && !drawing) {
+      if (props.graph && !dragged) {
         if (props.graph.from <= p.x && p.x <= props.graph.to) {
           // x が定義域内だったとき
           if (props.bindingTarget === null) {
@@ -200,11 +201,12 @@ const Graph: React.FunctionComponent<Props> = props => {
         }
       }
     },
-    [props, drawing]
+    [props, dragged]
   );
   // キャンバスでマウスを押下したときのイベントハンドラ
   const onMouseDown = React.useCallback(
     (e: React.MouseEvent<HTMLCanvasElement>) => {
+      setDragged(false);
       if (!canvasRef.current) return;
       const p = canvasToFunc(e);
       if (!props.graph && p.x < maxMarginLeft) {
@@ -225,6 +227,7 @@ const Graph: React.FunctionComponent<Props> = props => {
   // キャンバスでマウスを動かしたときのイベントハンドラ
   const onMouseMove = React.useCallback(
     (e: React.MouseEvent<HTMLCanvasElement>) => {
+      setDragged(true);
       if (!canvasRef.current) return;
       const p = canvasToFunc(e);
       if (drawing) {
