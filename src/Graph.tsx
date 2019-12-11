@@ -13,7 +13,7 @@ type Props = {
 const scaleX = 100; // 関数空間の横の長さ
 const scaleY = 100; // 関数空間の縦の長さ
 const minDelta = 0.4; // 標本点の x の最小間隔
-const maxDelta = 2.5; // 標本点の x の最大間隔
+const maxResume = 2.5; // 描画再開とみなす標本点の x の最大距離
 const maxMarginLeft = 5; // 定義域の始まりの上限
 const width = 1000; // キャンバスの横の長さ
 const height = 500; // キャンバスの縦の長さ
@@ -217,7 +217,7 @@ const Graph: React.FunctionComponent<Props> = props => {
         // すでにグラフがあり、描画再開条件を満たしていれば描画状態を有効にする
         props.graph &&
         props.graph.to < p.x &&
-        p.x - props.graph.to < maxDelta
+        p.x - props.graph.to < maxResume
       ) {
         setDrawing(true);
       }
