@@ -1,4 +1,75 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
 body {
-  background: #151819;
-  color: white;
+  color: #000;
+  background: #fff;
+}
+
+button {
+}
+
+#root {
+  max-width: 980px;
+  margin: 10px auto;
+}
+
+.graph {
+  text-align: right;
+}
+
+.graph-info {
+  font-size: 90%;
+  display: inline-block;
+  padding: 0px 2px;
+  border-left: 2px solid #333;
+  border-top: 2px solid #333;
+  border-right: 2px solid #333;
+  border-radius: 6px 6px 0px 0px;
+}
+
+.graph-canvas {
+  width: 100%;
+  display: block;
+  border: 2px solid #333;
+  box-sizing: border-box;
+}
+
+.graph-menu {
+  text-align: left;
+  padding: 0px 2px;
+  border-left: 2px solid #333;
+  border-bottom: 2px solid #333;
+  border-right: 2px solid #333;
+  border-radius: 0px 0px 6px 6px;
+}
+
+.graph-status {
+  font-size: 90%;
+  margin-left: 10px;
+  padding-left: 4px;
+  background-color: #bdd8ff;
+  border-left: 10px solid #579bff;
+}
+
+.timeline {
+  margin-top: 10px;
+}
+
+.timeline-menu {
+  text-align: right;
+  background-color: #eee;
+}
+
+.note {
+  margin-bottom: 10px;
+  border: 2px solid #333;
+  border-radius: 12px;
+}
+
+.new {
+  padding: 20px;
+  text-align: center;
 }

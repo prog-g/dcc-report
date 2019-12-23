@@ -78,14 +78,14 @@ const Note: React.FunctionComponent<Props> = props => {
         x: {props.x}, y: {props.y} dy: {props.dy}
       </div>
       <div className="action">
-        <span onClick={insert}>+ Insert Above</span>
-        <span onClick={up}>Move Up</span>
+        <button onClick={insert}>+ Insert Above</button>
+        <button onClick={up}>Move Up</button>
       </div>
       <textarea className="content" value={content} onChange={edit}></textarea>
       <div className="action">
-        <span onClick={down}>Move Down</span>
-        <span onClick={bind}>Bind</span>
-        <span onClick={del}>Delete</span>
+        <button onClick={down}>Move Down</button>
+        <button onClick={bind}>Bind</button>
+        <button onClick={del}>Delete</button>
       </div>
     </div>
   );
