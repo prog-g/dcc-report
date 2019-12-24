@@ -15,7 +15,7 @@ const scaleY = 100; // 関数空間の縦の長さ
 const minDelta = 0.4; // 標本点の x の最小間隔
 const maxResume = 2.5; // 描画再開とみなす標本点の x の最大距離
 const maxMarginLeft = 5; // 定義域の始まりの上限
-const width = 1600; // キャンバスの横の長さ
+const width = 1200; // キャンバスの横の長さ
 const height = 500; // キャンバスの縦の長さ
 const graphLineWidth = 2; // グラフ曲線の描画幅
 const graphPointRadius = 4; // グラフの点の半径
@@ -270,7 +270,8 @@ const Graph: React.FunctionComponent<Props> = props => {
   return (
     <div className="graph">
       <div className="graph-info">
-        Min: {props.graph?.min}, Max: {props.graph?.max}
+        最小値: {props.graph?.min?.toFixed(2) ?? "n/a"}, 最大値:
+        {props.graph?.max?.toFixed(2) ?? "n/a"}
       </div>
       <canvas
         className="graph-canvas"
@@ -284,9 +285,11 @@ const Graph: React.FunctionComponent<Props> = props => {
         onMouseLeave={onEndDrawing}
       />
       <div className="graph-menu">
-        <button onClick={clear}>グラフを書き直す</button>
-        <button onClick={clearOld}>グラフ履歴を消去</button>
-        <span className="graph-status">挿入モード</span>
+        <button onClick={clear}>書き直す</button>
+        <button onClick={clearOld}>履歴を消去</button>
+        <span className="graph-status">
+          {props.bindingTarget === null ? "挿入モード" : "バインドモード"}
+        </span>
       </div>
     </div>
   );

@@ -4,16 +4,32 @@
 }
 
 body {
+  font-size: 16px;
   color: #000;
   background: #fff;
+  word-break: keep-all;
+}
+
+h1 {
+  margin-left: 5px;
+}
+
+p {
+  margin-left: 5px;
 }
 
 button {
+  margin: 4px;
 }
 
 #root {
+  min-width: 320px;
   max-width: 980px;
   margin: 10px auto;
+}
+
+#app {
+  margin: 0px 2px;
 }
 
 .graph {
@@ -49,7 +65,7 @@ button {
 .graph-status {
   font-size: 90%;
   margin-left: 10px;
-  padding-left: 4px;
+  padding: 0px 4px;
   background-color: #bdd8ff;
   border-left: 10px solid #579bff;
 }
@@ -69,7 +85,51 @@ button {
   border-radius: 12px;
 }
 
+.note-header {
+  width: 20%;
+  float: left;
+  margin-left: 10px;
+  padding-left: 6px;
+  border-left: 10px solid;
+}
+
+.note-footer {
+  width: 40%;
+  float: left;
+  margin: 4px 0px 0px 10px;
+  padding-left: 6px;
+}
+
+.note-content {
+  clear: both;
+  margin: 0px 10px 0px 10px;
+}
+
+.note-text {
+  width: 100%;
+  height: 72px;
+  display: block;
+  resize: none;
+  box-sizing: border-box;
+  box-shadow: 1px 1px #bbb;
+}
+
+.note-menu {
+  text-align: right;
+  margin-right: 10px;
+}
+
 .new {
   padding: 20px;
   text-align: center;
+}
+
+.download-menu {
+  text-align: center;
+}
+
+@media print {
+  .no-print {
+    display: none;
+  }
 }

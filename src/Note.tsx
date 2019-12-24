@@ -71,21 +71,35 @@ const Note: React.FunctionComponent<Props> = props => {
     () => props.setNotes(prev => prev.filter(n => n.id !== props.id)),
     [props]
   );
+  const labelColor = { borderColor: props.color };
   return (
     <div className="note">
-      <div>
-        Num: {props.number}, ID: {props.id}, color: {props.color}
-        x: {props.x}, y: {props.y} dy: {props.dy}
+      <div className="note-header" style={labelColor}>
+        {props.number !== null ? "#" + props.number : "Note"}
       </div>
-      <div className="action">
-        <button onClick={insert}>+ Insert Above</button>
-        <button onClick={up}>Move Up</button>
+      <div className="note-menu top-menu">
+        <button onClick={insert}>上に挿入</button>
+        <button onClick={bind}>バインド</button>
+        <button onClick={up}>上へ移動</button>
       </div>
-      <textarea className="content" value={content} onChange={edit}></textarea>
-      <div className="action">
-        <button onClick={down}>Move Down</button>
-        <button onClick={bind}>Bind</button>
-        <button onClick={del}>Delete</button>
+      <div className="note-content">
+        <textarea
+          className="note-text"
+          value={content}
+          onChange={edit}
+        ></textarea>
+      </div>
+      {props.x !== null ? (
+        <div className="note-footer">
+          x: {props.x?.toFixed(2)}, y:{" "}
+          {props.y !== null ? props.y.toFixed(2) : "n/a"}
+        </div>
+      ) : (
+        ""
+      )}
+      <div className="note-menu bottom-menu">
+        <button onClick={del}>削除</button>
+        <button onClick={down}>下へ移動</button>
       </div>
     </div>
   );

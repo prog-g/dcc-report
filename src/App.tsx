@@ -26,7 +26,9 @@ const App: React.FunctionComponent = () => {
         setNotes={setNotes}
         setBindingTarget={setBindingTarget}
       />
-      <button onClick={download}>Download</button>
+      <div className="download-menu">
+        <button onClick={download}>HTMLでダウンロード</button>
+      </div>
     </>
   );
 };

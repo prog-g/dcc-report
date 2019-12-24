@@ -63,7 +63,7 @@ const Timeline: React.FunctionComponent<Props> = props => {
   return (
     <div className="timeline">
       <div className="timeline-menu">
-        <button onClick={order}>メモを時系列で並び替え</button>
+        <button onClick={order}>時系列で並び替え</button>
       </div>
       {notes}
       <div className="note new" onClick={add}>
