@@ -10,7 +10,8 @@ function noteColor(id: number): string {
   return id % 2 === 0 ? "blue" : "red";
 }
 
-// x 順に並べたときのメモの番号を返す
+// グラフ上の点の番号を求める関数
+// グラフと紐づいている Note のみを対象とし、番号は1から与える
 function noteNumber(notes: Note[], id: number): number | null {
   const i = notes
     .filter(n => n.x !== null)
