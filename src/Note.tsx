@@ -32,7 +32,7 @@ const Note: React.FunctionComponent<Props> = props => {
     (e: React.ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value),
     []
   );
-  // 紐つけボタンのイベントハンドラ
+  // メモとグラフ上の点を紐づけるボタンのイベントハンドラ
   const bind = React.useCallback(() => props.setBindingTarget(props.id), [
     props
   ]);
