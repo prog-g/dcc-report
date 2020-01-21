@@ -26,9 +26,11 @@ const Timeline: React.FunctionComponent<Props> = props => {
       }
       return list
         .sort((a, b) => {
+          // null は int よりも若い
           if (a.x === null && b.x === null) return 0;
           else if (a.x === null) return -1;
           else if (b.x === null) return 1;
+          // int 同士は通常の比較
           else return a.x - b.x;
         })
         .map(e => e.note);
