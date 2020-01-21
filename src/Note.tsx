@@ -46,7 +46,7 @@ const Note: React.FunctionComponent<Props> = props => {
           ...prev.slice(0, i - 1),
           prev[i],
           prev[i - 1],
-          ...prev.slice(i + 1, prev.length)
+          ...prev.slice(i + 1)
         ];
       }),
     [props]
