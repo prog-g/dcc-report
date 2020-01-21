@@ -1,5 +1,5 @@
 import React from "react";
-import { newNote, noteColor, noteNumber } from "./lib/note";
+import { newNote, noteNumber } from "./lib/note";
 import Note from "./Note";
 
 type Props = {
@@ -18,13 +18,11 @@ const Timeline: React.FunctionComponent<Props> = props => {
   // x が若い順にメモをソートするイベントハンドラ
   const order = React.useCallback(() => {
     props.setNotes(prev => {
-      const list = prev.map(n => {
-        return { x: n.x, note: n };
-      });
-      let k: number | null = null;
+      const list = prev.map(n => ({ x: n.x, note: n }));
+      let aboveSample: number | null = null;
       for (let i = 0; i < list.length; i++) {
-        if (list[i].x === null) list[i].x = k;
-        else k = list[i].x;
+        if (list[i].x === null) list[i].x = aboveSample;
+        else aboveSample = list[i].x;
       }
       return list
         .sort((a, b) => {
@@ -40,17 +38,19 @@ const Timeline: React.FunctionComponent<Props> = props => {
     // x が定義域内なら f(x), f'(x) を求める
     let y: number | null = null;
     let dy: number | null = null;
-    if (n.x !== null && props.graph !== null) {
-      if (props.graph.from <= n.x && n.x <= props.graph.to) {
-        y = props.graph.f(n.x);
-        dy = props.graph.df(n.x);
-      }
+    if (
+      n.x !== null &&
+      props.graph !== null &&
+      props.graph.from <= n.x &&
+      n.x <= props.graph.to
+    ) {
+      y = props.graph.f(n.x);
+      dy = props.graph.df(n.x);
     }
     return (
       <Note
         key={n.id}
         id={n.id}
-        color={noteColor(n.id)}
         number={noteNumber(props.notes, n.id)}
         x={n.x}
         y={y}

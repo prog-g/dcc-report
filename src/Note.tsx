@@ -1,9 +1,8 @@
 import React from "react";
-import { newNote } from "./lib/note";
+import { newNote, noteColor } from "./lib/note";
 
 type Props = {
   id: number;
-  color: string;
   number: number | null;
   x: number | null;
   y: number | null;
@@ -19,11 +18,7 @@ const Note: React.FunctionComponent<Props> = props => {
     () =>
       props.setNotes(prev => {
         const i = prev.findIndex(n => n.id === props.id);
-        return [
-          ...prev.slice(0, i),
-          newNote(prev),
-          ...prev.slice(i)
-        ];
+        return [...prev.slice(0, i), newNote(prev), ...prev.slice(i)];
       }),
     [props]
   );
@@ -74,7 +69,7 @@ const Note: React.FunctionComponent<Props> = props => {
   return (
     <div className="note">
       <div>
-        Num: {props.number}, ID: {props.id}, color: {props.color}
+        Num: {props.number}, ID: {props.id}, color: {noteColor(props.id)}
         x: {props.x}, y: {props.y} dy: {props.dy}
       </div>
       <div className="action">
