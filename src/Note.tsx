@@ -22,7 +22,7 @@ const Note: React.FunctionComponent<Props> = props => {
         return [
           ...prev.slice(0, i),
           newNote(prev),
-          ...prev.slice(i, prev.length)
+          ...prev.slice(i)
         ];
       }),
     [props]
