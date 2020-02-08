@@ -3,10 +3,10 @@ import { newNote, noteColor } from "./lib/note";
 
 type Props = {
   id: number;
-  number: number | null;
   x: number | null;
   y: number | null;
   dy: number | null;
+  noteNumber: number | null;
   setNotes: SetNotesFunc;
   setBindingTarget: SetBindingTargetFunc;
 };
@@ -69,7 +69,7 @@ const Note: React.FunctionComponent<Props> = props => {
   return (
     <div className="note">
       <div>
-        Num: {props.number}, ID: {props.id}, color: {noteColor(props.id)}
+        Num: {props.noteNumber}, ID: {props.id}, color: {noteColor(props.id)}
         x: {props.x}, y: {props.y} dy: {props.dy}
       </div>
       <div className="action">

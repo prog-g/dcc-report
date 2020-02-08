@@ -53,10 +53,10 @@ const Timeline: React.FunctionComponent<Props> = props => {
       <Note
         key={n.id}
         id={n.id}
-        number={noteNumber(props.notes, n.id)}
         x={n.x}
         y={y}
         dy={dy}
+        noteNumber={noteNumber(props.notes, n.id)}
         setNotes={props.setNotes}
         setBindingTarget={props.setBindingTarget}
       />

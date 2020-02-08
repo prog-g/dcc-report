@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+
 import React from "react";
 import { newNote, noteColor, noteNumber } from "./lib/note";
 
@@ -54,8 +56,7 @@ function drawGraph(
   prev: Graph,
   notes: Note[]
 ): void {
-  const ctx = canvas.getContext("2d");
-  if (!ctx) return;
+  const ctx = canvas.getContext("2d")!;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   // グリッドを描く
   ctx.lineWidth = gridLineWidth;
@@ -82,16 +83,15 @@ function drawGraph(
     ctx.strokeStyle = oldGraphLineColor;
     for (let i = 0; i + 1 < prev.points.length; i++) {
       ctx.beginPath();
-      const x1 = prev.points[i].x;
-      const y1 = prev.points[i].y;
+      const { x: x1, y: y1 } = prev.points[i];
       const d1 = prev.df(x1);
       const x4 = prev.points[i + 1].x - eps;
       const y4 = prev.f(x4);
       const d4 = prev.df(x4);
       const x2 = (2 * x1 + x4) / 3;
-      const y2 = y1 + (d1 !== null ? d1 : 0) * (x2 - x1);
+      const y2 = y1 + d1 * (x2 - x1);
       const x3 = (x1 + 2 * x4) / 3;
-      const y3 = (y4 !== null ? y4 : 0) - (d4 !== null ? d4 : 0) * (x4 - x3);
+      const y3 = y4 - d4 * (x4 - x3);
       const p1 = funcToCanvas(canvas, { x: x1, y: y1 });
       const p2 = funcToCanvas(canvas, { x: x2, y: y2 });
       const p3 = funcToCanvas(canvas, { x: x3, y: y3 });
@@ -107,16 +107,15 @@ function drawGraph(
     ctx.strokeStyle = graphLineColor;
     for (let i = 0; i + 1 < graph.points.length; i++) {
       ctx.beginPath();
-      const x1 = graph.points[i].x;
-      const y1 = graph.points[i].y;
+      const { x: x1, y: y1 } = graph.points[i];
       const d1 = graph.df(x1);
       const x4 = graph.points[i + 1].x - eps;
       const y4 = graph.f(x4);
       const d4 = graph.df(x4);
       const x2 = (2 * x1 + x4) / 3;
-      const y2 = y1 + (d1 !== null ? d1 : 0) * (x2 - x1);
+      const y2 = y1 + d1 * (x2 - x1);
       const x3 = (x1 + 2 * x4) / 3;
-      const y3 = (y4 !== null ? y4 : 0) - (d4 !== null ? d4 : 0) * (x4 - x3);
+      const y3 = y4 - d4 * (x4 - x3);
       const p1 = funcToCanvas(canvas, { x: x1, y: y1 });
       const p2 = funcToCanvas(canvas, { x: x2, y: y2 });
       const p3 = funcToCanvas(canvas, { x: x3, y: y3 });
