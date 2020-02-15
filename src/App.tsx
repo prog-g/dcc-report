@@ -3,7 +3,7 @@ import Graph from "./Graph";
 import { makeGraph } from "./lib/graph";
 import { newNote } from "./lib/note";
 import { download } from "./lib/util";
-import Timeline from "./Timeline";
+import NoteList from "./NoteList";
 
 const App: React.FunctionComponent = () => {
   const [points, setPoints] = React.useState<Point[]>([]);
@@ -20,7 +20,7 @@ const App: React.FunctionComponent = () => {
         bindingTarget={bindingTarget}
         setBindingTarget={setBindingTarget}
       />
-      <Timeline
+      <NoteList
         graph={graph}
         notes={notes}
         setNotes={setNotes}
