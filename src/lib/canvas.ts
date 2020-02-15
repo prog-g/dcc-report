@@ -73,6 +73,7 @@ function drawGraph(
       const x4 = prev.points[i + 1].x - eps;
       const y4 = prev.f(x4);
       const d4 = prev.df(x4);
+      // 欲しいベジエ曲線の制御点求める
       const x2 = (2 * x1 + x4) / 3;
       const y2 = y1 + d1 * (x2 - x1);
       const x3 = (x1 + 2 * x4) / 3;
@@ -97,6 +98,7 @@ function drawGraph(
       const x4 = graph.points[i + 1].x - eps;
       const y4 = graph.f(x4);
       const d4 = graph.df(x4);
+      // 欲しいベジエ曲線の制御点求める
       const x2 = (2 * x1 + x4) / 3;
       const y2 = y1 + d1 * (x2 - x1);
       const x3 = (x1 + 2 * x4) / 3;
