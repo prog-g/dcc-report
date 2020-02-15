@@ -4,9 +4,9 @@ import Note from "./Note";
 
 type Props = {
   graph: Graph;
-  notes: Note[];
-  setNotes: SetNotesFunc;
-  setBindingTarget: SetBindingTargetFunc;
+  notes: Notes;
+  setNotes: SetNotes;
+  setBindingTargetId: SetBindingTargetId;
 };
 
 const NoteList: React.FunctionComponent<Props> = props => {
@@ -56,9 +56,9 @@ const NoteList: React.FunctionComponent<Props> = props => {
         x={n.x}
         y={y}
         dy={dy}
-        noteNumber={noteNumber(props.notes, n.id)}
+        pointNumber={noteNumber(props.notes, n.id)}
         setNotes={props.setNotes}
-        setBindingTarget={props.setBindingTarget}
+        setBindingTargetId={props.setBindingTargetId}
       />
     );
   });

@@ -1,15 +1,13 @@
 import React from "react";
 import { newNote, noteColor } from "./lib/note";
 
-type Props = {
-  id: number;
-  x: number | null;
-  y: number | null;
-  dy: number | null;
-  noteNumber: number | null;
-  setNotes: SetNotesFunc;
-  setBindingTarget: SetBindingTargetFunc;
-};
+type Props = Note &
+  Nullable<Point> & {
+    dy: number | null;
+    pointNumber: number | null;
+    setNotes: SetNotes;
+    setBindingTargetId: SetBindingTargetId;
+  };
 
 const Note: React.FunctionComponent<Props> = props => {
   const [content, setContent] = React.useState("New Note");
@@ -28,7 +26,7 @@ const Note: React.FunctionComponent<Props> = props => {
     []
   );
   // メモとグラフ上の点を紐づけるボタンのイベントハンドラ
-  const bind = React.useCallback(() => props.setBindingTarget(props.id), [
+  const bind = React.useCallback(() => props.setBindingTargetId(props.id), [
     props
   ]);
   // メモを上へ移動するイベントハンドラ
@@ -69,7 +67,7 @@ const Note: React.FunctionComponent<Props> = props => {
   return (
     <div className="note">
       <div>
-        Num: {props.noteNumber}, ID: {props.id}, color: {noteColor(props.id)}
+        Num: {props.pointNumber}, ID: {props.id}, color: {noteColor(props.id)}
         x: {props.x}, y: {props.y} dy: {props.dy}
       </div>
       <div className="action">
