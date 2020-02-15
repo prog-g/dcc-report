@@ -1,6 +1,9 @@
 // aliases
 type SetStateFunc<T> = React.Dispatch<React.SetStateAction<T>>;
 
+// utilities
+type Nullable<T> = { [P in keyof T]: T[P] | null };
+
 // グラフの点
 type Point = { x: number; y: number };
 
