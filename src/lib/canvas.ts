@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
-import { noteColor, noteNumber } from "./note";
+import { noteColor, pointNumber } from "./note";
 
 const scaleX = 100; // 関数空間の横の長さ
 const scaleY = 100; // 関数空間の縦の長さ
@@ -121,7 +121,7 @@ function drawGraph(
       if (graph && graph.from <= x && x <= graph.to) {
         const y = graph.f(x);
         const y2 = graph.d2f(x);
-        const n = noteNumber(notes, notes[i].id);
+        const n = pointNumber(notes, notes[i].id);
         const color = noteColor(notes[i].id);
         const p = funcToCanvas(canvas, { x: x, y: y });
         ctx.fillStyle = color;
@@ -133,7 +133,7 @@ function drawGraph(
       } else if (prev && prev.from <= x && x <= prev.to) {
         const y = prev.f(x);
         const y2 = prev.d2f(x);
-        const n = noteNumber(notes, notes[i].id);
+        const n = pointNumber(notes, notes[i].id);
         const p = funcToCanvas(canvas, { x: x, y: y });
         ctx.font = `${oldGraphFontSize}px bold ${graphFont}`;
         ctx.fillStyle = oldGraphLineColor;

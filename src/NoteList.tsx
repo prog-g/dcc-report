@@ -1,5 +1,5 @@
 import React from "react";
-import { newNote, noteNumber } from "./lib/note";
+import { newNote, pointNumber } from "./lib/note";
 import Note from "./Note";
 
 type Props = {
@@ -56,7 +56,7 @@ const NoteList: React.FunctionComponent<Props> = props => {
         x={n.x}
         y={y}
         dy={dy}
-        pointNumber={noteNumber(props.notes, n.id)}
+        pointNumber={pointNumber(props.notes, n.id)}
         setNotes={props.setNotes}
         setBindingTargetId={props.setBindingTargetId}
       />

@@ -7,7 +7,7 @@ import NoteList from "./NoteList";
 
 const App: React.FunctionComponent = () => {
   const [points, setPoints] = React.useState<Points>([]);
-  const [notes, setNotes] = React.useState([newNote([])]);
+  const [notes, setNotes] = React.useState([newNote()]);
   const [bindingTargetId, setBindingTargetId] = React.useState<BindingTargetId>(
     null
   );
