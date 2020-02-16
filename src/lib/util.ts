@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+
 // 現在時刻を YYYYMMDD_HH-mm-ss の形式で返す関数
 function now(): string {
   const now = new Date();
@@ -13,12 +15,18 @@ function now(): string {
 // ページ全体を .html としてダウンロードさせる関数
 // see https://qiita.com/ahuglajbclajep/items/b3ef7604eabc5659cd7c
 const download: () => void = () => {
-  // DOM をディープコピーして整形する
+  // DOM をディープコピーする
   const doc = document.documentElement.cloneNode(true) as HTMLElement;
+  // 不要なタグを取り除く
   const script = doc.getElementsByTagName("script")[0];
-  doc.getElementsByTagName("body")[0].removeChild(script);
+  script.parentNode!.removeChild(script);
+  // <canvas> を <img> に変換する
+  const img = document.createElement("img");
+  img.src = document.getElementsByTagName("canvas")[0].toDataURL();
+  const canvas = doc.getElementsByTagName("canvas")[0];
+  canvas.parentNode!.replaceChild(img, canvas);
+  // 内容をファイルに変換して URL を発行し、クリックイベントを起こす
   const html = `<!DOCTYPE html>\n${doc.outerHTML}`;
-  // 内容をファイルに変換してURLを発行し、クリックイベントを起こす
   const a = document.createElement("a");
   a.href = URL.createObjectURL(new Blob([html], { type: "text/html" }));
   a.download = `${now()}.html`;

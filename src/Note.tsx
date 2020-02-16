@@ -1,13 +1,12 @@
 import React from "react";
-import { newNote } from "./lib/note";
+import { newNote, noteColor } from "./lib/note";
 
 type Props = {
   id: number;
-  color: string;
-  number: number | null;
   x: number | null;
   y: number | null;
   dy: number | null;
+  noteNumber: number | null;
   setNotes: SetNotesFunc;
   setBindingTarget: SetBindingTargetFunc;
 };
@@ -19,11 +18,7 @@ const Note: React.FunctionComponent<Props> = props => {
     () =>
       props.setNotes(prev => {
         const i = prev.findIndex(n => n.id === props.id);
-        return [
-          ...prev.slice(0, i),
-          newNote(prev),
-          ...prev.slice(i, prev.length)
-        ];
+        return [...prev.slice(0, i), newNote(prev), ...prev.slice(i)];
       }),
     [props]
   );
@@ -32,7 +27,7 @@ const Note: React.FunctionComponent<Props> = props => {
     (e: React.ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value),
     []
   );
-  // 紐つけボタンのイベントハンドラ
+  // メモとグラフ上の点を紐づけるボタンのイベントハンドラ
   const bind = React.useCallback(() => props.setBindingTarget(props.id), [
     props
   ]);
@@ -46,7 +41,7 @@ const Note: React.FunctionComponent<Props> = props => {
           ...prev.slice(0, i - 1),
           prev[i],
           prev[i - 1],
-          ...prev.slice(i + 1, prev.length)
+          ...prev.slice(i + 1)
         ];
       }),
     [props]
@@ -61,7 +56,7 @@ const Note: React.FunctionComponent<Props> = props => {
           ...prev.slice(0, i),
           prev[i + 1],
           prev[i],
-          ...prev.slice(i + 2, prev.length)
+          ...prev.slice(i + 2)
         ];
       }),
     [props]
@@ -71,11 +66,11 @@ const Note: React.FunctionComponent<Props> = props => {
     () => props.setNotes(prev => prev.filter(n => n.id !== props.id)),
     [props]
   );
-  const labelColor = { borderColor: props.color };
+  const labelColor = { borderColor: noteColor(props.id) };
   return (
     <div className="note">
       <div className="note-header" style={labelColor}>
-        {props.number !== null ? "#" + props.number : "Note"}
+        {props.noteNumber !== null ? "#" + props.noteNumber : "Note"}
       </div>
       <div className="note-menu top-menu">
         <button onClick={insert}>上に挿入</button>
