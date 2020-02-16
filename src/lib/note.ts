@@ -1,7 +1,7 @@
 // 新しい空のメモを返す関数
 // 引数なしで呼ばれた場合や notes が [] の場合は初期値を返す
 function newNote(notes: Notes = []): Note {
-  if (notes.length) return { id: 1, x: null };
+  if (!notes.length) return { id: 1, x: null };
   const newId = Math.max(...notes.map(n => n.id)) + 1;
   return { id: newId, x: null };
 }
