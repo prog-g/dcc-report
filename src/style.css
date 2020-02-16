@@ -127,9 +127,3 @@ button {
 .download-menu {
   text-align: center;
 }
-
-@media print {
-  .no-print {
-    display: none;
-  }
-}
