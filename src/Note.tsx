@@ -1,13 +1,16 @@
 import React from "react";
 import { newNote, noteColor } from "./lib/note";
 
-type Props = Note &
-  Nullable<Point> & {
-    dy: number | null;
-    pointNumber: number | null;
-    setNotes: SetNotes;
-    setBindingTargetId: SetBindingTargetId;
-  };
+type Props = Note & {
+  // これらは x が null の場合 null
+  // 現状では表示にしか使われない
+  y: number | null;
+  dy: number | null;
+  pointNumber: number | null;
+
+  setNotes: SetNotes;
+  setBindingTargetId: SetBindingTargetId;
+};
 
 const Note: React.FunctionComponent<Props> = props => {
   const [content, setContent] = React.useState("New Note");
