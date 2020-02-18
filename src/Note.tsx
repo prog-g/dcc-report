@@ -1,5 +1,5 @@
 import React from "react";
-import { newNote, noteColor } from "./lib/note";
+import { newNote, noteColor, noteTextsize } from "./lib/note";
 
 type Props = {
   id: number;
@@ -24,7 +24,7 @@ const Note: React.FunctionComponent<Props> = props => {
   );
   // メモが編集されたときのイベントハンドラ
   const edit = React.useCallback(
-    (e: React.ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value),
+    (e: React.ChangeEvent<HTMLTextAreaElement>) => {setContent(e.target.value); noteTextsize(e)},
     []
   );
   // メモとグラフ上の点を紐づけるボタンのイベントハンドラ

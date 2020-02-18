@@ -7,7 +7,8 @@ function newNote(currentNotes: Note[]): Note {
 // TODO: algorithm
 // id に従属するメモの色を返す
 function noteColor(id: number): string {
-  return id % 2 === 0 ? "blue" : "red";
+  const Colors: string[] = ["blue","red","yellow","green","greenyellow","orange","pink","purple","aqua"]; 
+  return Colors[id % Colors.length];
 }
 
 // グラフ上の点の番号を求める関数
@@ -20,4 +21,20 @@ function noteNumber(notes: Note[], id: number): number | null {
   return i >= 0 ? i + 1 : null;
 }
 
-export { newNote, noteColor, noteNumber };
+//テキストエリアの自動リサイズ
+function noteTextsize(e: React.ChangeEvent<HTMLTextAreaElement>){
+  //default
+  const padding :number = 2;
+  const lineHeight :number = 13;
+  e.target.style.overflow = "hidden";
+
+  if(e.target.scrollHeight > e.target.offsetHeight){
+    e.target.style.height = (e.target.scrollHeight - (padding*2)) +"px";
+  }else{
+    const height :number = e.target.scrollHeight - lineHeight;
+    e.target.style.height = (height - (padding*2)) + "px";
+    noteTextsize(e);
+  }
+}
+
+export { newNote, noteColor, noteNumber, noteTextsize };
