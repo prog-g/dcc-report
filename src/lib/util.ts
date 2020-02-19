@@ -26,8 +26,9 @@ const download: () => void = () => {
 
   // <canvas> を <img> に変換する
   const img = document.createElement("img");
-  img.src = document.getElementsByTagName("canvas")[0].toDataURL();
   const canvas = doc.getElementsByTagName("canvas")[0];
+  img.src = document.getElementsByTagName("canvas")[0].toDataURL();
+  img.className = canvas.className;
   canvas.parentNode!.replaceChild(img, canvas);
 
   // 内容をファイルに変換して URL を発行し、クリックイベントを起こす
