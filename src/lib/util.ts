@@ -17,10 +17,8 @@ function now(): string {
 // ページ全体を .html としてダウンロードさせる関数
 // see https://qiita.com/ahuglajbclajep/items/b3ef7604eabc5659cd7c
 const download: () => void = () => {
-  // DOM をディープコピーする
+  // DOM をディープコピーし不要なタグを取り除く
   const doc = document.documentElement.cloneNode(true) as HTMLElement;
-
-  // 不要なタグを取り除く
   const script = doc.getElementsByTagName("script")[0];
   script.parentNode!.removeChild(script);
 
