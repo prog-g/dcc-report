@@ -21,20 +21,10 @@ function noteNumber(notes: Note[], id: number): number | null {
   return i >= 0 ? i + 1 : null;
 }
 
-//テキストエリアの自動リサイズ
-function noteTextsize(e: React.ChangeEvent<HTMLTextAreaElement>){
-  //default
-  const padding :number = 2;
-  const lineHeight :number = 13;
-  e.target.style.overflow = "hidden";
-
-  if(e.target.scrollHeight > e.target.offsetHeight){
-    e.target.style.height = (e.target.scrollHeight - (padding*2)) +"px";
-  }else{
-    const height :number = e.target.scrollHeight - lineHeight;
-    e.target.style.height = (height - (padding*2)) + "px";
-    noteTextsize(e);
-  }
+//content__dummyにテキストを入れる関数
+function flexTextarea(e: React.ChangeEvent<HTMLTextAreaElement>){
+  const dummy = document.querySelector(".content__dummy");
+  dummy!.textContent = e.target.value;
 }
 
-export { newNote, noteColor, noteNumber, noteTextsize };
+export { newNote, noteColor, noteNumber,flexTextarea};
