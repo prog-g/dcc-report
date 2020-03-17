@@ -4,12 +4,12 @@ import Note from "./Note";
 
 type Props = {
   graph: Graph;
-  notes: Note[];
-  setNotes: SetNotesFunc;
-  setBindingTarget: SetBindingTargetFunc;
+  notes: Notes;
+  setNotes: SetNotes;
+  setBindingTargetId: SetBindingTargetId;
 };
 
-const Timeline: React.FunctionComponent<Props> = props => {
+const NoteList: React.FunctionComponent<Props> = props => {
   // メモを追加するイベントハンドラ
   const add = React.useCallback(
     () => props.setNotes(prev => [...prev, newNote(prev)]),
@@ -56,14 +56,14 @@ const Timeline: React.FunctionComponent<Props> = props => {
         x={n.x}
         y={y}
         dy={dy}
-        noteNumber={noteNumber(props.notes, n.id)}
+        pointNumber={noteNumber(props.notes, n.id)}
         setNotes={props.setNotes}
-        setBindingTarget={props.setBindingTarget}
+        setBindingTargetId={props.setBindingTargetId}
       />
     );
   });
   return (
-    <div className="timeline">
+    <div className="note-list">
       <div onClick={order}>Order By Time</div>
       {notes}
       <div className="new" onClick={add}>
@@ -73,4 +73,4 @@ const Timeline: React.FunctionComponent<Props> = props => {
   );
 };
 
-export default Timeline;
+export default NoteList;

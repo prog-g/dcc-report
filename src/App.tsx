@@ -3,12 +3,14 @@ import Graph from "./Graph";
 import { makeGraph } from "./lib/graph";
 import { newNote } from "./lib/note";
 import { download } from "./lib/util";
-import Timeline from "./Timeline";
+import NoteList from "./NoteList";
 
 const App: React.FunctionComponent = () => {
-  const [points, setPoints] = React.useState<Point[]>([]);
+  const [points, setPoints] = React.useState<Points>([]);
   const [notes, setNotes] = React.useState([newNote([])]);
-  const [bindingTarget, setBindingTarget] = React.useState<BindingTarget>(null);
+  const [bindingTargetId, setBindingTargetId] = React.useState<BindingTargetId>(
+    null
+  );
   const graph = makeGraph(points);
   return (
     <>
@@ -17,14 +19,14 @@ const App: React.FunctionComponent = () => {
         setPoints={setPoints}
         notes={notes}
         setNotes={setNotes}
-        bindingTarget={bindingTarget}
-        setBindingTarget={setBindingTarget}
+        bindingTargetId={bindingTargetId}
+        setBindingTargetId={setBindingTargetId}
       />
-      <Timeline
+      <NoteList
         graph={graph}
         notes={notes}
         setNotes={setNotes}
-        setBindingTarget={setBindingTarget}
+        setBindingTargetId={setBindingTargetId}
       />
       <button onClick={download}>Download</button>
     </>
