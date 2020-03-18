@@ -14,8 +14,9 @@ type Props = Note & {
 
 const Note: React.FunctionComponent<Props> = props => {
   const [content, setContent] = React.useState("New Note");
-  // メモを中間に挿入するイベントハンドラ
-  const insert = React.useCallback(
+
+  // 新しいメモをこのメモの前に挿入するイベントハンドラ
+  const insertBefore = React.useCallback(
     () =>
       props.setNotes(prev => {
         const i = prev.findIndex(n => n.id === props.id);
@@ -23,65 +24,67 @@ const Note: React.FunctionComponent<Props> = props => {
       }),
     [props]
   );
+
   // メモが編集されたときのイベントハンドラ
+  // 入力による変更を DOM に反映しておかないと、HTML に書き出す際に空になる
   const edit = React.useCallback(
     (e: React.ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value),
     []
   );
-  // メモとグラフ上の点を紐づけるボタンのイベントハンドラ
+
+  // メモとグラフ上の点を紐づけるためのイベントハンドラ
   const bind = React.useCallback(() => props.setBindingTargetId(props.id), [
     props
   ]);
+
   // メモを上へ移動するイベントハンドラ
   const up = React.useCallback(
     () =>
       props.setNotes(prev => {
         const i = prev.findIndex(n => n.id === props.id);
-        if (i === 0) return prev;
-        return [
-          ...prev.slice(0, i - 1),
-          prev[i],
-          prev[i - 1],
-          ...prev.slice(i + 1)
-        ];
+        return i === 0
+          ? prev // このメモが先頭であった場合は何もしない
+          : [
+              ...prev.slice(0, i - 1),
+              prev[i],
+              prev[i - 1],
+              ...prev.slice(i + 1)
+            ];
       }),
     [props]
   );
+
   // メモを下へ移動するイベントハンドラ
   const down = React.useCallback(
     () =>
       props.setNotes(prev => {
         const i = prev.findIndex(n => n.id === props.id);
-        if (i === prev.length - 1) return prev;
-        return [
-          ...prev.slice(0, i),
-          prev[i + 1],
-          prev[i],
-          ...prev.slice(i + 2)
-        ];
+        return i === prev.length - 1
+          ? prev // このメモが末尾であった場合は何もしない
+          : [...prev.slice(0, i), prev[i + 1], prev[i], ...prev.slice(i + 2)];
       }),
     [props]
   );
+
   // メモを削除するイベントハンドラ
   const del = React.useCallback(
     () => props.setNotes(prev => prev.filter(n => n.id !== props.id)),
     [props]
   );
+
   return (
-    <div className="note">
-      <div>
-        Num: {props.pointNumber}, ID: {props.id}, color: {noteColor(props.id)}
-        x: {props.x}, y: {props.y} dy: {props.dy}
-      </div>
+    <div style={{ background: noteColor(props.id) }}>
+      id: {props.id}, x: {props.x}, y: {props.y}, dy: {props.dy}, num:
+      {props.pointNumber}
       <div className="action">
-        <span onClick={insert}>+ Insert Above</span>
-        <span onClick={up}>Move Up</span>
+        <button onClick={insertBefore}>+ Insert Above</button>
+        <button onClick={up}>Move Up</button>
       </div>
       <textarea className="content" value={content} onChange={edit}></textarea>
       <div className="action">
-        <span onClick={down}>Move Down</span>
-        <span onClick={bind}>Bind</span>
-        <span onClick={del}>Delete</span>
+        <button onClick={down}>Move Down</button>
+        <button onClick={bind}>Bind</button>
+        <button onClick={del}>Delete</button>
       </div>
     </div>
   );
