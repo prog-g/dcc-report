@@ -27,7 +27,7 @@ module.exports = (env, { mode }) => {
       new CopyPlugin([{ from: "gh-pages" }]),
       new HtmlWebpackPlugin({
         template: "src/index.ejs",
-        title: process.env.npm_package_name
+        title: "DCC Report"
       })
     ],
     resolve: { extensions: [".ts", ".tsx", ".js", ".jsx"] },
