@@ -7,7 +7,17 @@ function newNote(currentNotes: Note[]): Note {
 // TODO: algorithm
 // id に従属するメモの色を返す
 function noteColor(id: number): string {
-  const Colors: string[] = ["blue","red","yellow","green","greenyellow","orange","pink","purple","aqua"]; 
+  const Colors: string[] = [
+    "blue",
+    "red",
+    "yellow",
+    "green",
+    "greenyellow",
+    "orange",
+    "pink",
+    "purple",
+    "aqua"
+  ];
   return Colors[id % Colors.length];
 }
 
@@ -22,9 +32,9 @@ function noteNumber(notes: Note[], id: number): number | null {
 }
 
 //content__dummyにテキストを入れる関数
-function flexTextarea(e: React.ChangeEvent<HTMLTextAreaElement>){
+function flexTextarea(e: React.ChangeEvent<HTMLTextAreaElement>) {
   const dummy = document.querySelector(".content__dummy");
   dummy!.textContent = e.target.value;
 }
 
-export { newNote, noteColor, noteNumber,flexTextarea};
+export { newNote, noteColor, noteNumber, flexTextarea };

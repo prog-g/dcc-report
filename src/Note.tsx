@@ -1,5 +1,5 @@
 import React from "react";
-import { newNote, noteColor,flexTextarea, } from "./lib/note";
+import { newNote, noteColor, flexTextarea } from "./lib/note";
 
 type Props = {
   id: number;
@@ -24,7 +24,10 @@ const Note: React.FunctionComponent<Props> = props => {
   );
   // メモが編集されたときのイベントハンドラ
   const edit = React.useCallback(
-    (e: React.ChangeEvent<HTMLTextAreaElement>) =>{setContent(e.target.value);flexTextarea(e)},
+    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      setContent(e.target.value);
+      flexTextarea(e);
+    },
     []
   );
   // メモとグラフ上の点を紐づけるボタンのイベントハンドラ
@@ -78,8 +81,12 @@ const Note: React.FunctionComponent<Props> = props => {
       </div>
       <div className="FlexTextarea">
         <div className="content__dummy" aria-hidden="true"></div>
-        <textarea className="content" value={content} onChange={edit}></textarea>
-      </div>      
+        <textarea
+          className="content"
+          value={content}
+          onChange={edit}
+        ></textarea>
+      </div>
       <div className="action">
         <span onClick={down}>Move Down</span>
         <span onClick={bind}>Bind</span>
