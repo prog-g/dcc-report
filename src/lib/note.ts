@@ -33,8 +33,8 @@ function noteNumber(notes: Note[], id: number): number | null {
 
 //content__dummyにテキストを入れる関数
 function flexTextarea(e: React.ChangeEvent<HTMLTextAreaElement>) {
-  const dummy = document.querySelector(".content__dummy");
-  dummy!.textContent = e.target.value;
+  const dummy = e.target.previousElementSibling;
+  dummy!.textContent = e.target.value + "\u200b";
 }
 
 export { newNote, noteColor, noteNumber, flexTextarea };
