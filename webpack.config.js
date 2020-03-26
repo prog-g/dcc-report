@@ -1,3 +1,4 @@
+const CopyPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin"); // from webpack
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
@@ -23,6 +24,7 @@ module.exports = (env, { mode }) => {
       ]
     },
     plugins: [
+      new CopyPlugin([{ from: "gh-pages" }]),
       new HtmlWebpackPlugin({
         template: "src/index.ejs",
         title: process.env.npm_package_name

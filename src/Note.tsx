@@ -1,5 +1,5 @@
 import React from "react";
-import { newNote, noteColor } from "./lib/note";
+import { newNote, noteColor as notecolor } from "./lib/note";
 
 type Props = Note & {
   // これらは x が null の場合 null
@@ -72,7 +72,7 @@ const Note: React.FunctionComponent<Props> = props => {
     [props]
   );
 
-  const labelColor = { borderColor: noteColor(props.id) };
+  const labelColor = { borderColor: notecolor(props.id) };
   return (
     <div className="note">
       <div className="note-header" style={labelColor}>
