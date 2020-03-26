@@ -12,6 +12,7 @@ const App: React.FunctionComponent = () => {
     null
   );
   const graph = makeGraph(points);
+
   return (
     <>
       <Graph
@@ -28,7 +29,7 @@ const App: React.FunctionComponent = () => {
         setNotes={setNotes}
         setBindingTargetId={setBindingTargetId}
       />
-      <button id="download" onClick={download}>
+      <button className="download" onClick={download}>
         HTMLでダウンロード
       </button>
     </>

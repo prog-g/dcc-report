@@ -76,7 +76,7 @@ const Note: React.FunctionComponent<Props> = props => {
   return (
     <div className="note">
       <div className="note-header" style={labelColor}>
-        {props.pointNumber !== null ? "#" + props.pointNumber : "Note"}
+        {props.pointNumber !== null ? `#${props.pointNumber}` : "Note"}
       </div>
       <div className="note-menu">
         <button onClick={insertBefore}>上に挿入</button>
@@ -84,7 +84,7 @@ const Note: React.FunctionComponent<Props> = props => {
         <button onClick={up}>上へ移動</button>
       </div>
       <textarea
-        className="note-text"
+        className="note-content"
         value={content}
         onChange={edit}
       ></textarea>
@@ -93,9 +93,7 @@ const Note: React.FunctionComponent<Props> = props => {
           x: {props.x?.toFixed(2)}, y:{" "}
           {props.y !== null ? props.y.toFixed(2) : "n/a"}
         </div>
-      ) : (
-        ""
-      )}
+      ) : null}
       <div className="note-menu">
         <button onClick={del}>削除</button>
         <button onClick={down}>下へ移動</button>
