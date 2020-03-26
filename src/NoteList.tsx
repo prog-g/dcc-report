@@ -76,12 +76,14 @@ const NoteList: React.FunctionComponent<Props> = props => {
   });
 
   return (
-    <div className="note-list">
-      <button onClick={ascendingOrder}>Order By Time</button>
+    <div className="notes">
+      <div className="notes-menu">
+        <button onClick={ascendingOrder}>時系列で並び替え</button>
+      </div>
       {notes}
-      <button className="add" onClick={add}>
+      <div className="note new" onClick={add}>
         + Add
-      </button>
+      </div>
     </div>
   );
 };

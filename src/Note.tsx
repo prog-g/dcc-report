@@ -1,5 +1,5 @@
 import React from "react";
-import { newNote, noteColor } from "./lib/note";
+import { newNote, noteColor as notecolor } from "./lib/note";
 
 type Props = Note & {
   // これらは x が null の場合 null
@@ -72,19 +72,31 @@ const Note: React.FunctionComponent<Props> = props => {
     [props]
   );
 
+  const labelColor = { borderColor: notecolor(props.id) };
   return (
-    <div style={{ background: noteColor(props.id) }}>
-      id: {props.id}, x: {props.x}, y: {props.y}, dy: {props.dy}, num:
-      {props.pointNumber}
-      <div className="action">
-        <button onClick={insertBefore}>+ Insert Above</button>
-        <button onClick={up}>Move Up</button>
+    <div className="note">
+      <div className="note-header" style={labelColor}>
+        {props.pointNumber !== null ? `#${props.pointNumber}` : "Note"}
       </div>
-      <textarea className="content" value={content} onChange={edit}></textarea>
-      <div className="action">
-        <button onClick={down}>Move Down</button>
-        <button onClick={bind}>Bind</button>
-        <button onClick={del}>Delete</button>
+      <div className="note-menu">
+        <button onClick={insertBefore}>上に挿入</button>
+        <button onClick={bind}>バインド</button>
+        <button onClick={up}>上へ移動</button>
+      </div>
+      <textarea
+        className="note-content"
+        value={content}
+        onChange={edit}
+      ></textarea>
+      {props.x !== null ? (
+        <div className="note-footer">
+          x: {props.x?.toFixed(2)}, y:{" "}
+          {props.y !== null ? props.y.toFixed(2) : "n/a"}
+        </div>
+      ) : null}
+      <div className="note-menu">
+        <button onClick={del}>削除</button>
+        <button onClick={down}>下へ移動</button>
       </div>
     </div>
   );

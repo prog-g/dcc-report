@@ -124,12 +124,15 @@ const Graph: React.FunctionComponent<Props> = props => {
       drawGraph(canvasRef.current, props.graph, oldGraph, props.notes);
     }
   }, [oldGraph, props]);
+
   return (
-    <div>
-      <div>
-        Min: {props.graph?.min}, Max: {props.graph?.max}
-      </div>
+    <div className="graph">
+      <span className="graph-info">
+        最小値: {props.graph?.min?.toFixed(2) ?? "n/a"}, 最大値:{" "}
+        {props.graph?.max?.toFixed(2) ?? "n/a"}
+      </span>
       <canvas
+        className="graph-canvas"
         width={width}
         height={height}
         ref={canvasRef}
@@ -139,8 +142,13 @@ const Graph: React.FunctionComponent<Props> = props => {
         onMouseUp={onEndDrawing}
         onMouseLeave={onEndDrawing}
       />
-      <div onClick={clear}>Clear</div>
-      <div onClick={clearOld}>Clear History</div>
+      <div className="graph-menu">
+        <button onClick={clear}>書き直す</button>
+        <button onClick={clearOld}>履歴を消去</button>
+        <span className="graph-mode">
+          {props.bindingTargetId === null ? "挿入モード" : "バインドモード"}
+        </span>
+      </div>
     </div>
   );
 };

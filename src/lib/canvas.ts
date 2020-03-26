@@ -8,15 +8,15 @@ const graphLineWidth = 2; // グラフ曲線の描画幅
 const graphPointRadius = 4; // グラフの点の半径
 const graphFont = "sans-serif"; // グラフで使うフォント
 const graphFontSize = 20; // グラフのフォントサイズ
-const graphLineColor = "white"; // グラフ曲線の描画色
+const graphLineColor = "#000"; // グラフ曲線の描画色
 const oldGraphLineWidth = 1.5; // 前回のグラフ曲線の描画幅
 const oldGraphPointRadius = 3; // 前回のグラフの点の半径
 const oldGraphFontSize = 16; // 前回グラフで使うフォント
-const oldGraphLineColor = "gray"; // 前回グラフ曲線の描画色
+const oldGraphLineColor = "#aaa"; // 前回グラフ曲線の描画色
 const gridx = 10; // グリッドの x 分割数
 const gridy = 4; // グリッドの y 分割数
 const gridLineWidth = 1; // グリッド線の描画幅
-const gridLineColor = "gray"; // グリッド線の描画色
+const gridLineColor = "#777"; // グリッド線の描画色
 const eps = 2 ** -52; // 開区間を評価するための十分小さい値
 
 // 曲線関数空間からキャンバス空間への座標変換
