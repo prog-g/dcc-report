@@ -1,13 +1,13 @@
 * {
-  margin: 0;
   padding: 0;
+  margin: 0;
 }
 
 body {
   font-size: 16px;
   color: #000;
-  background: #fff;
   word-break: keep-all;
+  background: #fff;
 }
 
 h1 {
@@ -29,7 +29,7 @@ button {
 }
 
 #app {
-  margin: 0px 2px;
+  margin: 0 2px;
 }
 
 .graph {
@@ -37,35 +37,35 @@ button {
 }
 
 .graph-info {
-  font-size: 90%;
   display: inline-block;
-  padding: 0px 2px;
-  border-left: 2px solid #333;
+  padding: 0 2px;
+  font-size: 90%;
   border-top: 2px solid #333;
   border-right: 2px solid #333;
-  border-radius: 6px 6px 0px 0px;
+  border-left: 2px solid #333;
+  border-radius: 6px 6px 0 0;
 }
 
 .graph-canvas {
-  width: 100%;
-  display: block;
-  border: 2px solid #333;
   box-sizing: border-box;
+  display: block;
+  width: 100%;
+  border: 2px solid #333;
 }
 
 .graph-menu {
+  padding: 0 2px;
   text-align: left;
-  padding: 0px 2px;
-  border-left: 2px solid #333;
-  border-bottom: 2px solid #333;
   border-right: 2px solid #333;
-  border-radius: 0px 0px 6px 6px;
+  border-bottom: 2px solid #333;
+  border-left: 2px solid #333;
+  border-radius: 0 0 6px 6px;
 }
 
 .graph-status {
-  font-size: 90%;
+  padding: 0 4px;
   margin-left: 10px;
-  padding: 0px 4px;
+  font-size: 90%;
   background-color: #bdd8ff;
   border-left: 10px solid #579bff;
 }
@@ -86,37 +86,37 @@ button {
 }
 
 .note-header {
-  width: 20%;
   float: left;
-  margin-left: 10px;
+  width: 20%;
   padding-left: 6px;
+  margin-left: 10px;
   border-left: 10px solid;
 }
 
 .note-footer {
-  width: 40%;
   float: left;
-  margin: 4px 0px 0px 10px;
+  width: 40%;
   padding-left: 6px;
+  margin: 4px 0 0 10px;
 }
 
 .note-content {
+  margin: 0 10px 0 10px;
   clear: both;
-  margin: 0px 10px 0px 10px;
 }
 
 .note-text {
+  box-sizing: border-box;
+  display: block;
   width: 100%;
   height: 72px;
-  display: block;
   resize: none;
-  box-sizing: border-box;
   box-shadow: 1px 1px #bbb;
 }
 
 .note-menu {
-  text-align: right;
   margin-right: 10px;
+  text-align: right;
 }
 
 .new {
