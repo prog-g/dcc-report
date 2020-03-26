@@ -28,9 +28,9 @@ const App: React.FunctionComponent = () => {
         setNotes={setNotes}
         setBindingTargetId={setBindingTargetId}
       />
-      <div className="download-menu">
-        <button onClick={download}>HTMLでダウンロード</button>
-      </div>
+      <button id="download" onClick={download}>
+        HTMLでダウンロード
+      </button>
     </>
   );
 };

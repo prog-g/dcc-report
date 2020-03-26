@@ -126,10 +126,10 @@ const Graph: React.FunctionComponent<Props> = props => {
   }, [oldGraph, props]);
   return (
     <div className="graph">
-      <div className="graph-info">
+      <span className="graph-info">
         最小値: {props.graph?.min?.toFixed(2) ?? "n/a"}, 最大値:
         {props.graph?.max?.toFixed(2) ?? "n/a"}
-      </div>
+      </span>
       <canvas
         className="graph-canvas"
         width={width}
