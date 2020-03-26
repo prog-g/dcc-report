@@ -76,8 +76,8 @@ const NoteList: React.FunctionComponent<Props> = props => {
   });
 
   return (
-    <div className="note-list">
-      <div className="timeline-menu">
+    <div className="notes">
+      <div className="notes-menu">
         <button onClick={ascendingOrder}>時系列で並び替え</button>
       </div>
       {notes}

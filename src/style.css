@@ -5,9 +5,7 @@
 }
 
 body {
-  font-size: 16px;
   color: #000;
-  word-break: keep-all;
   background: #fff;
 }
 
@@ -61,16 +59,17 @@ button {
   border-left: 10px solid #579bff;
 }
 
-.note-list {
+.notes {
   margin-top: 10px;
 }
 
-.timeline-menu {
+.notes-menu {
   text-align: right;
   background-color: #eee;
 }
 
 .note {
+  padding: 0 10px;
   margin-bottom: 10px;
   border: 2px solid #333;
   border-radius: 12px;
@@ -78,35 +77,25 @@ button {
 
 .note-header {
   float: left;
-  width: 20%;
   padding-left: 6px;
-  margin-left: 10px;
   border-left: 10px solid;
 }
 
 .note-footer {
   float: left;
-  width: 40%;
-  padding-left: 6px;
-  margin: 4px 0 0 10px;
-}
-
-.note-content {
-  margin: 0 10px 0 10px;
-  clear: both;
+  margin: 4px 0 0 6px;
 }
 
 .note-text {
-  box-sizing: border-box;
   display: block;
   width: 100%;
   height: 72px;
+  overflow-wrap: break-word;
   resize: none;
   box-shadow: 1px 1px #bbb;
 }
 
 .note-menu {
-  margin-right: 10px;
   text-align: right;
 }
 
