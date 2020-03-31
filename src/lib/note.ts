@@ -6,21 +6,22 @@ function newNote(notes: Notes = []): Note {
   return { id: newId, x: null };
 }
 
-// TODO: algorithm
 // id に従属するメモの色を返す
 function noteColor(id: number): string {
-  const Colors: string[] = [
-    "blue",
+  const colors = [
     "red",
-    "yellow",
-    "green",
-    "greenyellow",
-    "orange",
     "pink",
-    "purple",
-    "aqua"
+    "orange",
+    "yellow",
+    "greenyellow",
+    "green",
+    "aqua",
+    "blue",
+    "purple"
   ];
-  return Colors[id % Colors.length];
+
+  // newNote() の実装より id が 0 以下になることはない
+  return colors[(id % colors.length) - 1];
 }
 
 // 識別子が id なメモと紐づいたグラフ上の点の番号を求める関数
@@ -34,14 +35,4 @@ function pointNumber(notes: Notes, id: Note["id"]): number | null {
   return 0 <= i ? i + 1 : null;
 }
 
-<<<<<<< HEAD
-//content__dummyにテキストを入れる関数
-function flexTextarea(e: React.ChangeEvent<HTMLTextAreaElement>) {
-  const dummy = e.target.previousElementSibling;
-  dummy!.textContent = e.target.value + "\u200b";
-}
-
-export { newNote, noteColor, noteNumber, flexTextarea };
-=======
 export { newNote, noteColor, pointNumber };
->>>>>>> master

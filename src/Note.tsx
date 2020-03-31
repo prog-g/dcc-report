@@ -1,5 +1,5 @@
 import React from "react";
-import { flexTextarea, newNote, noteColor as notecolor } from "./lib/note";
+import { newNote, noteColor as notecolor } from "./lib/note";
 
 type Props = Note & {
   // これらは x が null の場合 null
@@ -14,6 +14,13 @@ type Props = Note & {
 
 const Note: React.FunctionComponent<Props> = props => {
   const [content, setContent] = React.useState("New Note");
+  const ref = React.useRef<HTMLTextAreaElement>(null);
+
+  React.useEffect(() => {
+    const textarea = ref.current!;
+    textarea.style.height = "72px"; // これより低くはならない
+    textarea.style.height = `${textarea.scrollHeight}px`;
+  }, [content]);
 
   // 新しいメモをこのメモの前に挿入するイベントハンドラ
   const insertBefore = React.useCallback(
@@ -30,7 +37,6 @@ const Note: React.FunctionComponent<Props> = props => {
   const edit = React.useCallback(
     (e: React.ChangeEvent<HTMLTextAreaElement>) => {
       setContent(e.target.value);
-      flexTextarea(e);
     },
     []
   );
@@ -86,14 +92,12 @@ const Note: React.FunctionComponent<Props> = props => {
         <button onClick={bind}>バインド</button>
         <button onClick={up}>上へ移動</button>
       </div>
-      <div className="FlexTextarea">
-        <div className="content__dummy" aria-hidden="true"></div>
-        <textarea
-          className="note-content"
-          value={content}
-          onChange={edit}
-        ></textarea>
-      </div>
+      <textarea
+        className="note-content"
+        value={content}
+        onChange={edit}
+        ref={ref}
+      />
       {props.x !== null ? (
         <div className="note-footer">
           x: {props.x?.toFixed(2)}, y:{" "}
