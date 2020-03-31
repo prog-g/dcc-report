@@ -17,6 +17,7 @@ const Note: React.FunctionComponent<Props> = props => {
   const ref = React.useRef<HTMLTextAreaElement>(null);
 
   React.useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const textarea = ref.current!;
     textarea.style.height = "72px"; // これより低くはならない
     textarea.style.height = `${textarea.scrollHeight}px`;
