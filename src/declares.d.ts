@@ -1,14 +1,25 @@
+// aliases
+type SetStateFunc<T> = React.Dispatch<React.SetStateAction<T>>;
+
 // グラフの点
 type Point = { x: number; y: number };
-type SetPointsFunc = React.Dispatch<React.SetStateAction<Point[]>>;
+
+type Points = Point[];
+type SetPoints = SetStateFunc<Points>;
 
 // メモのデータ
-type Note = { id: number; x: number | null };
-type SetNotesFunc = React.Dispatch<React.SetStateAction<Note[]>>;
+// 内容のデータはメモで閉じているのでメモが持ち、y 座標などは x から計算できる
+type Note = {
+  id: number; // メモの識別子
+  x: number | null; // メモと紐づいた点の x 座標
+};
 
-// 紐つけるメモの参照
-type BindingTarget = number | null;
-type SetBindingTargetFunc = React.Dispatch<React.SetStateAction<BindingTarget>>;
+type Notes = Note[];
+type SetNotes = SetStateFunc<Notes>;
+
+// 選択中のメモの識別子
+type BindingTargetId = Note["id"] | null;
+type SetBindingTargetId = SetStateFunc<BindingTargetId>;
 
 // グラフの断片を表すデータ
 type Curve = {

@@ -10,11 +10,11 @@ const height = 500; // キャンバスの縦の長さ
 
 type Props = {
   graph: Graph;
-  setPoints: SetPointsFunc;
-  notes: Note[];
-  setNotes: SetNotesFunc;
-  bindingTarget: BindingTarget;
-  setBindingTarget: SetBindingTargetFunc;
+  setPoints: SetPoints;
+  notes: Notes;
+  setNotes: SetNotes;
+  bindingTargetId: BindingTargetId;
+  setBindingTargetId: SetBindingTargetId;
 };
 
 const Graph: React.FunctionComponent<Props> = props => {
@@ -30,7 +30,7 @@ const Graph: React.FunctionComponent<Props> = props => {
       if (props.graph && !dragged) {
         if (props.graph.from <= p.x && p.x <= props.graph.to) {
           // x が定義域内だったとき
-          if (props.bindingTarget === null) {
+          if (props.bindingTargetId === null) {
             // 紐つけ対象がセットされてなければその時刻と紐ついた新しいメモを作成
             props.setNotes(prev => {
               const note = newNote(prev);
@@ -43,9 +43,9 @@ const Graph: React.FunctionComponent<Props> = props => {
           } else {
             // 紐つけ対象がセットされていれば時刻を紐つける
             props.setNotes(prev => {
-              const i = prev.findIndex(n => n.id === props.bindingTarget);
+              const i = prev.findIndex(n => n.id === props.bindingTargetId);
               if (i >= 0) {
-                props.setBindingTarget(null);
+                props.setBindingTargetId(null);
                 return [
                   ...prev.slice(0, i),
                   { id: prev[i].id, x: p.x },
@@ -124,12 +124,15 @@ const Graph: React.FunctionComponent<Props> = props => {
       drawGraph(canvasRef.current, props.graph, oldGraph, props.notes);
     }
   }, [oldGraph, props]);
+
   return (
-    <div>
-      <div>
-        Min: {props.graph?.min}, Max: {props.graph?.max}
-      </div>
+    <div className="graph">
+      <span className="graph-info">
+        最小値: {props.graph?.min?.toFixed(2) ?? "n/a"}, 最大値:{" "}
+        {props.graph?.max?.toFixed(2) ?? "n/a"}
+      </span>
       <canvas
+        className="graph-canvas"
         width={width}
         height={height}
         ref={canvasRef}
@@ -139,8 +142,13 @@ const Graph: React.FunctionComponent<Props> = props => {
         onMouseUp={onEndDrawing}
         onMouseLeave={onEndDrawing}
       />
-      <div onClick={clear}>Clear</div>
-      <div onClick={clearOld}>Clear History</div>
+      <div className="graph-menu">
+        <button onClick={clear}>書き直す</button>
+        <button onClick={clearOld}>履歴を消去</button>
+        <span className="graph-mode">
+          {props.bindingTargetId === null ? "挿入モード" : "バインドモード"}
+        </span>
+      </div>
     </div>
   );
 };

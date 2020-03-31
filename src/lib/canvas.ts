@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
-import { noteColor, noteNumber } from "./note";
+import { noteColor, pointNumber } from "./note";
 
 const scaleX = 100; // 関数空間の横の長さ
 const scaleY = 100; // 関数空間の縦の長さ
@@ -8,15 +8,15 @@ const graphLineWidth = 2; // グラフ曲線の描画幅
 const graphPointRadius = 4; // グラフの点の半径
 const graphFont = "sans-serif"; // グラフで使うフォント
 const graphFontSize = 20; // グラフのフォントサイズ
-const graphLineColor = "white"; // グラフ曲線の描画色
+const graphLineColor = "#000"; // グラフ曲線の描画色
 const oldGraphLineWidth = 1.5; // 前回のグラフ曲線の描画幅
 const oldGraphPointRadius = 3; // 前回のグラフの点の半径
 const oldGraphFontSize = 16; // 前回グラフで使うフォント
-const oldGraphLineColor = "gray"; // 前回グラフ曲線の描画色
+const oldGraphLineColor = "#aaa"; // 前回グラフ曲線の描画色
 const gridx = 10; // グリッドの x 分割数
 const gridy = 4; // グリッドの y 分割数
 const gridLineWidth = 1; // グリッド線の描画幅
-const gridLineColor = "gray"; // グリッド線の描画色
+const gridLineColor = "#777"; // グリッド線の描画色
 const eps = 2 ** -52; // 開区間を評価するための十分小さい値
 
 // 曲線関数空間からキャンバス空間への座標変換
@@ -121,7 +121,7 @@ function drawGraph(
       if (graph && graph.from <= x && x <= graph.to) {
         const y = graph.f(x);
         const y2 = graph.d2f(x);
-        const n = noteNumber(notes, notes[i].id);
+        const n = pointNumber(notes, notes[i].id);
         const color = noteColor(notes[i].id);
         const p = funcToCanvas(canvas, { x: x, y: y });
         ctx.fillStyle = color;
@@ -133,7 +133,7 @@ function drawGraph(
       } else if (prev && prev.from <= x && x <= prev.to) {
         const y = prev.f(x);
         const y2 = prev.d2f(x);
-        const n = noteNumber(notes, notes[i].id);
+        const n = pointNumber(notes, notes[i].id);
         const p = funcToCanvas(canvas, { x: x, y: y });
         ctx.font = `${oldGraphFontSize}px bold ${graphFont}`;
         ctx.fillStyle = oldGraphLineColor;
