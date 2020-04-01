@@ -14,6 +14,14 @@ type Props = Note & {
 
 const Note: React.FunctionComponent<Props> = props => {
   const [content, setContent] = React.useState("New Note");
+  const ref = React.useRef<HTMLTextAreaElement>(null);
+
+  React.useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const textarea = ref.current!;
+    textarea.style.height = "72px"; // これより低くはならない
+    textarea.style.height = `${textarea.scrollHeight}px`;
+  }, [content]);
 
   // 新しいメモをこのメモの前に挿入するイベントハンドラ
   const insertBefore = React.useCallback(
@@ -28,7 +36,9 @@ const Note: React.FunctionComponent<Props> = props => {
   // メモが編集されたときのイベントハンドラ
   // 入力による変更を DOM に反映しておかないと、HTML に書き出す際に空になる
   const edit = React.useCallback(
-    (e: React.ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value),
+    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      setContent(e.target.value);
+    },
     []
   );
 
@@ -87,7 +97,8 @@ const Note: React.FunctionComponent<Props> = props => {
         className="note-content"
         value={content}
         onChange={edit}
-      ></textarea>
+        ref={ref}
+      />
       {props.x !== null ? (
         <div className="note-footer">
           x: {props.x?.toFixed(2)}, y:{" "}
