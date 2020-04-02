@@ -13,7 +13,7 @@ type Props = Note & {
 };
 
 const Note: React.FunctionComponent<Props> = props => {
-  const [content, setContent] = React.useState("New Note");
+  const [content, setContent] = React.useState("");
   const ref = React.useRef<HTMLTextAreaElement>(null);
 
   React.useEffect(() => {
@@ -95,6 +95,7 @@ const Note: React.FunctionComponent<Props> = props => {
       </div>
       <textarea
         className="note-content"
+        placeholder="Write something down"
         value={content}
         onChange={edit}
         ref={ref}
