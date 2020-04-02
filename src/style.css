@@ -93,8 +93,7 @@ button {
 .note-content {
   display: block;
   width: 100%;
-  height: 72px;
-  padding: 4px;
+  overflow-y: hidden;
   overflow-wrap: break-word;
   resize: none;
   border: solid 1px #555;

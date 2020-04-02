@@ -6,10 +6,22 @@ function newNote(notes: Notes = []): Note {
   return { id: newId, x: null };
 }
 
-// TODO: algorithm
 // id に従属するメモの色を返す
 function noteColor(id: number): string {
-  return id % 2 === 0 ? "blue" : "red";
+  const colors = [
+    "red",
+    "pink",
+    "orange",
+    "yellow",
+    "greenyellow",
+    "green",
+    "aqua",
+    "blue",
+    "purple"
+  ];
+
+  // newNote() の実装より id が 0 以下になることはない
+  return colors[(id % colors.length) - 1];
 }
 
 // 識別子が id なメモと紐づいたグラフ上の点の番号を求める関数
