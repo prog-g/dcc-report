@@ -4,3 +4,4 @@ import App from "./App";
 import "./style.css";
 
 ReactDOM.render(<App />, document.getElementById("app"));
+window.onbeforeunload = (): boolean => true;
