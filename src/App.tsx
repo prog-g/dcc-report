@@ -29,6 +29,18 @@ const App: React.FunctionComponent = () => {
         setNotes={setNotes}
         setBindingTargetId={setBindingTargetId}
       />
+      <details open>
+        <summary>ID Name</summary>
+        <label>
+          ID: <input type="text"></input>
+        </label>
+        <label>
+          Name: <input type="text"></input>
+        </label>
+        <label>
+          Other: <input type="text"></input>
+        </label>
+      </details>
       <button className="download" onClick={download}>
         HTMLでダウンロード
       </button>
