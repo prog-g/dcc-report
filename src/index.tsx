@@ -7,6 +7,6 @@ ReactDOM.render(<App />, document.getElementById("app"));
 
 // ページを閉じようとしたときにアラートを出す
 // null や undefind に評価される値ではアラートが出ないので true をセットする
-window.addEventListener("beforeunload", (e): void => {
+window.addEventListener("beforeunload", (e) => {
   e.returnValue = true;
 });
