@@ -5,8 +5,9 @@ import "./style.css";
 
 ReactDOM.render(<App />, document.getElementById("app"));
 
-// ページを閉じようとしたときにアラートを出す
-// null や undefind に評価される値ではアラートが出ないので true をセットする
+// ページを閉じようとしたときに確認プロンプトを表示する
+// see https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeunload_event#Examples
 window.addEventListener("beforeunload", (e) => {
-  e.returnValue = true;
+  e.preventDefault();
+  e.returnValue = "";
 });
