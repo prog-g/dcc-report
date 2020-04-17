@@ -32,6 +32,18 @@ button:active {
   border-color: #0006;
 }
 
+details {
+  padding: 6px;
+}
+
+summary {
+  margin-bottom: 4px;
+}
+
+summary + div {
+  margin-left: 8px;
+}
+
 #root {
   min-width: 320px;
   max-width: 980px;
@@ -126,6 +138,25 @@ button:active {
   padding: 20px;
   text-align: center;
   background: #80cfff;
+}
+
+.name-entry {
+  margin-top: 10px;
+  border-top: 1px solid #333;
+}
+
+.name-form {
+  display: flex;
+}
+
+.name-form > label {
+  display: flex;
+  flex-grow: 1;
+}
+
+.name-form > label > input {
+  margin: 0 16px 0 4px;
+  flex-grow: 1;
 }
 
 .download {
