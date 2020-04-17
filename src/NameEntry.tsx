@@ -4,10 +4,10 @@ const NameEntry: React.FunctionComponent = () => {
   const [id, setId] = React.useState("");
   const [name, setName] = React.useState("");
   const edit: (
-    setter: React.Dispatch<React.SetStateAction<string>>
-  ) => (e: React.ChangeEvent<HTMLInputElement>) => void = (
-    setter: React.Dispatch<React.SetStateAction<string>>
-  ) => (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setter: SetStateFunc<string>
+  ) => (e: React.ChangeEvent<HTMLInputElement>) => void = (setter) => (
+    e
+  ): void => {
     setter(e.target.value);
   };
   return (
