@@ -32,18 +32,6 @@ button:active {
   border-color: #0006;
 }
 
-details {
-  margin: 6px;
-}
-
-summary {
-  margin-bottom: 4px;
-}
-
-summary + div {
-  margin-left: 8px;
-}
-
 #root {
   min-width: 320px;
   max-width: 980px;
@@ -141,22 +129,26 @@ summary + div {
 }
 
 .name-entry {
+  padding: 6px;
   margin-top: 10px;
   border-top: 1px solid #333;
 }
 
 .name-form {
   display: flex;
+  padding-left: 8px;
+  margin-top: 4px;
 }
 
 .name-form > label {
   display: flex;
   flex-grow: 1;
+  margin-right: 16px;
 }
 
 .name-form > label > input {
-  margin: 0 16px 0 4px;
   flex-grow: 1;
+  margin-left: 4px;
 }
 
 .download {
