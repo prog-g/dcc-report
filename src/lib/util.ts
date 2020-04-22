@@ -29,6 +29,14 @@ const download: () => void = () => {
   img.className = canvas.className;
   canvas.parentNode!.replaceChild(img, canvas);
 
+  //ボタンを見えなくする
+  const button = doc.getElementsByTagName("button");
+  for (let i = 0; i < button.length; i++) {
+    button[i].style.visibility = "hidden";
+  }
+  const addDiv = doc.getElementsByClassName("note new")[0] as HTMLElement;
+  addDiv.style.visibility = "hidden";
+
   // 内容をファイルに変換して URL を発行し、クリックイベントを起こす
   const html = `<!DOCTYPE html>\n${doc.outerHTML}`;
   const a = document.createElement("a");
