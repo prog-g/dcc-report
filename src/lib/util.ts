@@ -33,7 +33,7 @@ const download: () => void = () => {
   Array.from(doc.getElementsByTagName("button")).forEach((e) => {
     const parent = e.parentNode as HTMLElement;
     if (parent.className == "note-menu") {
-     e.style.visibility= "hidden";
+      e.style.visibility = "hidden";
     } else {
       e.style.display = "none";
     }
