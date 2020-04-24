@@ -15,8 +15,8 @@ header {
 }
 
 button {
-  margin: 4px;
   padding: 1px;
+  margin: 4px;
   background: #fff;
   border: 1px solid #0003;
   border-radius: 4px;
@@ -56,6 +56,7 @@ button:active {
 .graph-canvas {
   display: block;
   width: 100%;
+
   /* see https://github.com/prog-g/dcc-report/pull/33 */
   margin: -1px 0 0;
   border: 2px solid #333;
