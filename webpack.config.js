@@ -14,32 +14,32 @@ module.exports = (env, { mode }) => {
       rules: [
         {
           test: /\.[tj]sx?$/,
-          use: "ts-loader",
-          exclude: /node_modules/
+          loader: "ts-loader",
+          exclude: /node_modules/,
         },
         {
           test: /\.css$/,
-          use: ["style-loader", `css-loader?sourceMap=${dev}`]
-        }
-      ]
+          use: ["style-loader", `css-loader?sourceMap=${dev}`],
+        },
+      ],
     },
     plugins: [
       new CopyPlugin([{ from: "gh-pages" }]),
       new HtmlWebpackPlugin({
         template: "src/index.ejs",
-        title: "DCC Report"
-      })
+        title: "DCC Report",
+      }),
     ],
     resolve: { extensions: [".ts", ".tsx", ".js", ".jsx"] },
     optimization: {
-      minimizer: [new TerserPlugin(), new OptimizeCssAssetsPlugin()]
+      minimizer: [new TerserPlugin(), new OptimizeCssAssetsPlugin()],
     },
     devtool: dev ? "inline-source-map" : false,
     devServer: {
       contentBase: "./dist",
       // host: "0.0.0.0", // for debugging on mobile devices
       overlay: true,
-      watchContentBase: true
-    }
+      watchContentBase: true,
+    },
   };
 };
