@@ -2,12 +2,12 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  font-family: sans-serif;
 }
 
 body {
   color: #000;
   background: #fff;
+  font-family: sans-serif;
 }
 
 header {
@@ -117,7 +117,8 @@ button:active {
   border: solid 1px #555;
   border-radius: 4px;
   box-shadow: 1px 1px #bbb;
-  font-size: 24px;
+  font-size: 20px;
+  line-height: 26px;
 }
 
 .note-menu {
