@@ -19,7 +19,7 @@ const Note: React.FunctionComponent<Props> = (props) => {
   React.useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const textarea = ref.current!;
-    textarea.style.height = "88px"; // これより低くはならない
+    textarea.style.height = "88px"; //26 * 3 +(1 + 4)* 2  これより低くはならない
     textarea.style.height = `${textarea.scrollHeight}px`;
   }, [content]);
 
