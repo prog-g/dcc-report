@@ -24,7 +24,7 @@ module.exports = (env, { mode }) => {
       ],
     },
     plugins: [
-      new CopyPlugin([{ from: "gh-pages" }]),
+      new CopyPlugin({ patterns: [{ from: "gh-pages" }] }),
       new HtmlWebpackPlugin({
         template: "src/index.ejs",
         title: "DCC Report",
