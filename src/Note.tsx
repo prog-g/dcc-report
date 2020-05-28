@@ -12,22 +12,22 @@ type Props = Note & {
   setBindingTargetId: SetBindingTargetId;
 };
 
-const Note: React.FunctionComponent<Props> = props => {
+const Note: React.FunctionComponent<Props> = (props) => {
   const [content, setContent] = React.useState("");
   const ref = React.useRef<HTMLTextAreaElement>(null);
 
   React.useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const textarea = ref.current!;
-    textarea.style.height = "72px"; // これより低くはならない
+    textarea.style.height = "88px"; // 26 * 3 +(1 + 4)* 2 = 88 でこれより低くはならない
     textarea.style.height = `${textarea.scrollHeight}px`;
   }, [content]);
 
   // 新しいメモをこのメモの前に挿入するイベントハンドラ
   const insertBefore = React.useCallback(
     () =>
-      props.setNotes(prev => {
-        const i = prev.findIndex(n => n.id === props.id);
+      props.setNotes((prev) => {
+        const i = prev.findIndex((n) => n.id === props.id);
         return [...prev.slice(0, i), newNote(prev), ...prev.slice(i)];
       }),
     [props]
@@ -44,21 +44,21 @@ const Note: React.FunctionComponent<Props> = props => {
 
   // メモとグラフ上の点を紐づけるためのイベントハンドラ
   const bind = React.useCallback(() => props.setBindingTargetId(props.id), [
-    props
+    props,
   ]);
 
   // メモを上へ移動するイベントハンドラ
   const up = React.useCallback(
     () =>
-      props.setNotes(prev => {
-        const i = prev.findIndex(n => n.id === props.id);
+      props.setNotes((prev) => {
+        const i = prev.findIndex((n) => n.id === props.id);
         return i === 0
           ? prev // このメモが先頭であった場合は何もしない
           : [
               ...prev.slice(0, i - 1),
               prev[i],
               prev[i - 1],
-              ...prev.slice(i + 1)
+              ...prev.slice(i + 1),
             ];
       }),
     [props]
@@ -67,8 +67,8 @@ const Note: React.FunctionComponent<Props> = props => {
   // メモを下へ移動するイベントハンドラ
   const down = React.useCallback(
     () =>
-      props.setNotes(prev => {
-        const i = prev.findIndex(n => n.id === props.id);
+      props.setNotes((prev) => {
+        const i = prev.findIndex((n) => n.id === props.id);
         return i === prev.length - 1
           ? prev // このメモが末尾であった場合は何もしない
           : [...prev.slice(0, i), prev[i + 1], prev[i], ...prev.slice(i + 2)];
@@ -78,7 +78,7 @@ const Note: React.FunctionComponent<Props> = props => {
 
   // メモを削除するイベントハンドラ
   const del = React.useCallback(
-    () => props.setNotes(prev => prev.filter(n => n.id !== props.id)),
+    () => props.setNotes((prev) => prev.filter((n) => n.id !== props.id)),
     [props]
   );
 
