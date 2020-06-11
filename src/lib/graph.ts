@@ -1,3 +1,24 @@
+// 2点を通る直線の断片を返す関数
+function linearLineSegment(p1: Point, p2: Point): Curve {
+  // 直線の 関数, 導関数, 二次導関数 を求める
+  const a = (p1.y - p2.y) / (p1.x - p2.x);
+  const b = p1.y - a * p1.x;
+  const f = (x: number): number => a * x + b;
+  const df = (): number => a;
+  const d2f = (): number => 0;
+
+  // 定義域を求める
+  const from = p1.x;
+  const to = p2.x;
+
+  // 定義域内での f(x) の 最小値, 最大値 を求める
+  const exts = [f(from), f(to)];
+  const min = exts.reduce((a, y) => (y < a ? y : a));
+  const max = exts.reduce((a, y) => (a < y ? y : a));
+
+  return { f, df, d2f, from, to, min, max };
+}
+
 // 3点を通る2次曲線の左側2点部分の断片を返す関数
 function quadraticCurveLeftSegment(p1: Point, p2: Point, p3: Point): Curve {
   // 曲線の 関数, 導関数, 二次導関数 を求める
@@ -108,27 +129,6 @@ function cubicCurveSegment(p1: Point, p2: Point, p3: Point, p4: Point): Curve {
   return { f, df, d2f, from, to, min, max };
 }
 
-// 2点を通る直線の断片を返す関数
-function linearLineSegment(p1: Point, p2: Point): Curve {
-  // 直線の 関数, 導関数, 二次導関数 を求める
-  const a = (p1.y - p2.y) / (p1.x - p2.x);
-  const b = p1.y - a * p1.x;
-  const f = (x: number): number => a * x + b;
-  const df = (): number => a;
-  const d2f = (): number => 0;
-
-  // 定義域を求める
-  const from = p1.x;
-  const to = p2.x;
-
-  // 定義域内での f(x) の 最小値, 最大値 を求める
-  const exts = [f(from), f(to)];
-  const min = exts.reduce((a, y) => (y < a ? y : a));
-  const max = exts.reduce((a, y) => (a < y ? y : a));
-
-  return { f, df, d2f, from, to, min, max };
-}
-
 // サンプリングした点列からラグランジュ補間したグラフのデータを作る関数
 function makeGraph(points: Point[]): Graph {
   // 点が 1 個以下で定義域すら求められない場合は null を返す
@@ -144,8 +144,8 @@ function makeGraph(points: Point[]): Graph {
     // 点が 2 個だけの場合は直線にして終わり
     curves.push(linearLineSegment(points[0], points[1]));
   } else {
-    // 点が 3 個の場合は left -> right の順に点を渡す
-    // 点が 4 個以上の場合は left -> cubic -> ... -> right の順に点を渡す
+    // 点が 3 個の場合は left, right の順に点を渡す
+    // 点が 4 個以上の場合は left, cubic, ... , right の順に点を渡す
     for (let i = 0; i <= points.length - 2; i++) {
       if (i === 0) {
         // グラフの左端で 3 点をとる
@@ -175,7 +175,7 @@ function makeGraph(points: Point[]): Graph {
     if (to <= x) return curves[curves.length - 1].f(x);
 
     // x 座標が引数の x を超える直前の点のインデックスを求める
-    const i = points.findIndex(p => x < p.x) - 1;
+    const i = points.findIndex((p) => x < p.x) - 1;
     return curves[i].f(x);
   };
 
@@ -185,7 +185,7 @@ function makeGraph(points: Point[]): Graph {
     if (x >= to) return curves[curves.length - 1].df(x);
 
     // x 座標が引数の x を超える直前の点のインデックスを求める
-    const i = points.findIndex(p => x < p.x) - 1;
+    const i = points.findIndex((p) => x < p.x) - 1;
     return curves[i].df(x);
   };
 
@@ -195,13 +195,13 @@ function makeGraph(points: Point[]): Graph {
     if (x >= to) return curves[curves.length - 1].d2f(x);
 
     // x 座標が引数の x を超える直前の点のインデックスを求める
-    const i = points.findIndex(p => x < p.x) - 1;
+    const i = points.findIndex((p) => x < p.x) - 1;
     return curves[i].d2f(x);
   };
 
   // 定義域内での f(x) の 最小値, 最大値 を求める
-  const min = Math.min(...curves.map(c => c.min));
-  const max = Math.max(...curves.map(c => c.max));
+  const min = Math.min(...curves.map((c) => c.min));
+  const max = Math.max(...curves.map((c) => c.max));
 
   return { f, df, d2f, from, to, min, max, points };
 }
