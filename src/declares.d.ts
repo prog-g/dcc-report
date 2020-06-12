@@ -23,7 +23,7 @@ type SetBindingTargetId = SetStateFunc<BindingTargetId>;
 
 // グラフの断片を表すデータ
 type Curve = {
-  f: (x: number) => number; // 曲線の関数
+  f: (x: number) => number; // 断片の関数
   df: (x: number) => number; // f の導関数
   d2f: (x: number) => number; // f の二次導関数
   from: number; // 定義域の始まり
@@ -32,5 +32,6 @@ type Curve = {
   max: number; // 定義域内での f(x) の最大値
 };
 
-// グラフ全体の描画に必要なデータ
-type Graph = (Curve & { points: Point[] }) | null;
+// グラフのデータ
+// サンプリングした点列も points として持っている
+type Graph = (Curve & { points: Points }) | null;
