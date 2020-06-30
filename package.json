@@ -8,6 +8,7 @@
     "lint:format": "prettier -c --ignore-path .gitignore .",
     "lint:ts": "eslint 'src/**/*.[tj]s{,x}'",
     "lint:css": "stylelint -f verbose 'src/**'",
+    "lint:type": "tsc",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
