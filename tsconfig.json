@@ -1,12 +1,14 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "target": "esnext",
     // see https://github.com/microsoft/TypeScript/issues/16675
     "module": "esnext",
     "allowJs": true,
     "jsx": "react",
     "sourceMap": true,
     "outDir": "dist", // for allowJs
+    "noEmit": true,
+    "isolatedModules": true,
     "strict": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
