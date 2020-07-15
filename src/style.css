@@ -132,6 +132,29 @@ button:active {
   background: #80cfff;
 }
 
+.name-entry {
+  padding: 6px;
+  margin-top: 10px;
+  border-top: 1px solid #333;
+}
+
+.name-form {
+  display: flex;
+  padding-left: 8px;
+  margin-top: 4px;
+}
+
+.name-form > label {
+  display: flex;
+  flex-grow: 1;
+  margin-right: 16px;
+}
+
+.name-form > label > input {
+  flex-grow: 1;
+  margin-left: 4px;
+}
+
 .download {
   display: block;
   margin: 0 auto;

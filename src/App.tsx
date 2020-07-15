@@ -3,6 +3,7 @@ import Graph from "./Graph";
 import { makeGraph } from "./lib/graph";
 import { newNote } from "./lib/note";
 import { download } from "./lib/util";
+import NameEntry from "./NameEntry";
 import NoteList from "./NoteList";
 
 const App: React.FunctionComponent = () => {
@@ -29,6 +30,7 @@ const App: React.FunctionComponent = () => {
         setNotes={setNotes}
         setBindingTargetId={setBindingTargetId}
       />
+      <NameEntry />
       <button className="download" onClick={download}>
         HTMLでダウンロード
       </button>
