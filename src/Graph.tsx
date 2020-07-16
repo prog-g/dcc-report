@@ -128,6 +128,8 @@ const Graph: React.FunctionComponent<Props> = props => {
   return (
     <div className="graph">
       <span className="graph-info">
+        開始値: {props.graph?.f(props.graph.from)?.toFixed(2) ?? "n/a"}, 終了値:{" "}
+        {props.graph?.f(props.graph.to)?.toFixed(2) ?? "n/a"} <br />
         最小値: {props.graph?.min?.toFixed(2) ?? "n/a"}, 最大値:{" "}
         {props.graph?.max?.toFixed(2) ?? "n/a"}
       </span>
