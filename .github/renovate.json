@@ -1,0 +1,24 @@
+{
+  "extends": [
+    "config:base",
+    ":automergePatch",
+    ":automergeBranch",
+    ":maintainLockFilesMonthly",
+    ":timezone(Asia/Tokyo)",
+    ":label(renovate)"
+  ],
+  "packageRules": [
+    {
+      "groupName": "dependencies (minor)",
+      "depTypeList": ["dependencies"],
+      "updateTypes": ["minor"],
+      "schedule": ["before 8am on monday"]
+    },
+    {
+      "groupName": "devDependencies (minor)",
+      "depTypeList": ["devDependencies"],
+      "updateTypes": ["minor"],
+      "schedule": ["before 8am on tuesday"]
+    }
+  ]
+}
