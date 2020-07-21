@@ -7,6 +7,7 @@
     ":timezone(Asia/Tokyo)",
     ":label(renovate)"
   ],
+  "rangeStrategy": "bump",
   "packageRules": [
     {
       "groupName": "dependencies (minor)",
