@@ -37,9 +37,9 @@ $ npm run start
 - `npm run build`  
   本番環境用に最適化されたコードを `dist/` に出力する。
 - `npm run lint:ts`  
-  JSやTSのソースコードを手動で静的解析する。
+  JS や TS のソースコードを手動で静的解析する。
 - `npm run lint:css`  
-  CSSのソースコードを手動で静的解析する。
+  CSS のソースコードを手動で静的解析する。
 - `npm run deploy`  
   `dist/` の内容を [GitHub Pages](https://help.github.com/ja/github/working-with-github-pages/about-github-pages) にデプロイする。
 

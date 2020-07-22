@@ -129,7 +129,7 @@ function drawGraph(
         ctx.beginPath();
         ctx.arc(p.x, p.y, graphPointRadius, 0, 2 * Math.PI);
         ctx.fill();
-        ctx.fillText(`${n}`, p.x, p.y + graphFontSize * (y2 > 0 ? 1 : -1));
+        ctx.fillText(`${n!}`, p.x, p.y + graphFontSize * (y2 > 0 ? 1 : -1));
       } else if (prev && prev.from <= x && x <= prev.to) {
         const y = prev.f(x);
         const y2 = prev.d2f(x);
@@ -140,7 +140,7 @@ function drawGraph(
         ctx.beginPath();
         ctx.arc(p.x, p.y, oldGraphPointRadius, 0, 2 * Math.PI);
         ctx.fill();
-        ctx.fillText(`${n}`, p.x, p.y + oldGraphFontSize * (y2 > 0 ? 1 : -1));
+        ctx.fillText(`${n!}`, p.x, p.y + oldGraphFontSize * (y2 > 0 ? 1 : -1));
       }
     }
   }
