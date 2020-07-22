@@ -5,9 +5,9 @@
 }
 
 body {
+  font-family: sans-serif;
   color: #000;
   background: #fff;
-  font-family: sans-serif;
 }
 
 header {
@@ -113,13 +113,13 @@ button:active {
   width: 100%;
   padding: 4px;
   overflow-y: hidden;
+  font-size: 20px;
+  line-height: 26px;
   overflow-wrap: break-word;
   resize: none;
   border: solid 1px #555;
   border-radius: 4px;
   box-shadow: 1px 1px #bbb;
-  font-size: 20px;
-  line-height: 26px;
 }
 
 .note-menu {
