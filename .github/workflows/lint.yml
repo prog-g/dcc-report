@@ -11,5 +11,5 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12
-      - run: npm ci
-      - run: npm run lint:${{ matrix.npm-lint-script }}
+      - run: yarn install --frozen-lockfile
+      - run: yarn lint:${{ matrix.npm-lint-script }}
