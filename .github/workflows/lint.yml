@@ -3,6 +3,7 @@ on: push
 jobs:
   lint:
     strategy:
+      fail-fast: false
       matrix:
         npm-lint-script: [type, ts, css, format]
     runs-on: ubuntu-latest
