@@ -1,0 +1,15 @@
+name: lint
+on: push
+jobs:
+  lint:
+    strategy:
+      matrix:
+        npm-lint-script: [type, ts, css, format]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: npm ci
+      - run: npm run lint:${{ matrix.npm-lint-script }}
