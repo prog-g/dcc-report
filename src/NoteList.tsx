@@ -9,18 +9,18 @@ type Props = {
   setBindingTargetId: SetBindingTargetId;
 };
 
-const NoteList: React.FunctionComponent<Props> = props => {
+const NoteList: React.FunctionComponent<Props> = (props) => {
   // メモを追加するイベントハンドラ
   const add = React.useCallback(
-    () => props.setNotes(prev => [...prev, newNote(prev)]),
+    () => props.setNotes((prev) => [...prev, newNote(prev)]),
     [props]
   );
 
   // x が小さい順にメモをソートするイベントハンドラ
   // グラフに紐づいていないメモは動かさない
   const ascendingOrder = React.useCallback(() => {
-    props.setNotes(prev => {
-      const list = prev.map(n => ({ x: n.x, note: n }));
+    props.setNotes((prev) => {
+      const list = prev.map((n) => ({ x: n.x, note: n }));
 
       // グラフに紐づいていないメモの x を最新の x に合わせる
       // 例えば list の x が null, 5, 1, null, null, 3, null であった場合、null, 5, 1, 1, 1, 3, 3 のようにする
@@ -43,11 +43,11 @@ const NoteList: React.FunctionComponent<Props> = props => {
           // 数値同士は昇順に並べ、グラフに紐づいていないメモは動かさない
           else return a.x - b.x;
         })
-        .map(e => e.note);
+        .map((e) => e.note);
     });
   }, [props]);
 
-  const notes = props.notes.map(n => {
+  const notes = props.notes.map((n) => {
     // x が定義域内なら f(x), f'(x) を求める
     let y: number | null = null;
     let dy: number | null = null;
