@@ -12,5 +12,10 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12
+      - uses: actions/cache@v2
+        with:
+          path: ~/.cache/yarn
+          key: yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: yarn-
       - run: yarn install --frozen-lockfile
       - run: yarn lint:${{ matrix.npm-lint-script }}
