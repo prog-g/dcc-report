@@ -19,7 +19,7 @@ module.exports = (env, { mode }) => {
         },
         {
           test: /\.css$/,
-          use: ["style-loader", `css-loader?sourceMap=${dev}`],
+          use: ["style-loader", "css-loader"],
         },
       ],
     },
