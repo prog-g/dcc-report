@@ -30,7 +30,7 @@ const App: React.FunctionComponent = () => {
         setBindingTargetId={setBindingTargetId}
       />
       <button className="download" onClick={download}>
-        HTMLでダウンロード
+        <i className="fas fa-download"></i>
       </button>
     </>
   );

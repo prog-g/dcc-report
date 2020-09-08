@@ -17,7 +17,7 @@ type Props = {
   setBindingTargetId: SetBindingTargetId;
 };
 
-const Graph: React.FunctionComponent<Props> = props => {
+const Graph: React.FunctionComponent<Props> = (props) => {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
   const [drawing, setDrawing] = React.useState(false);
   const [dragged, setDragged] = React.useState(false);
@@ -32,24 +32,24 @@ const Graph: React.FunctionComponent<Props> = props => {
           // x が定義域内だったとき
           if (props.bindingTargetId === null) {
             // 紐つけ対象がセットされてなければその時刻と紐ついた新しいメモを作成
-            props.setNotes(prev => {
+            props.setNotes((prev) => {
               const note = newNote(prev);
               note.x = p.x;
-              const i = prev.findIndex(n => n.x !== null && n.x >= p.x);
+              const i = prev.findIndex((n) => n.x !== null && n.x >= p.x);
               return i >= 0
                 ? [...prev.slice(0, i), note, ...prev.slice(i, prev.length)]
                 : [...prev, note];
             });
           } else {
             // 紐つけ対象がセットされていれば時刻を紐つける
-            props.setNotes(prev => {
-              const i = prev.findIndex(n => n.id === props.bindingTargetId);
+            props.setNotes((prev) => {
+              const i = prev.findIndex((n) => n.id === props.bindingTargetId);
               if (i >= 0) {
                 props.setBindingTargetId(null);
                 return [
                   ...prev.slice(0, i),
                   { id: prev[i].id, x: p.x },
-                  ...prev.slice(i + 1, prev.length)
+                  ...prev.slice(i + 1, prev.length),
                 ];
               }
               return prev;
@@ -98,7 +98,7 @@ const Graph: React.FunctionComponent<Props> = props => {
           p.x > props.graph.from &&
           p.x - props.graph.to > minDelta
         ) {
-          props.setPoints(prev => [...prev, p]);
+          props.setPoints((prev) => [...prev, p]);
         }
       }
     },
@@ -143,7 +143,9 @@ const Graph: React.FunctionComponent<Props> = props => {
         onMouseLeave={onEndDrawing}
       />
       <div className="graph-menu">
-        <button onClick={clear}>書き直す</button>
+        <button onClick={clear}>
+          <i className="far fa-trash-alt"></i>
+        </button>
         <button onClick={clearOld}>履歴を消去</button>
         <span className="graph-mode">
           {props.bindingTargetId === null ? "挿入モード" : "バインドモード"}
