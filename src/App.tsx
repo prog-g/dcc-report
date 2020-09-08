@@ -32,7 +32,7 @@ const App: React.FunctionComponent = () => {
       />
       <NameEntry />
       <button className="download" onClick={download}>
-        HTMLでダウンロード
+        <i className="fas fa-download"></i>
       </button>
     </>
   );

@@ -9,15 +9,15 @@ function newNote(notes: Notes = []): Note {
 // id に従属するメモの色を返す
 function noteColor(id: number): string {
   const colors = [
-    "red",
-    "pink",
-    "orange",
-    "yellow",
-    "greenyellow",
-    "green",
-    "aqua",
-    "blue",
-    "purple",
+    "orangered",
+    "deeppink",
+    "darkorange",
+    "seagreen",
+    "limegreen",
+    "olive",
+    "deepskyblue",
+    "mediumblue",
+    "darkviolet",
   ];
 
   // newNote() の実装より id が 0 以下になることはない

@@ -89,9 +89,15 @@ const Note: React.FunctionComponent<Props> = (props) => {
         {props.pointNumber !== null ? `#${props.pointNumber}` : "Note"}
       </div>
       <div className="note-menu">
-        <button onClick={insertBefore}>上に挿入</button>
-        <button onClick={bind}>バインド</button>
-        <button onClick={up}>上へ移動</button>
+        <button onClick={insertBefore}>
+          <i className="fas fa-plus"></i>
+        </button>
+        <button onClick={bind}>
+          <i className="fas fa-chart-line"></i>
+        </button>
+        <button onClick={up}>
+          <i className="fas fa-angle-up"></i>
+        </button>
       </div>
       <textarea
         className="note-content"
@@ -107,8 +113,12 @@ const Note: React.FunctionComponent<Props> = (props) => {
         </div>
       ) : null}
       <div className="note-menu">
-        <button onClick={del}>削除</button>
-        <button onClick={down}>下へ移動</button>
+        <button onClick={del}>
+          <i className="far fa-trash-alt"></i>
+        </button>
+        <button onClick={down}>
+          <i className="fas fa-chevron-down"></i>
+        </button>
       </div>
     </div>
   );
