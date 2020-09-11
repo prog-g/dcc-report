@@ -140,10 +140,11 @@ const Graph: React.FunctionComponent<Props> = (props) => {
         height={height}
         ref={canvasRef}
         onClick={onClick}
-        onMouseDown={onMouseDown}
-        onMouseMove={onMouseMove}
-        onMouseUp={onEndDrawing}
-        onMouseLeave={onEndDrawing}
+        onPointerDown={onMouseDown}
+        onPointerMove={onMouseMove}
+        onPointerUp={onEndDrawing}
+        onPointerLeave={onEndDrawing}
+        onPointerCancel={onEndDrawing}
       />
       <div className="graph-menu">
         <button onClick={clear}>書き直す</button>
