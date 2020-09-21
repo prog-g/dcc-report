@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
+import { maxMarginLeft } from "../Graph";
 import { noteColor, pointNumber } from "./note";
 
 const scaleX = 100; // 関数空間の横の長さ
@@ -18,6 +19,7 @@ const gridx = 10; // グリッドの x 分割数
 const gridy = 4; // グリッドの y 分割数
 const gridLineWidth = 1; // グリッド線の描画幅
 const gridLineColor = "#777"; // グリッド線の描画色
+const graphStartAreaColor = "#00c4ff5c"; // グラフを描き始められる範囲を示す色
 const eps = 2 ** -52; // 開区間を評価するための十分小さい値
 
 // 曲線関数空間からキャンバス空間への座標変換
@@ -44,6 +46,13 @@ function drawGraph(
 ): void {
   const ctx = canvas.getContext("2d")!;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  // グラフを描き始められる範囲を塗る（まだなにも書いてないときのみ）
+  if (!graph) {
+    ctx.fillStyle = graphStartAreaColor;
+    const p1 = funcToCanvas(canvas, { x: 0, y: scaleY });
+    const p2 = funcToCanvas(canvas, { x: maxMarginLeft, y: 0 });
+    ctx.fillRect(p1.x, p1.y, p2.x - p1.x, p2.y - p1.y);
+  }
   // グリッドを描く
   ctx.lineWidth = gridLineWidth;
   ctx.strokeStyle = gridLineColor;

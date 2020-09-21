@@ -158,3 +158,4 @@ const Graph: React.FunctionComponent<Props> = (props) => {
 };
 
 export default Graph;
+export { maxMarginLeft };
