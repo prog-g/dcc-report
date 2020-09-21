@@ -20,7 +20,7 @@ $ cd dcc-report
 $ npm install
 $ code --install-extension dbaeumer.vscode-eslint
 $ code --install-extension prettier-vscode
-$ code .
+$ code --install-extension stylelint.vscode-stylelint
 
 # 開発用ローカルサーバーとブラウザを起動する
 $ npm run start
