@@ -24,5 +24,14 @@
       "updateTypes": ["minor"],
       "schedule": ["before 8am on tuesday"]
     }
-  ]
+  ],
+  "major": {
+    "stabilityDays": 4
+  },
+  "minor": {
+    "stabilityDays": 2
+  },
+  "patch": {
+    "stabilityDays": 2
+  }
 }
