@@ -154,8 +154,8 @@ button:active {
 
 .name-form > label > input {
   flex-grow: 1;
-  margin-left: 4px;
   margin-bottom: 4px;
+  margin-left: 4px;
 }
 
 .download {
