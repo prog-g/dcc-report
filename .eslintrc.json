@@ -1,6 +1,7 @@
 {
   "parser": "@typescript-eslint/parser",
-  "parserOptions": { "project": "tsconfig.json" },
+  // see https://github.com/typescript-eslint/typescript-eslint/tree/v4.4.0/packages/parser#parseroptionsproject
+  "parserOptions": { "project": "./tsconfig.json" },
   "env": { "browser": true, "es6": true, "worker": true }, // for allowJs
   "settings": { "react": { "version": "detect" } },
   "plugins": ["@typescript-eslint"],
@@ -10,6 +11,7 @@
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
+    // see https://prettier.io/docs/en/integrating-with-linters.html
     "prettier",
     "prettier/@typescript-eslint",
     "prettier/react"
@@ -18,7 +20,6 @@
     "react/prop-types": "off"
   },
   "overrides": [
-    // see https://github.com/typescript-eslint/typescript-eslint/issues/906
     {
       "files": ["*.js", "*.jsx"],
       "rules": { "@typescript-eslint/explicit-module-boundary-types": "off" }

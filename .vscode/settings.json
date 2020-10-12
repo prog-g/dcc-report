@@ -1,16 +1,19 @@
 {
   /* format */
   "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "files.eol": "\n",
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  // see https://code.visualstudio.com/updates/v1_44#_explicit-ordering-for-code-actions-on-save
   "editor.codeActionsOnSave": {
-    // see https://code.visualstudio.com/docs/languages/typescript#_organize-imports
+    "source.addMissingImports": true,
     "source.organizeImports": true,
     "source.fixAll.eslint": true,
     "source.fixAll.stylelint": true
-  }
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
 
-  /* other */
-  // see https://github.com/microsoft/TypeScript/issues/19566
-  // "typescript.locale": "ja"
+  /* language specific */
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
