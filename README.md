@@ -16,14 +16,17 @@
 $ git clone git@github.com:prog-g/dcc-report.git
 $ cd dcc-report
 
+#yarnの導入
+$ npm install -g yarn@1
+
 # 依存物と拡張機能をインストールする
-$ npm install
+$ yarn install
 $ code --install-extension dbaeumer.vscode-eslint
-$ code --install-extension prettier-vscode
+$ code --install-extension esbenp.prettier-vscode
 $ code .
 
 # 開発用ローカルサーバーとブラウザを起動する
-$ npm run start
+$ yarn start
 ```
 
 上記手順で環境を構築すると、次で紹介する `npm run lint:ts` や `npm run lint:css` に相当する処理とフォーマットが自動で行われます。
