@@ -14,12 +14,12 @@ module.exports = (env, { mode }) => {
       rules: [
         {
           test: /\.[tj]sx?$/,
-          loader: "ts-loader",
+          loader: "babel-loader",
           exclude: /node_modules/,
         },
         {
           test: /\.css$/,
-          use: ["style-loader", `css-loader?sourceMap=${dev}`],
+          use: ["style-loader", "css-loader"],
         },
       ],
     },

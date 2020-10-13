@@ -4,10 +4,14 @@
   margin: 0;
 }
 
+*:focus {
+  outline: none;
+}
+
 body {
   color: #000;
   background: #fff;
-  font-family: "Anton", sans-serif;
+  font-family: "Merriweather", sans-serif;
 }
 
 header {
@@ -42,7 +46,7 @@ button:active {
 
 .graph {
   text-align: right;
-  box-shadow: 4px 4px 2px #707070;
+  box-shadow: 8px 8px 5px #aaa;
   border-radius: 6px 6px;
 }
 
@@ -62,7 +66,9 @@ button:active {
 
   /* see https://github.com/prog-g/dcc-report/pull/33 */
   margin: -1px 0 0;
+  touch-action: pinch-zoom;
   border: 1px solid #333;
+  border-radius: 6px 0 0 0;
 }
 
 .graph-menu {
@@ -72,6 +78,10 @@ button:active {
   border: 1px solid #333;
   border-top-width: 0;
   border-radius: 0 0 6px 6px;
+}
+
+.trash {
+  font-size: 1.3em;
 }
 
 .graph-mode {
@@ -97,7 +107,7 @@ button:active {
   background: #f7f7ff;
   border: 1px solid #333;
   border-radius: 12px;
-  box-shadow: 4px 4px 2px #707070;
+  box-shadow: 8px 8px 5px #bbb;
 }
 
 .note-header {
@@ -116,13 +126,13 @@ button:active {
   width: 100%;
   padding: 4px;
   overflow-y: hidden;
+  font-size: 20px;
+  line-height: 26px;
   overflow-wrap: break-word;
   resize: none;
   border: solid 1px #555;
   border-radius: 4px;
   box-shadow: 1px 1px #bbb;
-  font-size: 20px;
-  line-height: 26px;
 }
 
 .note-menu {
@@ -133,6 +143,29 @@ button:active {
   padding: 20px;
   text-align: center;
   background: #80cfff;
+}
+
+.name-entry {
+  padding: 6px;
+  margin-top: 10px;
+  border-top: 1px solid #333;
+}
+
+.name-form {
+  display: flex;
+  padding-left: 8px;
+  margin-top: 4px;
+}
+
+.name-form > label {
+  display: flex;
+  flex-grow: 1;
+  margin-right: 16px;
+}
+
+.name-form > label > input {
+  flex-grow: 1;
+  margin-left: 4px;
 }
 
 .download {

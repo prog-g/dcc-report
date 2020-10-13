@@ -1,0 +1,21 @@
+name: lint
+on: push
+jobs:
+  lint:
+    strategy:
+      fail-fast: false
+      matrix:
+        npm-lint-script: [type, ts, css, format]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - uses: actions/cache@v2
+        with:
+          path: ~/.cache/yarn
+          key: yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: yarn-
+      - run: yarn install --frozen-lockfile
+      - run: yarn lint:${{ matrix.npm-lint-script }}

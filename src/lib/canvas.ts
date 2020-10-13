@@ -6,6 +6,7 @@ const scaleX = 100; // 関数空間の横の長さ
 const scaleY = 100; // 関数空間の縦の長さ
 const graphLineWidth = 2; // グラフ曲線の描画幅
 const graphPointRadius = 4; // グラフの点の半径
+const graphPointOutlineWidth = 1.5; // グラフの点の縁取りの幅
 const graphFont = "sans-serif"; // グラフで使うフォント
 const graphFontSize = 20; // グラフのフォントサイズ
 const graphLineColor = "#000"; // グラフ曲線の描画色
@@ -124,12 +125,22 @@ function drawGraph(
         const n = pointNumber(notes, notes[i].id);
         const color = noteColor(notes[i].id);
         const p = funcToCanvas(canvas, { x: x, y: y });
+        ctx.fillStyle = graphLineColor;
+        ctx.beginPath();
+        ctx.arc(
+          p.x,
+          p.y,
+          graphPointRadius + graphPointOutlineWidth,
+          0,
+          2 * Math.PI
+        );
+        ctx.fill();
         ctx.fillStyle = color;
         ctx.font = `${graphFontSize}px bold ${graphFont}`;
         ctx.beginPath();
         ctx.arc(p.x, p.y, graphPointRadius, 0, 2 * Math.PI);
         ctx.fill();
-        ctx.fillText(`${n}`, p.x, p.y + graphFontSize * (y2 > 0 ? 1 : -1));
+        ctx.fillText(`${n!}`, p.x, p.y + graphFontSize * (y2 > 0 ? 1 : -1));
       } else if (prev && prev.from <= x && x <= prev.to) {
         const y = prev.f(x);
         const y2 = prev.d2f(x);
@@ -140,7 +151,7 @@ function drawGraph(
         ctx.beginPath();
         ctx.arc(p.x, p.y, oldGraphPointRadius, 0, 2 * Math.PI);
         ctx.fill();
-        ctx.fillText(`${n}`, p.x, p.y + oldGraphFontSize * (y2 > 0 ? 1 : -1));
+        ctx.fillText(`${n!}`, p.x, p.y + oldGraphFontSize * (y2 > 0 ? 1 : -1));
       }
     }
   }
