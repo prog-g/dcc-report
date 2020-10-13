@@ -23,6 +23,7 @@ $ npm install -g yarn@1
 $ yarn install
 $ code --install-extension dbaeumer.vscode-eslint
 $ code --install-extension esbenp.prettier-vscode
+$ code --install-extension stylelint.vscode-stylelint
 $ code .
 
 # 開発用ローカルサーバーとブラウザを起動する
