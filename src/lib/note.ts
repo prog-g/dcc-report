@@ -14,7 +14,7 @@ function noteColor(id: number): string {
     "darkorange",
     "seagreen",
     "limegreen",
-    "olive",
+    "darkkhaki",
     "deepskyblue",
     "mediumblue",
     "darkviolet",

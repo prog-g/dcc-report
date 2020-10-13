@@ -148,7 +148,7 @@ const Graph: React.FunctionComponent<Props> = (props) => {
       />
       <div className="graph-menu">
         <button onClick={clear}>
-          <i className="far fa-trash-alt"></i>
+          <i className="far fa-trash-alt trash"></i>
         </button>
         <button onClick={clearOld}>履歴を消去</button>
         <span className="graph-mode">
