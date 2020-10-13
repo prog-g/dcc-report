@@ -23,6 +23,18 @@
       "depTypeList": ["devDependencies"],
       "updateTypes": ["minor"],
       "schedule": ["before 8am on tuesday"]
+    },
+    {
+      "groupName": "dependencies (patch)",
+      "depTypeList": ["dependencies"],
+      "updateTypes": ["patch"],
+      "schedule": ["before 8am on monday"]
+    },
+    {
+      "groupName": "devDependencies (patch)",
+      "depTypeList": ["devDependencies"],
+      "updateTypes": ["patch"],
+      "schedule": ["before 8am on tuesday"]
     }
   ],
   "major": {
