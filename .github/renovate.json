@@ -1,13 +1,13 @@
 {
   "extends": [
     "config:base",
-    ":unpublishSafe",
     ":prNotPending",
     ":timezone(Asia/Tokyo)",
     ":label(renovate)",
     ":automergePatch",
     ":automergeBranch",
-    ":maintainLockFilesMonthly"
+    ":maintainLockFilesMonthly",
+    ":dependencyDashboard"
   ],
   "rangeStrategy": "bump",
   "prNotPendingHours": 72,
