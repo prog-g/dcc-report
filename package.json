@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "start": "webpack-dev-server --open",
-    "build": "webpack -p",
-    "lint:format": "prettier -c --ignore-path .gitignore .",
+    "build": "NODE_ENV=production webpack -p",
+    "lint:format": "prettier -cu --ignore-path .gitignore .",
     "lint:ts": "eslint 'src/**/*.[tj]s{,x}'",
     "lint:css": "stylelint -f verbose 'src/**'",
     "lint:type": "tsc"
