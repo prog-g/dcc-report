@@ -6,6 +6,7 @@ jobs:
       fail-fast: false
       matrix:
         script: [build, "lint:type", "lint:ts", "lint:css", "lint:format"]
+    if: "!contains(github.event.head_commit.message, '[ci skip]')"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
