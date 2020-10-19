@@ -82,7 +82,7 @@ const NoteList: React.FunctionComponent<Props> = (props) => {
       </div>
       {notes}
       <div className="note new" onClick={add}>
-        + Add
+        新しいメモを追加
       </div>
     </div>
   );
