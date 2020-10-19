@@ -13,13 +13,14 @@ const NameEntry: React.FunctionComponent = () => {
   return (
     <div className="name-entry">
       <details open>
-        <summary>ID &amp; Name</summary>
+        <summary>学籍番号・氏名</summary>
         <div className="name-form">
           <label>
-            ID:<input type="text" value={id} onChange={edit(setId)}></input>
+            学籍番号
+            <input type="text" value={id} onChange={edit(setId)}></input>
           </label>
           <label>
-            Name:
+            氏名
             <input type="text" value={name} onChange={edit(setName)}></input>
           </label>
         </div>
