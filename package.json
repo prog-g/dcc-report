@@ -4,12 +4,11 @@
   "private": true,
   "scripts": {
     "start": "webpack-dev-server --open",
-    "build": "webpack -p",
-    "lint:format": "prettier -c --ignore-path .gitignore .",
+    "build": "NODE_ENV=production webpack -p",
+    "lint:format": "prettier -cu --ignore-path .gitignore .",
     "lint:ts": "eslint 'src/**/*.[tj]s{,x}'",
     "lint:css": "stylelint -f verbose 'src/**'",
-    "lint:type": "tsc",
-    "deploy": "gh-pages -d dist"
+    "lint:type": "tsc"
   },
   "dependencies": {
     "@babel/runtime": "^7.11.2",
@@ -36,7 +35,6 @@
     "eslint-config-prettier": "^6.12.0",
     "eslint-plugin-react": "^7.21.4",
     "eslint-plugin-react-hooks": "^4.1.2",
-    "gh-pages": "^3.1.0",
     "html-webpack-plugin": "^4.5.0",
     "optimize-css-assets-webpack-plugin": "^5.0.4",
     "prettier": "^2.1.2",

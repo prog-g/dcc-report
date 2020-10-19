@@ -1,0 +1,31 @@
+name: main
+on: push
+jobs:
+  npm-script:
+    strategy:
+      fail-fast: false
+      matrix:
+        script: [build, "lint:type", "lint:ts", "lint:css", "lint:format"]
+    if: "!contains(github.event.head_commit.message, '[ci skip]')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - uses: actions/cache@v2
+        with:
+          path: ~/.cache/yarn
+          key: yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: yarn-
+      - run: yarn install --frozen-lockfile
+      - run: yarn ${{ matrix.script }}
+      - if: >
+          matrix.script == 'build' &&
+          github.event_name == 'push' &&
+          github.ref == 'refs/heads/master' &&
+          !contains(github.event.head_commit.message, '[deploy skip]')
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
