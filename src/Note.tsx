@@ -90,7 +90,7 @@ const Note: React.FunctionComponent<Props> = (props) => {
       </div>
       <div className="note-menu">
         <button onClick={insertBefore}>上に挿入</button>
-        <button onClick={bind}>バインド</button>
+        <button onClick={bind}>点を打つ</button>
         <button onClick={up}>上へ移動</button>
       </div>
       <textarea

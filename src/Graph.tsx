@@ -150,7 +150,7 @@ const Graph: React.FunctionComponent<Props> = (props) => {
         <button onClick={clear}>書き直す</button>
         <button onClick={clearOld}>履歴を消去</button>
         <span className="graph-mode">
-          {props.bindingTargetId === null ? "挿入モード" : "バインドモード"}
+          {props.bindingTargetId === null ? "挿入モード" : "打点モード"}
         </span>
       </div>
     </div>
