@@ -13,7 +13,10 @@
 [Node.js](https://nodejs.org/ja/) と [Visual Studio Code](https://code.visualstudio.com/) が必要です。
 
 ```sh
+# SSH設定済みの場合
 $ git clone git@github.com:prog-g/dcc-report.git
+# そうでない場合
+$ git clone https://github.com/pro-g/dcc-report.git
 $ cd dcc-report
 
 #yarnの導入
