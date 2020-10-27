@@ -16,31 +16,34 @@
 $ git clone git@github.com:prog-g/dcc-report.git
 $ cd dcc-report
 
+#yarnの導入
+$ npm install -g yarn@1
+
 # 依存物と拡張機能をインストールする
-$ npm install
+$ yarn install
 $ code --install-extension dbaeumer.vscode-eslint
-$ code --install-extension prettier-vscode
-$ code .
+$ code --install-extension esbenp.prettier-vscode
+$ code --install-extension stylelint.vscode-stylelint
 
 # 開発用ローカルサーバーとブラウザを起動する
-$ npm run start
+$ yarn start
 ```
 
-上記手順で環境を構築すると、次で紹介する `npm run lint:ts` や `npm run lint:css` に相当する処理とフォーマットが自動で行われます。
+上記手順で環境を構築すると、次で紹介する `yarn lint:ts` や `yarn lint:css` に相当する処理とフォーマットが自動で行われます。
 
 ### ビルドなどに関するコマンドとその説明
 
-定義されている全てのコマンドは `npm run` で確認できます。
+定義されている全てのコマンドは `yarn` で確認できます。
 
-- `npm run start`  
+- `yarn start`  
   開発用ローカルサーバーとブラウザを起動する。
-- `npm run build`  
+- `yarn build`  
   本番環境用に最適化されたコードを `dist/` に出力する。
-- `npm run lint:ts`  
+- `yarn lint:ts`  
   JS や TS のソースコードを手動で静的解析する。
-- `npm run lint:css`  
+- `yarn lint:css`  
   CSS のソースコードを手動で静的解析する。
-- `npm run deploy`  
+- `yarn deploy`  
   `dist/` の内容を [GitHub Pages](https://help.github.com/ja/github/working-with-github-pages/about-github-pages) にデプロイする。
 
 ### デプロイの流れ
@@ -49,6 +52,6 @@ $ npm run start
 
 ```sh
 $ rm -rf dist
-$ npm run build
-$ npm run deploy
+$ yarn build
+$ yarn deploy
 ```
