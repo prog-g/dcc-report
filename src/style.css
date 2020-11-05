@@ -46,8 +46,8 @@ button:active {
 
 .graph {
   text-align: right;
-  box-shadow: 4px 4px 4px #ccc;
   border-radius: 6px;
+  box-shadow: 4px 4px 4px #ccc;
 }
 
 .graph-info {
