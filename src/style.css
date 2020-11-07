@@ -163,6 +163,7 @@ button:active {
 .name-form > label > input {
   flex-grow: 1;
   margin-left: 4px;
+  border-radius: 8px;
 }
 
 .download {
