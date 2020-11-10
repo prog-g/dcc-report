@@ -24,6 +24,8 @@ $ npm install -g yarn@1
 
 # nvmのインストール
 $ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+# または
+$ wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.0/install.sh | bash
 
 # 依存物と拡張機能をインストールする
 $ yarn install
