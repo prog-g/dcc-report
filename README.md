@@ -22,6 +22,9 @@ $ cd dcc-report
 #yarnの導入
 $ npm install -g yarn@1
 
+# nvmのインストール
+$ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+
 # 依存物と拡張機能をインストールする
 $ yarn install
 $ code --install-extension dbaeumer.vscode-eslint
