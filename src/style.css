@@ -4,8 +4,12 @@
   margin: 0;
 }
 
+*:focus {
+  outline: none;
+}
+
 body {
-  font-family: sans-serif;
+  font-family: "Merriweather", sans-serif;
   color: #000;
   background: #fff;
 }
@@ -42,14 +46,16 @@ button:active {
 
 .graph {
   text-align: right;
+  border-radius: 6px;
+  box-shadow: 4px 4px 4px #ccc;
 }
 
 .graph-info {
   display: inline-block;
   padding: 0 2px;
   font-size: 90%;
-  background: #eee;
-  border: 2px solid #333;
+  background: #f7f7ff;
+  border: 1px solid #333;
   border-bottom-width: 0;
   border-radius: 6px 6px 0 0;
 }
@@ -61,14 +67,15 @@ button:active {
   /* see https://github.com/prog-g/dcc-report/pull/33 */
   margin: -1px 0 0;
   touch-action: pinch-zoom;
-  border: 2px solid #333;
+  border: 1px solid #333;
+  border-top-left-radius: 6px;
 }
 
 .graph-menu {
   padding: 0 2px;
   text-align: left;
-  background: #eee;
-  border: 2px solid #333;
+  background: #f7f7ff;
+  border: 1px solid #333;
   border-top-width: 0;
   border-radius: 0 0 6px 6px;
 }
@@ -93,9 +100,10 @@ button:active {
 .note {
   padding: 0 10px;
   margin-bottom: 10px;
-  background: #eee;
-  border: 2px solid #333;
+  background: #f7f7ff;
+  border: 1px solid #333;
   border-radius: 12px;
+  box-shadow: 2px 2px 8px #bbb;
 }
 
 .note-header {
