@@ -29,7 +29,11 @@ const download: () => void = () => {
   img.className = canvas.className;
   canvas.parentNode!.replaceChild(img, canvas);
 
-  //ボタン,ボーダー線を見えなくする
+  // 見た目を調整する
+  const graphMenu = doc.getElementsByClassName("graph-menu")[0] as HTMLElement;
+  graphMenu.style.display = "none";
+  const notes = doc.getElementsByClassName("notes")[0] as HTMLElement;
+  notes.style.borderTop = "0px";
   Array.from(doc.getElementsByTagName("button")).forEach((e) => {
     const parent = e.parentNode as HTMLElement;
     if (parent.className == "note-menu") {
@@ -40,10 +44,6 @@ const download: () => void = () => {
   });
   const addButton = doc.getElementsByClassName("note new")[0] as HTMLElement;
   addButton.style.display = "none";
-  const modeSpan = doc.getElementsByClassName("graph-menu")[0] as HTMLElement;
-  modeSpan.style.display = "none";
-  const notesDiv = doc.getElementsByClassName("notes")[0] as HTMLElement;
-  notesDiv.style.borderTop = "0px";
 
   // 内容をファイルに変換して URL を発行し、クリックイベントを起こす
   const html = `<!DOCTYPE html>\n${doc.outerHTML}`;
