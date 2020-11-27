@@ -63,9 +63,6 @@ button:active {
 .graph-canvas {
   display: block;
   width: 100%;
-
-  /* see https://github.com/prog-g/dcc-report/pull/33 */
-  margin: -1px 0 0;
   touch-action: pinch-zoom;
   border: 1px solid #333;
   border-top-left-radius: 6px;
