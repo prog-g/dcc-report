@@ -11,7 +11,7 @@
     "lint:type": "tsc"
   },
   "dependencies": {
-    "@babel/runtime": "^7.12.5",
+    "@babel/runtime": "^7.12.13",
     "core-js": "^3.7.0",
     "react": "^16.14.0",
     "react-dom": "^16.14.0"
