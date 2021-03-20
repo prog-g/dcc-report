@@ -4,7 +4,7 @@
     // see https://github.com/microsoft/TypeScript/issues/16675
     "module": "esnext",
     "allowJs": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "sourceMap": true,
     "outDir": "dist", // for allowJs
     "noEmit": true,

@@ -4,7 +4,7 @@ module.exports = {
       "@babel/env",
       { useBuiltIns: "usage", corejs: require("core-js/package.json").version },
     ],
-    "@babel/react",
+    ["@babel/react", { runtime: "automatic" }],
     "@babel/typescript",
   ],
   plugins: [
