@@ -1,9 +1,8 @@
 const CopyPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const TerserPlugin = require("terser-webpack-plugin"); // from webpack
-const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
-/** @type {import("webpack").ConfigurationFactory} */
+/** @type {(env: Record<string, string | true>, argv: { mode?: string }) => import("webpack").Configuration} */
 module.exports = (env, { mode }) => {
   const dev = mode !== "production";
   return {
@@ -25,16 +24,12 @@ module.exports = (env, { mode }) => {
     },
     plugins: [
       new CopyPlugin({ patterns: [{ from: "gh-pages" }] }),
-      new HtmlWebpackPlugin({
-        title: "DCC Report",
-        scriptLoading: "defer",
-      }),
+      // see https://github.com/jantimon/html-webpack-plugin/issues/1387
+      new HtmlWebpackPlugin({ template: "src/index.ejs" }),
     ],
     resolve: { extensions: [".ts", ".tsx", ".js", ".jsx"] },
-    optimization: {
-      minimizer: [new TerserPlugin(), new OptimizeCssAssetsPlugin()],
-    },
-    devtool: dev ? "inline-source-map" : false,
+    optimization: { minimizer: ["...", new CssMinimizerPlugin()] },
+    devtool: dev ? "eval-source-map" : false,
     devServer: {
       // host: "0.0.0.0", // for debugging on mobile devices
       historyApiFallback: true,
