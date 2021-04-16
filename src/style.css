@@ -63,9 +63,6 @@ button:active {
 .graph-canvas {
   display: block;
   width: 100%;
-
-  /* see https://github.com/prog-g/dcc-report/pull/33 */
-  margin: -1px 0 0;
   touch-action: pinch-zoom;
   border: 1px solid #333;
   border-top-left-radius: 6px;
@@ -162,7 +159,9 @@ button:active {
 
 .name-form > label > input {
   flex-grow: 1;
+  padding: 0 4px;
   margin-left: 4px;
+  border: solid 1px #555;
   border-radius: 8px;
 }
 
