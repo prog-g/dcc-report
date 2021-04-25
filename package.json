@@ -11,13 +11,13 @@
     "lint:type": "tsc"
   },
   "dependencies": {
-    "@babel/runtime": "^7.13.10",
-    "core-js": "^3.10.1",
+    "@babel/runtime": "^7.13.17",
+    "core-js": "^3.10.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.13.15",
+    "@babel/core": "^7.13.16",
     "@babel/plugin-transform-runtime": "^7.13.15",
     "@babel/preset-env": "^7.13.15",
     "@babel/preset-react": "^7.13.13",
@@ -29,7 +29,7 @@
     "@typescript-eslint/parser": "^4.21.0",
     "babel-loader": "^8.2.2",
     "copy-webpack-plugin": "^8.1.1",
-    "css-loader": "^5.2.2",
+    "css-loader": "^5.2.4",
     "css-minimizer-webpack-plugin": "^1.3.0",
     "eslint": "^7.24.0",
     "eslint-config-prettier": "^8.1.0",
