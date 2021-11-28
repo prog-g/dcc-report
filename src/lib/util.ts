@@ -20,14 +20,37 @@ const download: () => void = () => {
   // DOM をディープコピーし不要なタグを取り除く
   const doc = document.documentElement.cloneNode(true) as HTMLElement;
   const script = doc.getElementsByTagName("script")[0];
+  
   script.parentNode!.removeChild(script);
 
   // <canvas> を <img> に変換する
   const img = document.createElement("img");
-  const canvas = doc.getElementsByTagName("canvas")[0];
+  //const canvas = doc.getElementsByTagName("canvas")[0];
+  const canvas = doc.getElementsByClassName("graph-canvas")[0]; 
   img.src = document.getElementsByTagName("canvas")[0].toDataURL();
   img.className = canvas.className;
   canvas.parentNode!.replaceChild(img, canvas);
+
+  // 見た目を調整する
+  const graphMenu = doc.getElementsByClassName("graph-menu")[0] as HTMLElement;
+  graphMenu.style.display = "none";
+  const notes = doc.getElementsByClassName("notes")[0] as HTMLElement;
+  notes.style.borderTop = "0px";
+  Array.from(doc.getElementsByTagName("button")).forEach((e) => {
+    const parent = e.parentNode as HTMLElement;
+    if (parent.className == "note-menu") {
+      e.style.visibility = "hidden";
+    } else {
+      e.style.display = "none";
+    }
+  });
+  const addButton = doc.getElementsByClassName("note new")[0] as HTMLElement;
+  addButton.style.display = "none";
+  const modeSpan = doc.getElementsByClassName("graph-menu")[0] as HTMLElement;
+  modeSpan.style.display = "none";
+  const notesDiv = doc.getElementsByClassName("notes")[0] as HTMLElement;
+  notesDiv.style.borderTop = "0px";
+
 
   // 内容をファイルに変換して URL を発行し、クリックイベントを起こす
   const html = `<!DOCTYPE html>\n${doc.outerHTML}`;
